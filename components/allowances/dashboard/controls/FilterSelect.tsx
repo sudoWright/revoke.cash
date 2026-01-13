@@ -1,16 +1,15 @@
-import { ColumnFiltersState, Table } from '@tanstack/react-table';
+import type { ColumnFiltersState, Table } from '@tanstack/react-table';
 import Checkbox from 'components/common/Checkbox';
 import Label from 'components/common/Label';
-import Select from 'components/common/Select';
+import Select from 'components/common/select/Select';
 import { useColorTheme } from 'lib/hooks/useColorTheme';
 import { useMounted } from 'lib/hooks/useMounted';
-import { AllowanceData } from 'lib/interfaces';
 import { normaliseLabel } from 'lib/utils';
-import { track } from 'lib/utils/analytics';
+import type { TokenAllowanceData } from 'lib/utils/allowances';
 import { updateTableFilters } from 'lib/utils/table';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
-import { FormatOptionLabelMeta } from 'react-select';
+import type { FormatOptionLabelMeta, ValueContainerProps } from 'react-select';
 import useLocalStorage from 'use-local-storage';
 import { ColumnId } from '../columns';
 
@@ -30,7 +29,7 @@ interface OptionGroupWithSelected extends OptionGroup {
 }
 
 interface Props {
-  table: Table<AllowanceData>;
+  table: Table<TokenAllowanceData>;
 }
 
 const options = [
@@ -62,7 +61,7 @@ const options = [
 ];
 
 const FilterSelect = ({ table }: Props) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const { darkMode } = useColorTheme();
   const [selectedFilters, setSelectedFilters] = useLocalStorage<Option[]>('allowances-table.filters', []);
 
@@ -71,20 +70,19 @@ const FilterSelect = ({ table }: Props) => {
     const tableFilters = generateTableFilters(options, selectedFilters);
     const ignoreIds = [ColumnId.SPENDER];
     updateTableFilters(table, tableFilters, ignoreIds);
-    track('Updated Filters', { filters: tableFilters });
-  }, [selectedFilters]);
+  }, [table, selectedFilters]);
 
   const displayOption = (option: Option, { selectValue }: FormatOptionLabelMeta<Option>) => {
     return (
       <div className="flex items-center gap-1">
-        <Checkbox checked={!!selectValue.find((selected) => selected.value === option.value)} />
-        <span>{t(`address:filters.${normaliseLabel(option.group)}.options.${normaliseLabel(option.value)}`)}</span>
+        <Checkbox checked={selectValue.some((selected) => selected.value === option.value)} />
+        <span>{t(`address.filters.${normaliseLabel(option.group)}.options.${normaliseLabel(option.value)}`)}</span>
       </div>
     );
   };
 
   const displayGroupLabel = (group: OptionGroup) => {
-    return <span>{t(`address:filters.${normaliseLabel(group.label)}.label`)}</span>;
+    return <span>{t(`address.filters.${normaliseLabel(group.label)}.label`)}</span>;
   };
 
   return (
@@ -93,8 +91,7 @@ const FilterSelect = ({ table }: Props) => {
       aria-label="Select Filters"
       className="w-full"
       classNamePrefix="filters-select"
-      controlTheme={darkMode ? 'dark' : 'light'}
-      menuTheme={darkMode ? 'dark' : 'light'}
+      theme={darkMode ? 'dark' : 'light'}
       options={options}
       value={selectedFilters}
       onChange={(options) => setSelectedFilters(options as Option[])}
@@ -107,7 +104,7 @@ const FilterSelect = ({ table }: Props) => {
       placeholder=""
       menuPlacement="bottom"
       isSearchable={false}
-      components={{ ValueContainer, MultiValue: () => null }}
+      components={{ ValueContainer, MultiValue }}
     />
   );
 };
@@ -115,14 +112,14 @@ const FilterSelect = ({ table }: Props) => {
 export default FilterSelect;
 
 // We disable MultiValue and implement our own ValueContainer to display the selected options in a more compact way
-const ValueContainer = ({ children, getValue, options }) => {
-  const { t } = useTranslation();
+const ValueContainer = ({ children, getValue, options }: ValueContainerProps<Option, true, OptionGroup>) => {
+  const t = useTranslations();
   const isMounted = useMounted();
 
-  const groupsWithSelected = getGroupsWithSelected(options, getValue());
+  const groupsWithSelected = getGroupsWithSelected(options as OptionGroup[], getValue() as Option[]);
 
   const labels = groupsWithSelected.map((group) => {
-    const commonKey = `address:filters.${normaliseLabel(group.label)}`;
+    const commonKey = `address.filters.${normaliseLabel(group.label)}`;
     const options = group.selected.map((option) => t(`${commonKey}.options.${normaliseLabel(option.value)}`));
     return `${t(`${commonKey}.label`)}: ${options.join(', ')}`;
   });
@@ -130,7 +127,7 @@ const ValueContainer = ({ children, getValue, options }) => {
   return (
     <>
       <div className="flex items-center gap-2 grow">
-        <span>{t('address:filters.label')}</span>
+        <span>{t('address.filters.label')}</span>
         {isMounted && labels.length > 0 && (
           <div className="flex items-center gap-2 grow whitespace-nowrap overflow-scroll w-1 scrollbar-hide">
             {labels.map((label) => (
@@ -141,13 +138,15 @@ const ValueContainer = ({ children, getValue, options }) => {
           </div>
         )}
         {isMounted && labels.length === 0 && (
-          <Label className="bg-zinc-300 dark:bg-zinc-600">{t('address:filters.showing_everything')}</Label>
+          <Label className="bg-zinc-300 dark:bg-zinc-600">{t('address.filters.showing_everything')}</Label>
         )}
       </div>
       {isMounted && children}
     </>
   );
 };
+
+const MultiValue = () => null;
 
 const getGroupsWithSelected = (groups: OptionGroup[], selected: Option[]): OptionGroupWithSelected[] => {
   const groupsWithSelected = groups.map((group) => {

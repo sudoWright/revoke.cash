@@ -1,14 +1,18 @@
-import { displayTransactionSubmittedToast } from 'components/common/transaction-submitted-toast';
-import { TransactionType } from 'lib/interfaces';
-import { isRevertedError, isUserRejectionError, parseErrorMessage } from 'lib/utils/errors';
-import useTranslation from 'next-translate/useTranslation';
-import { useRef } from 'react';
+import { displayTransactionSubmittedToast } from 'components/common/TransactionSubmittedToast';
+import { type TransactionSubmitted, TransactionType } from 'lib/interfaces';
+import {
+  isLedgerNanoSError,
+  isNoFeeRequiredError,
+  isRevertedError,
+  isUserRejectionError,
+  parseErrorMessage,
+} from 'lib/utils/errors';
+import { useTranslations } from 'next-intl';
 import { toast } from 'react-toastify';
-import { Hash, stringify } from 'viem';
+import { stringify } from 'viem';
 
-export const useHandleTransaction = () => {
-  const toastRef = useRef();
-  const { t } = useTranslation();
+export const useHandleTransaction = (chainId: number) => {
+  const t = useTranslations();
 
   const checkError = (e: any, type: TransactionType): void => {
     const message = parseErrorMessage(e);
@@ -16,6 +20,7 @@ export const useHandleTransaction = () => {
 
     // Don't show error toasts for user denied transactions
     if (isUserRejectionError(message)) return;
+    if (isNoFeeRequiredError(message)) return;
 
     console.debug(stringify(e, null, 2));
 
@@ -24,29 +29,33 @@ export const useHandleTransaction = () => {
     // so we tell the user to revoke instead if the contract doesn't allow the simple use
     // of contract.approve(0)
     if (type === TransactionType.UPDATE) {
-      return void toast.info(t('common:toasts.update_failed'));
+      return void toast.info(t('common.toasts.update_failed'));
     }
 
     if (type === TransactionType.REVOKE) {
-      if (isRevertedError(message)) {
-        return void toast.info(t('common:toasts.revoke_failed_revert', { message }));
+      if (isLedgerNanoSError(message)) {
+        return void toast.info(t('common.toasts.revoke_failed_ledger_nano_s'));
       }
 
-      return void toast.info(t('common:toasts.revoke_failed', { message }));
+      if (isRevertedError(message)) {
+        return void toast.info(t('common.toasts.revoke_failed_revert', { message }));
+      }
+
+      return void toast.info(t('common.toasts.revoke_failed', { message }));
     }
 
-    return void toast.info(t('common:toasts.transaction_failed', { message }));
+    return void toast.info(t('common.toasts.transaction_failed', { message }));
   };
 
-  const handleTransaction = async (transactionPromise: Promise<Hash>, type: TransactionType) => {
+  const handleTransaction = async (transactionPromise: Promise<TransactionSubmitted>, type: TransactionType) => {
     try {
-      const transactionHash = await transactionPromise;
+      const transaction = await transactionPromise;
 
-      if (transactionHash) {
-        displayTransactionSubmittedToast(toastRef, t);
+      if (transaction.hash) {
+        displayTransactionSubmittedToast(chainId, transaction.hash);
       }
 
-      return transactionHash;
+      return transaction;
     } catch (e) {
       checkError(e, type);
       return undefined;

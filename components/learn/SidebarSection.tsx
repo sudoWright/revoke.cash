@@ -1,6 +1,8 @@
+'use client';
+
 import Href from 'components/common/Href';
 import { useMounted } from 'lib/hooks/useMounted';
-import { useRouter } from 'next/router';
+import { usePathname } from 'lib/i18n/navigation';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
@@ -11,13 +13,14 @@ interface Props {
 }
 
 const SidebarSection = ({ title, href, path, children }: Props) => {
-  const router = useRouter();
+  const routerPath = usePathname();
   const isMounted = useMounted();
 
   const classes = twMerge(
     'text-lg font-bold',
     isMounted &&
-      router.asPath.startsWith(path) &&
+      path &&
+      routerPath.startsWith(path) &&
       'text-black visited:text-black dark:text-white dark:visited:text-white',
   );
 

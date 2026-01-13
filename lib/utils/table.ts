@@ -1,16 +1,16 @@
-import { ColumnFiltersState, Table } from '@tanstack/react-table';
-import { AllowanceData } from 'lib/interfaces';
+import type { ColumnFiltersState, Table } from '@tanstack/react-table';
+import type { TokenAllowanceData } from 'lib/utils/allowances';
 import { deduplicateArray } from '.';
 
-export const updateTableFilters = (
-  table: Table<AllowanceData>,
+export const updateTableFilters = <T = TokenAllowanceData>(
+  table: Table<T>,
   newFilters: ColumnFiltersState,
   ignoreIds: string[] = [],
 ) => {
   table.setColumnFilters((oldFilters) => {
     const keepOldFilters = oldFilters.filter((filter) => ignoreIds.includes(filter.id));
     const allFilters = [...keepOldFilters, ...newFilters];
-    const uniqueFilters = deduplicateArray(allFilters, (a, b) => a.id === b.id);
+    const uniqueFilters = deduplicateArray(allFilters, (filter) => filter.id);
     return uniqueFilters;
   });
 };

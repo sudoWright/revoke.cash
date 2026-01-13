@@ -1,12 +1,21 @@
 {
+  "article_meta": {
+    "author": "Written by <person-link>{author}</person-link>",
+    "reading_time": "{readingTime} min read",
+    "translator": "Translated by <person-link>{translator}</person-link>"
+  },
   "buttons": {
+    "authenticate": "Authenticate",
+    "authenticated": "Authenticated",
+    "authenticating": "Authenticating",
     "back_to_exploits": "Back to Exploits",
     "cancel": "Cancel",
-    "cancel_signatures": "Cancel Signatures",
+    "cancel_signatures": "Cancel Potential Signatures",
     "cancelling": "Cancelling",
     "check": "Check",
     "check_connected_address": "Check Connected Address",
     "clear_filters": "Clear Filters",
+    "close": "Close",
     "connect": "Connect Wallet",
     "connecting": "Connecting",
     "disconnect": "Disconnect",
@@ -14,15 +23,19 @@
     "donate": "Donate",
     "donating": "Donating",
     "download": "Download",
+    "explorer_links": "Explorer Links",
     "get_started": "Get Started",
+    "increase": "Increase",
     "my_allowances": "My Approvals",
     "next": "Next",
     "previous": "Previous",
     "report_exploit": "Report Exploit",
     "revoke": "Revoke",
+    "revoke_selected": "Revoke Selected",
     "revoking": "Revoking",
     "send": "Send",
     "sending": "Sending",
+    "share_on_x": "Share on X",
     "switch_chain": "Switch Network",
     "switching": "Switching",
     "translate": "Help Us Translate This Page",
@@ -43,7 +56,7 @@
     "title": "Connect Your Wallet"
   },
   "donate": {
-    "gitcoin_grants": "Or contribute to our <0>Gitcoin Grant</0>",
+    "donate_any_token": "Or send any token to our <donations-link>donations address</donations-link>",
     "title": "Donate to Revoke.cash"
   },
   "errors": {
@@ -68,14 +81,17 @@
       "title": "This page does not exist."
     },
     "messages": {
-      "chain_could_not_connect": "Could not connect to {{chainName}}"
+      "chain_could_not_connect": "Could not connect to {chainName}, please try again later."
     }
   },
   "footer": {
     "about": "About Us",
+    "acknowledgements": "Acknowledgements",
+    "blog": "Blog",
     "brand_assets": "Brand Assets",
     "community": "Community",
     "company": "Company",
+    "donations": "Donations",
     "exploit_checker": "Exploit Checker",
     "extension": "Browser Extension",
     "faq": "FAQ",
@@ -83,34 +99,57 @@
     "learn": "Learn",
     "privacy": "Privacy Policy",
     "product": "Product",
-    "sponsors": "Sponsors",
     "terms": "Terms",
     "token_approval_checker": "Token Approval Checker",
-    "what_are_token_approvals": "What Are Token Approvals?"
+    "what_are_token_approvals": "What Are Token Approvals?",
+    "what_to_do_when_scammed": "What to Do When Scammed?"
   },
   "meta": {
-    "description": "Take back control of your wallet and stay safe by revoking token approvals and permissions you granted on {{chainName}} and over 60 other networks.",
-    "title": "Revoke Your Token Approvals on Over 60 Networks"
+    "description": "Take back control of your wallet and stay safe by revoking token approvals and permissions you granted on {chainName} and over 100 other networks.",
+    "title": "Revoke Your Token Approvals on Over 100 Networks"
   },
   "misc": {
-    "powered_by": "Powered by <0>{{name}}</0>"
+    "powered_by": "Powered by <powered-by-link>{name}</powered-by-link>"
   },
   "nav": {
     "about": "About Us",
+    "blog": "Blog",
     "exploits": "Exploits",
     "extension": "Extension",
     "faq": "FAQ",
     "learn": "Learn",
+    "merchandise": "Merchandise",
     "more": "More",
     "search": "Search Accounts by Address or Domain"
+  },
+  "pagination": {
+    "first": "First",
+    "last": "Last",
+    "page": "Page {page} of {total}",
+    "showing": "Showing {start} to {end} of {total} results"
+  },
+  "quiz": {
+    "check_answer": "Check Answer",
+    "check_selected_answers": "Check Selected Answers",
+    "correct_answer": "Correct! Well done.",
+    "incorrect_answer": "Incorrect. Here is the correct answer:",
+    "next_question": "Next Question",
+    "question_progress": "Question {current} of {total}",
+    "select_all_that_apply": "Select all that apply",
+    "select_correct_answer": "Select the correct answer",
+    "wait_and_read": "Wait and Read"
   },
   "toasts": {
     "clipboard_failed": "❌ Couldn't copy to clipboard",
     "clipboard_success": "✅ Copied to clipboard",
     "donation_sent": "💪 Thanks for the donation!",
-    "revoke_failed": "❌ Revoking failed: {{message}}",
-    "revoke_failed_revert": "❌ Revoking failed: {{message}}. Please reach out to this token's team to resolve this issue.",
-    "transaction_failed": "❌ Transaction failed: {{message}}",
+    "fee_payment_failed": "❌ Fee payment failed: {message}",
+    "fee_payment_rejected": "❌ Please pay the batch revoke fee to continue",
+    "revoke_failed": "❌ Revoking failed: {message}",
+    "revoke_failed_ledger_nano_s": "❌ Ledger Nano S was deprecated by Ledger and does not support revoking NFT approvals any more. It is recommended to upgrade to a newer Ledger device.",
+    "revoke_failed_revert": "❌ The creator of this token has disabled or paused approving and revoking approvals ({message})",
+    "switch_chain_failed": "❌ Switching chain failed, please switch to {chainName} manually in your wallet.",
+    "transaction_failed": "❌ Transaction failed: {message}",
     "transaction_submitted": "✅ Transaction submitted!",
     "update_failed": "❌ This token does not support updating approvals, please revoke instead."
   }

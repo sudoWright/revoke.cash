@@ -1,65 +1,67 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-zinc-200, currentColor);
+    /* Somehow we need to specify this, or borders don't work on Firefox*/
+    --tw-border-style: solid;
+  }
 
-@font-face {
-  font-family: 'Futura Condensed';
-  src: url('/assets/fonts/FuturaCondensedBold.otf');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply leading-tight;
+    @apply bg-white dark:bg-black;
+    @apply text-zinc-900 dark:text-zinc-100;
+  }
 
-@font-face {
-  font-family: 'Futura Condensed';
-  src: url('/assets/fonts/FuturaCondensedBoldOblique.otf');
-  font-weight: bold;
-  font-style: oblique;
-  font-display: swap;
-}
+  h1 {
+    @apply text-4xl md:text-5xl font-bold tracking-tight m-0;
+  }
 
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  @apply leading-tight;
-  @apply bg-white dark:bg-black;
-  @apply text-zinc-900 dark:text-zinc-100;
-}
+  h2 {
+    @apply text-3xl md:text-4xl font-bold m-0;
+  }
 
-h1 {
-  @apply text-4xl md:text-5xl font-bold tracking-tight m-0;
-}
+  h3 {
+    @apply text-2xl font-bold m-0;
+  }
 
-h2 {
-  @apply text-3xl md:text-4xl font-bold m-0;
-}
+  h4 {
+    @apply text-xl font-bold m-0;
+  }
 
-h3 {
-  @apply text-2xl font-bold m-0;
-}
+  h5,
+  h6 {
+    @apply text-lg font-bold m-0;
+  }
 
-h4 {
-  @apply text-xl font-bold m-0;
-}
+  p {
+    @apply text-base leading-normal text-zinc-700 dark:text-zinc-300;
+  }
 
-h5,
-h6 {
-  @apply text-lg font-bold m-0;
-}
+  a {
+    color: blue;
+    text-decoration: none;
+  }
 
-p {
-  @apply text-base leading-normal text-zinc-700 dark:text-zinc-300;
-}
+  a:visited {
+    color: purple;
+  }
 
-a {
-  color: blue;
-  text-decoration: none;
-}
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 
-a:visited {
-  color: purple;
+  div:focus {
+    @apply outline-black;
+  }
 }
 
 .dev {
@@ -67,11 +69,7 @@ a:visited {
 }
 
 #nprogress .bar {
-  @apply bg-black dark:bg-white;
-}
-
-#nprogress .peg {
-  @apply shadow-black dark:shadow-white shadow-lg;
+  @apply bg-brand dark:bg-brand;
 }
 
 .animate-spin-fast {
@@ -96,4 +94,19 @@ a:visited {
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+.fade-video {
+  width: 600px;
+  height: auto;
+
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, black 5%, black 95%, transparent),
+    linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-composite: destination-in; /* Safari/Chrome */
+  mask-composite: intersect; /* Firefox */
+
+  mask-image:
+    linear-gradient(to right, transparent, black 5%, black 95%, transparent),
+    linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
 }

@@ -1,15 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import ky from 'lib/ky';
+import { apiLogin } from 'lib/utils';
 import { HOUR } from 'lib/utils/time';
 
 export const useApiSession = () => {
-  const { data: isLoggedIn, isLoading: loggingIn } = useQuery({
+  const {
+    data: isLoggedIn,
+    isLoading: loggingIn,
+    error,
+  } = useQuery({
     queryKey: ['login'],
-    queryFn: () =>
-      ky
-        .post('/api/login')
-        .json<any>()
-        .then((res) => !!res?.ok),
+    queryFn: apiLogin,
     staleTime: 12 * HOUR,
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
@@ -17,5 +17,5 @@ export const useApiSession = () => {
     retry: 5,
   });
 
-  return { isLoggedIn, loggingIn };
+  return { isLoggedIn, loggingIn, error };
 };

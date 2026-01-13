@@ -1,19 +1,22 @@
-import useTranslation from 'next-translate/useTranslation';
-import { useAsyncCallback } from 'react-async-hook';
+import type { TransactionSubmitted } from 'lib/interfaces';
+import { isTransactionStatusLoadingState, useTransactionStore } from 'lib/stores/transaction-store';
+import { useTranslations } from 'next-intl';
 import Button from '../../common/Button';
 
 interface Props {
-  revoke: () => Promise<void>;
+  transactionKey: string;
+  revoke: () => Promise<TransactionSubmitted | undefined>;
   disabled: boolean;
 }
 
-const RevokeButton = ({ disabled, revoke }: Props) => {
-  const { t } = useTranslation();
-  const { execute, loading } = useAsyncCallback(revoke);
+const RevokeButton = ({ transactionKey, disabled, revoke }: Props) => {
+  const t = useTranslations();
+  const result = useTransactionStore((state) => state.results[transactionKey]);
+  const loading = isTransactionStatusLoadingState(result?.status);
 
   return (
-    <Button disabled={disabled} loading={loading} style="secondary" size="sm" onClick={execute}>
-      {loading ? t('common:buttons.revoking') : t('common:buttons.revoke')}
+    <Button disabled={disabled} loading={loading} style="secondary" size="sm" onClick={revoke}>
+      {loading ? t('common.buttons.revoking') : t('common.buttons.revoke')}
     </Button>
   );
 };

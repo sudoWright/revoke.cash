@@ -1,5 +1,5 @@
 import Label from 'components/common/Label';
-import useTranslation from 'next-translate/useTranslation';
+import { useLocale, useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
@@ -7,16 +7,17 @@ interface Props {
 }
 
 const AssetTypeCell = ({ assetType }: Props) => {
-  const { t, lang } = useTranslation();
+  const t = useTranslations();
+  const locale = useLocale();
 
   const classes = twMerge(
-    lang === 'ja' ? 'w-16' : 'w-12',
-    assetType === 'NFT' ? 'bg-blue-400 text-zinc-900' : 'bg-yellow-400 text-zinc-900',
+    locale === 'ja' ? 'w-16' : 'w-12',
+    assetType === 'NFT' ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-zinc-300 dark:bg-zinc-700',
   );
 
   return (
     <div className="flex justify-start">
-      <Label className={classes}>{t(`address:labels.${assetType.toLowerCase()}`)}</Label>
+      <Label className={classes}>{t(`address.labels.${assetType.toLowerCase()}`)}</Label>
     </div>
   );
 };

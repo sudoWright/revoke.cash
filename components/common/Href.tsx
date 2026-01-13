@@ -1,5 +1,7 @@
-import Link from 'next/link';
-import { AnchorHTMLAttributes, ForwardedRef, forwardRef, ReactNode } from 'react';
+'use client';
+
+import { Link } from 'lib/i18n/navigation';
+import { type AnchorHTMLAttributes, type ForwardedRef, forwardRef, type ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface Props extends AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -22,13 +24,13 @@ const Href = (
   };
 
   const underlineMapping = {
-    always: 'underline hover:underline',
-    hover: 'no-underline hover:underline',
+    always: 'underline hover:underline decoration-brand',
+    hover: 'no-underline hover:underline decoration-brand',
     none: 'no-underline hover:no-underline',
   };
 
   const classes = twMerge(
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current focus-visible:rounded',
+    'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-current focus-visible:rounded-sm',
     styleMapping[html ? 'html' : 'inherit'],
     underlineMapping[underline ?? 'always'],
     className,
@@ -36,7 +38,7 @@ const Href = (
 
   if (router) {
     return (
-      <Link {...props} className={classes} href={href} ref={ref}>
+      <Link {...props} className={classes} href={href} ref={ref} popover={undefined}>
         {children}
       </Link>
     );

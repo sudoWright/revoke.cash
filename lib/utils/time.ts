@@ -11,3 +11,10 @@ export const formatDateNormalised = (date: Date) => {
   const timeString = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   return `${dateString} ${timeString}`;
 };
+
+export const formatArticleDate = (dateString: string) => {
+  const day = new Date(dateString).toLocaleDateString('en-US', { day: 'numeric', timeZone: 'UTC' });
+  const month = new Date(dateString).toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' });
+  const year = new Date(dateString).toLocaleDateString('en-US', { year: 'numeric', timeZone: 'UTC' });
+  return `${day} ${month} ${year}`;
+};

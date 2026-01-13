@@ -3,9 +3,11 @@ module.exports = {
   darkMode: 'class',
   content: [
     './lib/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './layouts/**/*.{js,ts,jsx,tsx}',
+    './content/**/*.{md,mdx}',
   ],
   theme: {
     extend: {
@@ -35,9 +37,11 @@ module.exports = {
           'sans-serif',
         ],
         monosans: ['Helvetica Neue', 'sans-serif'],
-        futura: ['Futura Condensed'],
         code: ['source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New', 'monospace'],
         monospace: ['source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New', 'monospace'],
+      },
+      colors: {
+        brand: '#fdb952',
       },
       typography: (theme) => ({
         zinc: {

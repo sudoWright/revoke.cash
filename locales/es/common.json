@@ -1,12 +1,21 @@
 {
+  "article_meta": {
+    "author": "Escrito por <person-link>{author}</person-link>",
+    "reading_time": "{readingTime} min de lectura",
+    "translator": "Traducido por <person-link>{translator}</person-link>"
+  },
   "buttons": {
+    "authenticate": "Autenticar",
+    "authenticated": "Authenticated",
+    "authenticating": "Autenticando",
     "back_to_exploits": "Volver a Hacks",
     "cancel": "Cancelar",
-    "cancel_signatures": "Cancelar Firmas",
+    "cancel_signatures": "Cancelar Firmas Potenciales",
     "cancelling": "Cancelando",
     "check": "Comprobar",
     "check_connected_address": "Comprobar Dirección Conectada",
     "clear_filters": "Quitar Filtros",
+    "close": "Cerrar",
     "connect": "Conectar Cartera",
     "connecting": "Conectando",
     "disconnect": "Desconectar",
@@ -14,15 +23,19 @@
     "donate": "Donar",
     "donating": "Donando",
     "download": "Descargar",
+    "explorer_links": "Enlaces del explorador",
     "get_started": "Empezar",
+    "increase": "Aumentar",
     "my_allowances": "Mis Autorizaciones",
     "next": "Siguiente",
     "previous": "Anterior",
     "report_exploit": "Informar de un Hack",
     "revoke": "Revocar",
+    "revoke_selected": "Revocar lo seleccionado",
     "revoking": "Revocando",
     "send": "Enviar",
     "sending": "Enviando",
+    "share_on_x": "Compartir en X",
     "switch_chain": "Cambiar de Red",
     "switching": "Cambiando",
     "translate": "Ayúdanos a traducir esta página",
@@ -43,7 +56,7 @@
     "title": "Conecta Tu Cartera"
   },
   "donate": {
-    "gitcoin_grants": "O contribuye a nuestro<0>Grant de Gitcoin</0>",
+    "donate_any_token": "O envíe cualquier token a nuestra dirección de donaciones en <donations-link>donations address</donations-link>",
     "title": "Donar a Revoke.cash"
   },
   "errors": {
@@ -68,14 +81,17 @@
       "title": "Esta página no existe."
     },
     "messages": {
-      "chain_could_not_connect": "No se ha podido conectar a {{chainName}}"
+      "chain_could_not_connect": "No se ha podido conectar a {chainName}, por favor inténtalo de nuevo más tarde."
     }
   },
   "footer": {
     "about": "Sobre nosotros",
+    "acknowledgements": "Agradecimientos",
+    "blog": "Blog",
     "brand_assets": "Activos de Marca",
     "community": "Comunidad",
     "company": "Empresa",
+    "donations": "Donaciones",
     "exploit_checker": "Comprobador de Exploits",
     "extension": "Extensión del Navegador",
     "faq": "FAQ",
@@ -83,35 +99,58 @@
     "learn": "Aprender",
     "privacy": "Política de privacidad",
     "product": "Producto",
-    "sponsors": "Patrocinadores",
     "terms": "Términos",
     "token_approval_checker": "Comprobador de Autorización de Tokens",
-    "what_are_token_approvals": "¿Qué son las Autorizaciones de Tokens?"
+    "what_are_token_approvals": "¿Qué son las Autorizaciones de Tokens?",
+    "what_to_do_when_scammed": "¿Qué hacer cuando es estafado?"
   },
   "meta": {
-    "description": "Recupera el control de tu cartera y mantente a salvo revocando las autorizaciones y permisos en {{chainName}} y 60 redes más.",
-    "title": "Revoca las autorizaciones de tus tokens en más de 60 redes"
+    "description": "Recupera el control de tu cartera y mantente a salvo revocando las autorizaciones y permisos en {chainName} y en 100 redes más.",
+    "title": "Revoca las Aprobaciones de Tus Tokens en Más de 100 Redes"
   },
   "misc": {
-    "powered_by": "Desarrollado por <0>{{name}}</0>"
+    "powered_by": "Desarrollado por <powered-by-link>{name}</powered-by-link>"
   },
   "nav": {
     "about": "Sobre nosotros",
+    "blog": "Blog",
     "exploits": "Hacks",
     "extension": "Extensión",
     "faq": "FAQ",
     "learn": "Aprender",
+    "merchandise": "Mercancía",
     "more": "Más",
     "search": "Buscar Cuentas por Dirección o Dominio"
+  },
+  "pagination": {
+    "first": "Primero",
+    "last": "Último",
+    "page": "Página {page} de {total}",
+    "showing": "Mostrando {start} a {end} de {total} resultados"
+  },
+  "quiz": {
+    "check_answer": "Comprobar respuesta",
+    "check_selected_answers": "Verifica las respuestas seleccionadas",
+    "correct_answer": "¡Correcto! Bien hecho.",
+    "incorrect_answer": "Incorrecto. Aquí está la respuesta correcta:",
+    "next_question": "Siguiente pregunta",
+    "question_progress": "Pregunta {current} de {total}",
+    "select_all_that_apply": "Selecciona todas las opciones que correspondan.",
+    "select_correct_answer": "Selecciona la respuesta correcta",
+    "wait_and_read": "Espera y lee"
   },
   "toasts": {
     "clipboard_failed": "❌ No se pudo copiar al portapapeles",
     "clipboard_success": "✅ Copiado al portapapeles",
     "donation_sent": "💪 ¡Gracias por la donación!",
-    "revoke_failed": "❌ No se pudo revocar la autorización: {{message}}",
-    "revoke_failed_revert": "❌ No se pudo revocar la autorización: {{message}}. Ponte en contacto con el equipo de este token para resolver este problema.",
-    "transaction_failed": "❌ Transacción fallida: {{message}}",
+    "fee_payment_failed": "❌ Fallo en el pago de la tarifa: {message}",
+    "fee_payment_rejected": "❌ Por favor, paga la tarifa de revocación por lotes para continuar.",
+    "revoke_failed": "❌ No se pudo revocar la autorización: {message}",
+    "revoke_failed_ledger_nano_s": "❌ Ledger Nano S fue obsoleto por Ledger y ya no admite la revocación de las aprobaciones de NFT. Se recomienda actualizar a un dispositivo Ledger más nuevo.",
+    "revoke_failed_revert": "❌ El creador de este token ha deshabilitado o pausado la aprobación y revocación de aprobaciones ({message})",
+    "switch_chain_failed": "❌ Error al cambiar de cadena, cambia manualmente a {chainName} en tu cartera.",
+    "transaction_failed": "❌ Transacción fallida: {message}",
     "transaction_submitted": "✅ ¡Transacción enviada!",
-    "update_failed": "❌ Este token no admite actualización de autorizaciones; en su lugar, revocala por favor."
+    "update_failed": "❌ Este token no admite la actualización de aprobaciones, por favor revócala en su lugar."
   }
 }

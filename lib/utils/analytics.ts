@@ -1,19 +1,26 @@
-import { init as amplitudeInit, track as amplitudeTrack } from '@amplitude/analytics-browser';
 import mixpanel from 'mixpanel-browser';
 
-export const init = () => {
-  amplitudeInit(process.env.NEXT_PUBLIC_AMPLITUDE_API_KEY, null, {
-    trackingOptions: {
-      ipAddress: false,
-    },
-  });
+const analytics = {
+  isInitialized: false,
+  // init only when first used
+  init() {
+    if (this.isInitialized) return;
+    const apiKey = process.env.NEXT_PUBLIC_MIXPANEL_API_KEY;
+    if (apiKey && typeof window !== 'undefined') {
+      mixpanel.init(apiKey, { ip: false });
+      this.isInitialized = true;
+    }
+  },
 
-  mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_API_KEY, {
-    ip: false,
-  });
+  track(eventName: string, eventProperties?: Record<string, any>) {
+    if (typeof window === 'undefined' || !process.env.NEXT_PUBLIC_MIXPANEL_API_KEY) return;
+    // lazy initialize if not already done
+    if (!this.isInitialized) {
+      this.init();
+    }
+
+    mixpanel.track(eventName, eventProperties);
+  },
 };
 
-export const track = (eventName: string, eventProperties: any) => {
-  amplitudeTrack(eventName, eventProperties);
-  mixpanel.track(eventName, eventProperties);
-};
+export default analytics;

@@ -1,6 +1,6 @@
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { twMerge } from 'tailwind-merge';
-import Button, { Props as ButtonProps } from './Button';
+import Button, { type Props as ButtonProps } from './Button';
 import Chevron from './Chevron';
 
 interface Props {
@@ -17,7 +17,7 @@ const DropdownMenu = ({ menuButton, children, style, align, buttonClassName, ite
     items: twMerge(
       align === 'left' ? 'origin-top-left left-0' : 'origin-top-right right-0',
       'absolute rounded-lg shadow-lg bg-white border border-black dark:border-white flex flex-col shrink-0',
-      'z-10 mt-2 max-h-88 overflow-x-hidden overflow-y-scroll focus:outline-none',
+      'z-10 mt-2 max-h-88 overflow-x-hidden overflow-y-scroll focus:outline-hidden',
       itemsClassName,
     ),
     button: twMerge(
@@ -28,10 +28,10 @@ const DropdownMenu = ({ menuButton, children, style, align, buttonClassName, ite
   };
   return (
     <Menu as="div" className="relative text-left">
-      <Menu.Button
+      <MenuButton
         className={twMerge(
-          'flex focus-visible:outline-none focus-visible:ring-black focus-visible:dark:ring-white',
-          style === 'nav' ? 'focus-visible:ring-2 rounded' : 'focus-visible:ring-1 rounded-lg',
+          'flex focus-visible:outline-hidden focus-visible:ring-black dark:focus-visible:ring-white',
+          style === 'nav' ? 'focus-visible:ring-2 rounded-sm' : 'focus-visible:ring-1 rounded-lg',
         )}
       >
         <Button
@@ -43,17 +43,17 @@ const DropdownMenu = ({ menuButton, children, style, align, buttonClassName, ite
           {menuButton}
           <Chevron className="w-5 h-5 fill-black dark:fill-white" />
         </Button>
-      </Menu.Button>
-      <Menu.Items className={classes.items} unmount={false}>
+      </MenuButton>
+      <MenuItems className={classes.items} unmount={false}>
         {children}
-      </Menu.Items>
+      </MenuItems>
     </Menu>
   );
 };
 
 export const DropdownMenuItem = (props: Omit<ButtonProps, 'style' | 'size'>) => {
   return (
-    <Menu.Item>
+    <MenuItem>
       {({ active }) => (
         <Button
           style="secondary"
@@ -62,11 +62,13 @@ export const DropdownMenuItem = (props: Omit<ButtonProps, 'style' | 'size'>) => 
           className={twMerge(
             props.className,
             'w-full',
-            active ? 'bg-zinc-200 dark:bg-zinc-800' : 'bg-white dark:bg-black hover:bg-white hover:dark:bg-black',
+            active
+              ? 'bg-zinc-200 dark:bg-zinc-800'
+              : 'bg-white dark:bg-black hover:bg-white dark:hover:bg-black disabled:bg-zinc-200 dark:disabled:bg-zinc-800',
           )}
         />
       )}
-    </Menu.Item>
+    </MenuItem>
   );
 };
 

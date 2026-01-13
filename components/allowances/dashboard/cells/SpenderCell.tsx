@@ -1,67 +1,38 @@
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import { useQuery } from '@tanstack/react-query';
-import CopyButton from 'components/common/CopyButton';
-import Href from 'components/common/Href';
 import Loader from 'components/common/Loader';
-import WithHoverTooltip from 'components/common/WithHoverTooltip';
-import { useOpenSeaProxyAddress } from 'lib/hooks/ethereum/useOpenSeaProxyAddress';
-import type { AllowanceData } from 'lib/interfaces';
-import { getChainExplorerUrl } from 'lib/utils/chains';
-import { shortenAddress } from 'lib/utils/formatting';
-import { getSpenderData } from 'lib/utils/whois';
-import useTranslation from 'next-translate/useTranslation';
+import { isNullish } from 'lib/utils';
+import { AllowanceType, type TokenAllowanceData } from 'lib/utils/allowances';
+import { YEAR } from 'lib/utils/time';
+import { useMemo } from 'react';
+import AddressCell from './AddressCell';
 
 interface Props {
-  allowance: AllowanceData;
+  allowance: TokenAllowanceData;
 }
 
 const SpenderCell = ({ allowance }: Props) => {
-  const { t } = useTranslation();
-  const { openSeaProxyAddress } = useOpenSeaProxyAddress(allowance.owner);
+  const spenderData = allowance.payload?.spenderData;
+  const isLoading = spenderData === undefined && !isNullish(allowance.payload?.spender);
 
-  // TODO: Expose this data to react-table
-  const { data: spenderData, isLoading } = useQuery({
-    queryKey: ['spenderData', allowance.spender, allowance.chainId, openSeaProxyAddress],
-    queryFn: () => getSpenderData(allowance.spender, allowance.chainId, openSeaProxyAddress),
-    // Chances of this data changing while the user is on the page are very slim
-    staleTime: Infinity,
-  });
+  // Add non-spender-specific risk factors (TODO: set up a proper system for this)
+  const riskFactors = useMemo(() => {
+    const factors = spenderData?.riskFactors ?? [];
 
-  const explorerUrl = `${getChainExplorerUrl(allowance.chainId)}/address/${allowance.spender}`;
+    if (allowance?.payload?.type === AllowanceType.PERMIT2 && allowance?.payload?.expiration > Date.now() + 1 * YEAR) {
+      return [...factors, { type: 'excessive_expiration', source: 'onchain' }];
+    }
 
-  if (!allowance.spender) {
-    return null;
-  }
+    return factors;
+  }, [allowance?.payload, spenderData?.riskFactors]);
 
-  const exploitsTooltip = (
-    <div>
-      {t('address:tooltips.involved_in_exploits')}
-      <ul className="list-disc list-inside">
-        {spenderData?.exploits?.map((exploit) => <li key={exploit}>{exploit}</li>)}
-      </ul>
-    </div>
-  );
+  if (!allowance.payload?.spender) return null;
 
   return (
-    <Loader isLoading={isLoading}>
-      <div className="flex items-center gap-2 w-46">
-        {spenderData?.exploits && (
-          <WithHoverTooltip tooltip={exploitsTooltip}>
-            <ExclamationTriangleIcon className="w-6 h-6 text-red-500 focus:outline-black" />
-          </WithHoverTooltip>
-        )}
-        <div className="flex flex-col justify-start items-start">
-          <WithHoverTooltip tooltip={allowance.spender}>
-            <Href href={explorerUrl} underline="hover" external>
-              <div className="max-w-[10rem] truncate">{spenderData?.name ?? shortenAddress(allowance.spender, 6)}</div>
-              <div className="text-xs text-zinc-500 dark:text-zinc-400">
-                {spenderData?.name ? shortenAddress(allowance.spender, 6) : null}
-              </div>
-            </Href>
-          </WithHoverTooltip>
-        </div>
-        <CopyButton content={allowance.spender} className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
-      </div>
+    <Loader isLoading={isLoading} className="h-6">
+      <AddressCell
+        address={allowance.payload.spender}
+        spenderData={spenderData ? { name: spenderData.name, riskFactors } : undefined}
+        chainId={allowance.chainId}
+      />
     </Loader>
   );
 };

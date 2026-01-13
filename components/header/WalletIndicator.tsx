@@ -1,32 +1,37 @@
+'use client';
+
+import Button from 'components/common/Button';
 import { useMounted } from 'lib/hooks/useMounted';
-import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi';
-import ChainSelect from '../common/ChainSelect';
+import { useTranslations } from 'next-intl';
+import { useConnection } from 'wagmi';
 import WalletIndicatorDropdown from './WalletIndicatorDropdown';
 
 interface Props {
-  menuAlign?: 'left' | 'right';
   size?: 'sm' | 'md' | 'lg' | 'none';
   style?: 'primary' | 'secondary' | 'tertiary' | 'none';
   className?: string;
 }
 
-const WalletIndicator = ({ menuAlign, size, style, className }: Props) => {
+const WalletIndicator = ({ size, style, className }: Props) => {
+  const t = useTranslations();
   const isMounted = useMounted();
-  const { address: account } = useAccount();
-  const { switchNetwork } = useSwitchNetwork();
-  const { chain } = useNetwork();
+  const { address: account, chainId } = useConnection();
 
   if (!isMounted) return null;
 
   return (
-    <div className="flex gap-2">
-      {account && chain && (
-        <ChainSelect
-          instanceId="global-chain-select"
-          onSelect={switchNetwork}
-          selected={chain.id}
-          menuAlign={menuAlign}
-        />
+    <div className="flex flex-col-reverse lg:flex-row gap-2 items-center">
+      {account && (
+        <Button
+          className="font-normal"
+          size={'md'}
+          style={'secondary'}
+          href={`/address/${account}?chainId=${chainId}`}
+          router
+          retainSearchParams={['chainId']}
+        >
+          {t('common.buttons.my_allowances')}
+        </Button>
       )}
       <WalletIndicatorDropdown size={size} style={style} className={className} />
     </div>

@@ -1,16 +1,16 @@
 import { UNISWAP_V3_POOL_ABI } from 'lib/abis';
-import { TokenContract } from 'lib/interfaces';
+import type { Erc20TokenContract } from 'lib/utils/tokens';
 import {
-  Address,
-  Hex,
+  type Address,
   encodeAbiParameters,
   getCreate2Address,
+  type Hex,
   hexToNumber,
   keccak256,
   parseAbiParameters,
-  parseUnits,
 } from 'viem';
-import { UniswapV3PriceStrategy, UniswapV3PriceStrategyOptions } from './UniswapV3PriceStrategy';
+import { UniswapV3PriceStrategy, type UniswapV3PriceStrategyOptions } from './UniswapV3PriceStrategy';
+import { calculateTokenPrice } from './utils';
 
 export interface UniswapV3ReadonlyPriceStrategyOptions extends UniswapV3PriceStrategyOptions {
   poolBytecodeHash?: Hex;
@@ -43,9 +43,9 @@ export class UniswapV3ReadonlyPriceStrategy extends UniswapV3PriceStrategy {
     this.minLiquidity = options.liquidityParameters?.minLiquidity ?? 10n ** 17n;
   }
 
-  protected async calculateInversePriceInternal(tokenContract: TokenContract): Promise<bigint> {
+  protected async calculateTokenPriceInternal(tokenContract: Erc20TokenContract): Promise<number | null> {
     if (tokenContract.address === this.path.at(-1)) {
-      return parseUnits(String(1), this.decimals);
+      return 1;
     }
 
     const { publicClient } = tokenContract;
@@ -61,26 +61,32 @@ export class UniswapV3ReadonlyPriceStrategy extends UniswapV3PriceStrategy {
       pairs.push(pair);
     }
 
-    const pairResults = await Promise.all(
-      pairs.map(async (pair) => {
-        const pairAddress = this.calculatePairAddress(pair.token0, pair.token1, pair.fee);
+    const tokenDecimalPromise = publicClient.readContract({
+      address: tokenContract.address,
+      abi: tokenContract.abi,
+      functionName: 'decimals',
+    });
 
-        const [liquidity, slot0] = await Promise.all([
-          publicClient.readContract({
-            address: pairAddress,
-            abi: UNISWAP_V3_POOL_ABI,
-            functionName: 'liquidity',
-          }),
-          publicClient.readContract({
-            address: pairAddress,
-            abi: UNISWAP_V3_POOL_ABI,
-            functionName: 'slot0',
-          }),
-        ]);
+    const pairPromises = pairs.map(async (pair) => {
+      const pairAddress = this.calculatePairAddress(pair.token0, pair.token1, pair.fee);
 
-        return { pair, liquidity, slot0 };
-      }),
-    );
+      const [liquidity, slot0] = await Promise.all([
+        publicClient.readContract({
+          address: pairAddress,
+          abi: UNISWAP_V3_POOL_ABI,
+          functionName: 'liquidity',
+        }),
+        publicClient.readContract({
+          address: pairAddress,
+          abi: UNISWAP_V3_POOL_ABI,
+          functionName: 'slot0',
+        }),
+      ]);
+
+      return { pair, liquidity, slot0 };
+    });
+
+    const [tokenDecimals, ...pairResults] = await Promise.all([tokenDecimalPromise, ...pairPromises]);
 
     const result = pairResults.reduce((acc, { pair, liquidity, slot0 }) => {
       if (!this.hasEnoughLiquidity(liquidity)) throw new Error('Not enough liquidity');
@@ -93,7 +99,9 @@ export class UniswapV3ReadonlyPriceStrategy extends UniswapV3PriceStrategy {
       return acc * ratio;
     }, 1);
 
-    return BigInt(Math.round(result * 10 ** this.decimals));
+    const inverseTokenPrice = BigInt(Math.round(result * 10 ** this.decimals));
+
+    return calculateTokenPrice(inverseTokenPrice, tokenDecimals);
   }
 
   private calculatePairAddress(token0: Address, token1: Address, fee: number): Address {
@@ -104,7 +112,7 @@ export class UniswapV3ReadonlyPriceStrategy extends UniswapV3PriceStrategy {
 
   // TODO: We may need to solve the liquidity issue better in general for this strategy
   // TODO: I think we should be able to do something like dividing by the price
-  // @ts-ignore I just want to be able to override this function with the same name (should be fine)
+  // @ts-expect-error I just want to be able to override this function with the same name (should be fine)
   private hasEnoughLiquidity = (liquidity: bigint): boolean => {
     return liquidity > this.minLiquidity;
   };

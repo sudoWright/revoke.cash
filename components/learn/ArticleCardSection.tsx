@@ -1,6 +1,5 @@
-import Card from 'components/common/Card';
-import Href from 'components/common/Href';
-import { ISidebarEntry } from 'lib/interfaces';
+import type { ISidebarEntry } from 'lib/interfaces';
+import ArticleCard from './ArticleCard';
 
 const ArticleCardSection = ({ title, children }: Omit<ISidebarEntry, 'title' | 'path'> & Partial<ISidebarEntry>) => {
   if (!children?.length) return null;
@@ -16,13 +15,5 @@ const ArticleCardSection = ({ title, children }: Omit<ISidebarEntry, 'title' | '
     </div>
   );
 };
-
-const ArticleCard = ({ title, description, path }: ISidebarEntry) => (
-  <Href href={path} router underline="none" className="h-full">
-    <Card title={title} className="h-full">
-      <p>{description}</p>
-    </Card>
-  </Href>
-);
 
 export default ArticleCardSection;

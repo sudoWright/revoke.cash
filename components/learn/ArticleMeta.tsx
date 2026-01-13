@@ -1,47 +1,89 @@
-import Divider from 'components/common/Divider';
-import PageNavigation from 'components/common/PageNavigation';
-import { ContentMeta, ISidebarEntry } from 'lib/interfaces';
-import Trans from 'next-translate/Trans';
+import Href from 'components/common/Href';
+import RichText from 'components/common/RichText';
+import type { ContentMeta } from 'lib/interfaces';
+import { isNullish } from 'lib/utils';
+import { formatArticleDate } from 'lib/utils/time';
+import { useTranslations } from 'next-intl';
 
 interface Props {
-  slug: string[];
-  meta: Pick<ContentMeta, 'author' | 'translator' | 'language'>;
-  sidebarEntries: ISidebarEntry[];
+  meta: ContentMeta;
 }
 
-const ArticleMeta = ({ slug, meta, sidebarEntries }: Props) => {
-  const shouldDisplayAuthor = !!meta.author;
-  const shouldDisplayTranslator = !!meta.translator && meta.language !== 'en';
+const ArticleMeta = ({ meta }: Props) => {
+  const properties = [
+    !isNullish(meta.author) ? 'author' : undefined,
+    !isNullish(meta.translator) && meta.language !== 'en' ? 'translator' : undefined,
+    !isNullish(meta.date) ? 'date' : undefined,
+    !isNullish(meta.readingTime) && !isNullish(meta.author) ? 'reading_time' : undefined, // reading_time only if author is present (blog posts only)
+  ].filter((property) => !isNullish(property));
 
-  const path = `/learn/${slug.join('/')}`;
-
-  const sidebarPages = sidebarEntries.flatMap((entry) => [entry, ...entry.children]);
-  const currentPageIndex = sidebarPages.findIndex((page) => page.path === path);
-  const previousPage = sidebarPages[currentPageIndex - 1];
-  const nextPage = sidebarPages[currentPageIndex + 1];
+  if (properties.length === 0) return null;
+  if (!properties.includes('translator') && !properties.includes('author')) return null;
 
   return (
-    <>
-      <Divider className="my-6" />
-      <PageNavigation previousPage={previousPage} nextPage={nextPage} />
-      <div className="w-full flex justify-end gap-2">
-        {shouldDisplayAuthor && (
-          <div>
-            <Trans i18nKey="learn:article_meta.author" values={meta} components={[<span className="font-bold" />]} />
-          </div>
-        )}
-        {shouldDisplayAuthor && shouldDisplayTranslator && <div>•</div>}
-        {shouldDisplayTranslator && (
-          <div>
-            <Trans
-              i18nKey="learn:article_meta.translator"
-              values={meta}
-              components={[<span className="font-bold" />]}
-            />
-          </div>
-        )}
+    <div className="flex justify-start gap-2 flex-wrap max-sm:text-sm text-center my-4 text-zinc-500 dark:text-zinc-400">
+      {properties.map((property, i) => (
+        <MetaProperty key={property} property={property} meta={meta} separator={i < properties.length - 1} />
+      ))}
+    </div>
+  );
+};
+
+interface MetaPropertyProps {
+  property: string;
+  meta: ContentMeta;
+  separator?: boolean;
+}
+
+const MetaProperty = ({ property, meta, separator }: MetaPropertyProps) => {
+  if (!property) return null;
+
+  return (
+    <div key={property} className="flex gap-2">
+      <MetaPropertyChild property={property} meta={meta} />
+      {separator && <div>•</div>}
+    </div>
+  );
+};
+
+const MetaPropertyChild = ({ property, meta }: MetaPropertyProps) => {
+  const t = useTranslations();
+
+  if (!property) return null;
+
+  if (property === 'date' && meta.date) {
+    return <div>{formatArticleDate(meta.date)}</div>;
+  }
+
+  if (property === 'author' || property === 'translator') {
+    const personLink = (children: React.ReactNode) =>
+      meta[property]?.url ? (
+        <Href href={meta[property].url} className="font-bold" underline="hover" external>
+          {children}
+        </Href>
+      ) : (
+        <span className="font-bold">{children}</span>
+      );
+
+    return (
+      <div>
+        <RichText>
+          {(tags) =>
+            t.rich(`common.article_meta.${property}`, {
+              ...tags,
+              [property]: meta[property]?.name,
+              'person-link': personLink,
+            })
+          }
+        </RichText>
       </div>
-    </>
+    );
+  }
+
+  return (
+    <div>
+      <RichText>{(tags) => t.rich(`common.article_meta.${property}`, { ...tags, ...(meta as any) })}</RichText>
+    </div>
   );
 };
 

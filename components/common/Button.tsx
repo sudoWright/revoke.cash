@@ -1,13 +1,16 @@
+'use client';
+
 import { useColorTheme } from 'lib/hooks/useColorTheme';
-import Link from 'next/link';
-import { ForwardedRef, MouseEventHandler, forwardRef } from 'react';
+import { CsrLink } from 'lib/i18n/csr-navigation';
+import { Link } from 'lib/i18n/navigation';
+import { type ForwardedRef, forwardRef, type MouseEventHandler } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Spinner from './Spinner';
 
 // TODO: Proper extended styles for this component
 export interface Props extends Record<string, any> {
   disabled?: boolean;
-  style: 'primary' | 'secondary' | 'tertiary' | 'none';
+  style: 'primary' | 'secondary' | 'tertiary' | 'none' | 'purple';
   size: 'sm' | 'md' | 'lg' | 'none' | 'menu';
   onClick?: MouseEventHandler;
   href?: string;
@@ -18,6 +21,7 @@ export interface Props extends Record<string, any> {
   loading?: boolean;
   asDiv?: boolean;
   align?: 'left' | 'center' | 'right';
+  retainSearchParams?: boolean | string[];
 }
 
 const Button = (
@@ -34,6 +38,7 @@ const Button = (
     loading,
     asDiv,
     align,
+    retainSearchParams,
     ...props
   }: Props,
   ref: ForwardedRef<any>,
@@ -50,6 +55,8 @@ const Button = (
     secondary: 'bg-white text-black visited:text-black hover:bg-zinc-200 disabled:bg-zinc-300',
     tertiary:
       'text-black visited:text-black dark:text-white dark:visited:text-white disabled:text-zinc-600 dark:disabled:text-zinc-400 border-none',
+    purple:
+      'bg-purple-600 text-white visited:text-white hover:bg-purple-700 disabled:bg-purple-400 border-purple-600 hover:border-purple-700',
     menu: 'h-9 px-4 rounded-none border-none font-normal text-base justify-start',
     sm: 'h-6 px-2 text-xs rounded-md',
     md: 'h-9 px-4 text-base rounded-lg',
@@ -60,10 +67,10 @@ const Button = (
   };
 
   const classes = twMerge(
-    'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-black dark:focus-visible:ring-white',
-    (style === 'none' || style === 'tertiary') && 'focus-visible:ring-2 focus-visible:rounded',
+    'focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-black dark:focus-visible:ring-white',
+    (style === 'none' || style === 'tertiary') && 'focus-visible:ring-2 focus-visible:rounded-sm',
     style !== 'none' && classMapping.common,
-    classMapping[variant],
+    variant !== 'none' && classMapping[variant],
     classMapping[align ?? 'center'],
     size !== 'none' && classMapping[size],
     loading && 'flex gap-1',
@@ -73,6 +80,14 @@ const Button = (
   // Note: This code is repeated in Href.tsx for styling reasons
   if (href) {
     if (router) {
+      if (retainSearchParams) {
+        return (
+          <CsrLink {...props} className={classes} href={href} ref={ref} retainSearchParams={retainSearchParams}>
+            {children}
+          </CsrLink>
+        );
+      }
+
       return (
         <Link {...props} className={classes} href={href} ref={ref}>
           {children}
@@ -89,6 +104,8 @@ const Button = (
 
   if (asDiv) {
     return (
+      // biome-ignore lint/a11y/useKeyWithClickEvents: we know this is a hack, it is what it is
+      // biome-ignore lint/a11y/noStaticElementInteractions: we know this is a hack, it is what it is
       <div {...props} className={classes} onClick={onClick} ref={ref}>
         {children}
       </div>
@@ -103,4 +120,4 @@ const Button = (
   );
 };
 
-export default forwardRef(Button);
+export default forwardRef<HTMLElement, Props>(Button as any);

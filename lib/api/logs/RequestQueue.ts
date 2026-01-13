@@ -15,12 +15,13 @@ export class RequestQueue {
     private preferredQueue?: 'upstash' | 'p-queue',
   ) {
     this.pQueue = new PQueue(rateLimit);
-    this.upstashQueue =
-      process.env.UPSTASH_REDIS_REST_URL &&
-      new Ratelimit({
-        redis: Redis.fromEnv(),
-        limiter: Ratelimit.slidingWindow(rateLimit.intervalCap, `${rateLimit.interval} ms`),
-      });
+    this.upstashQueue = process.env.UPSTASH_REDIS_REST_URL
+      ? new Ratelimit({
+          redis: Redis.fromEnv(),
+          limiter: Ratelimit.slidingWindow(rateLimit.intervalCap, `${rateLimit.interval} ms`),
+          analytics: true,
+        })
+      : undefined;
   }
 
   async add<T>(fn: () => Promise<T>): Promise<T> {
@@ -29,7 +30,7 @@ export class RequestQueue {
       const { success } = await this.upstashQueue.blockUntilReady(this.identifier, this.rateLimit.timeout ?? 10_000);
 
       if (!success) {
-        throw new Error('Request timed out');
+        throw new Error('Queued request timed out');
       }
 
       return fn();

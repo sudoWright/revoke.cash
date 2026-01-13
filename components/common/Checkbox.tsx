@@ -1,22 +1,47 @@
-import { useColorTheme } from 'lib/hooks/useColorTheme';
 import { twMerge } from 'tailwind-merge';
-import Check from './Check';
+import Check from './icons/Check';
+import Minus from './icons/Minus';
 
 interface Props {
   checked: boolean;
+  indeterminate?: boolean;
+  disabled?: boolean;
+  onChange?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
+  className?: string;
+  iconClassName?: string;
 }
 
 // Note: this is a controlled checkbox, so the checked prop must be passed in
-const Checkbox = ({ checked }: Props) => {
-  const { darkMode } = useColorTheme();
+const Checkbox = ({ checked, indeterminate, disabled, onChange, className, iconClassName }: Props) => {
+  const iconClasses = twMerge('w-4 h-4', iconClassName);
 
   const classes = twMerge(
-    'w-4 h-4 border border-black dark:border-white flex justify-center rounded items-center',
-    darkMode && checked && 'bg-white text-black',
-    !darkMode && checked && 'bg-black text-white',
+    'border border-black dark:border-white flex justify-center rounded-sm items-center cursor-pointer focus:outline-black dark:focus:outline-white',
+    iconClasses,
+    className,
+    (checked || indeterminate) && 'bg-brand text-black border-0',
+    disabled && 'cursor-not-allowed bg-zinc-300 dark:bg-zinc-500 border-0',
   );
 
-  return <div className={classes}>{checked && <Check />}</div>;
+  const icon = disabled ? null : checked ? (
+    <Check className={iconClasses} />
+  ) : indeterminate ? (
+    <Minus className={iconClasses} />
+  ) : null;
+
+  return (
+    // biome-ignore lint/a11y/useSemanticElements: we want to use a div instead of a native checkbox for styling reasons
+    <div
+      role="checkbox"
+      aria-checked={checked}
+      className={classes}
+      onClick={(event) => !disabled && onChange?.(event)}
+      onKeyDown={(event) => !disabled && event.key === 'Enter' && onChange?.(event)}
+      tabIndex={0}
+    >
+      {icon}
+    </div>
+  );
 };
 
 export default Checkbox;

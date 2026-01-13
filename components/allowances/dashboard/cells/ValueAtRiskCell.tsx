@@ -1,17 +1,19 @@
-import type { AllowanceData } from 'lib/interfaces';
-import { calculateValueAtRisk } from 'lib/utils';
+import Loader from 'components/common/Loader';
+import { calculateValueAtRisk, type TokenAllowanceData } from 'lib/utils/allowances';
 import { formatFiatAmount } from 'lib/utils/formatting';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
-  allowance: AllowanceData;
+  allowance: TokenAllowanceData;
 }
 
 const ValueAtRiskCell = ({ allowance }: Props) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
-  if (!allowance.spender) return null;
+  if (allowance.metadata.price === undefined) return <Loader isLoading className="h-6" />;
+
+  if (!allowance.payload) return null;
 
   const valueAtRisk = calculateValueAtRisk(allowance);
   const fiatBalanceText = formatFiatAmount(valueAtRisk);
@@ -21,7 +23,7 @@ const ValueAtRiskCell = ({ allowance }: Props) => {
     !fiatBalanceText && 'text-zinc-500 dark:text-zinc-400',
   );
 
-  return <div className={classes}>{fiatBalanceText ?? t('address:allowances.unknown')}</div>;
+  return <div className={classes}>{fiatBalanceText ?? t('address.allowances.unknown')}</div>;
 };
 
 export default ValueAtRiskCell;

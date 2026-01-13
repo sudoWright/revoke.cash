@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -10,19 +10,14 @@ const OgHeaderText = ({ children, tw }: Props) => {
     <div
       tw={tw}
       style={{
-        fontFamily: 'Futura Condensed Bold',
-        fontSize: 80,
+        fontFamily: 'Inter Bold',
+        textAlign: 'center',
+        fontSize: 56,
         color: 'white',
-        textShadow: [0, 1, 2, 3, 4, 5, 6]
-          .flatMap((x) =>
-            [0, 1, 2, 3, 4, 5, 6].flatMap((y) => [
-              `${x}px ${y}px black`,
-              `${x}px -${y}px black`,
-              `-${x}px ${y}px black`,
-              `-${x}px -${y}px black`,
-            ]),
-          )
-          .join(', '),
+        backgroundColor: 'rgba(0, 0, 0, 1)',
+        padding: '0.75rem 1.5rem',
+        letterSpacing: '-2px',
+        maxWidth: '1120px',
       }}
     >
       {children}

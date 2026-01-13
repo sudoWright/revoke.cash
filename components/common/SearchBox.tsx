@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
-import { ChangeEventHandler, FormEventHandler, HTMLAttributes, ReactNode } from 'react';
+import type { ChangeEventHandler, FormEventHandler, HTMLAttributes, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface Props extends Omit<HTMLAttributes<HTMLInputElement>, 'onSubmit'> {
@@ -20,9 +20,9 @@ const SearchBox = ({ onSubmit, onChange, value, placeholder, children, className
 
   return (
     <form onSubmit={onSubmit} className={classes}>
-      <MagnifyingGlassIcon className="w-6 h-6" />
+      <MagnifyingGlassIcon className="w-6 h-6 text-zinc-500 dark:text-zinc-300" />
       <input
-        className="grow focus-visible:outline-none bg-transparent"
+        className="grow focus-visible:outline-hidden bg-transparent"
         placeholder={placeholder}
         aria-label={placeholder}
         value={value}

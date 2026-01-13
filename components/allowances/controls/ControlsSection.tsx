@@ -1,32 +1,46 @@
 import RevokeButton from 'components/allowances/controls/RevokeButton';
-import { AllowanceData } from 'lib/interfaces';
-import { getAllowanceI18nValues } from 'lib/utils/allowances';
+import type { TransactionSubmitted } from 'lib/interfaces';
+import { getAllowanceI18nValues, getAllowanceKey, type TokenAllowanceData } from 'lib/utils/allowances';
+import { isRevertedError } from 'lib/utils/errors';
+import { useTranslations } from 'next-intl';
 import ControlsWrapper from './ControlsWrapper';
 import UpdateControls from './UpdateControls';
 
 interface Props {
-  allowance: AllowanceData;
-  update?: (newAmount?: string) => Promise<void>;
+  allowance: TokenAllowanceData;
+  update?: (newAmount: string) => Promise<TransactionSubmitted | undefined>;
   reset?: () => void;
-  revoke?: () => Promise<void>;
+  revoke?: () => Promise<TransactionSubmitted | undefined>;
 }
 
 const ControlsSection = ({ allowance, revoke, update, reset }: Props) => {
-  if (!allowance.spender) return null;
+  const t = useTranslations();
+
+  if (!allowance.payload) return null;
 
   const { amount } = getAllowanceI18nValues(allowance);
 
+  const tooltip = isRevertedError(allowance.payload?.revokeError)
+    ? t('common.toasts.revoke_failed_revert', { message: allowance.payload!.revokeError! })
+    : allowance.payload?.revokeError;
+
   return (
-    <ControlsWrapper chainId={allowance.chainId} address={allowance.owner} switchChainSize="sm">
+    <ControlsWrapper
+      chainId={allowance.chainId}
+      address={allowance.owner}
+      switchChainSize="sm"
+      overrideDisabled={Boolean(tooltip)}
+      disabledReason={tooltip}
+    >
       {(disabled) => (
         <div className="controls-section">
-          {revoke && <RevokeButton revoke={revoke} disabled={disabled} />}
+          {revoke && <RevokeButton transactionKey={getAllowanceKey(allowance)} revoke={revoke} disabled={disabled} />}
           {update && reset && (
             <UpdateControls
               update={update}
               disabled={disabled}
               reset={reset}
-              defaultValue={amount === 'Unlimited' ? '0' : amount ?? '0'}
+              defaultValue={amount === 'Unlimited' ? '0' : (amount?.replace(/,/, '') ?? '0')}
             />
           )}
         </div>

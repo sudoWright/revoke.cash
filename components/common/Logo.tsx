@@ -1,10 +1,12 @@
+'use client';
+
 import Image from 'next/image';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import PlaceholderIcon from './PlaceholderIcon';
 
 interface Props {
-  src: string;
+  src?: string;
   alt: string;
   size?: number;
   square?: boolean;
@@ -28,6 +30,7 @@ const Logo = ({ src, alt, size, square, border, className }: Props) => {
 
   if (!src.startsWith('/')) {
     return (
+      // biome-ignore lint/performance/noImgElement: we only use this img element when we specifically cannot use the Image component
       <img
         src={src}
         alt={alt}
@@ -52,4 +55,4 @@ const Logo = ({ src, alt, size, square, border, className }: Props) => {
   );
 };
 
-export default Logo;
+export default memo(Logo);

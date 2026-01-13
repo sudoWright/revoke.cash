@@ -57,5 +57,14 @@ localazy.content.keys.json
 cypress/videos
 cypress/screenshots
 cypress/downloads
+cypress/temp
 
-scripts/chainid-lookup.csv
+.vscode/settings.json
+.vscode/launch.json
+
+certificates
+
+scripts/data
+scripts/exploits/data
+
+!.vscode/settings.json

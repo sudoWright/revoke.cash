@@ -1,3 +1,4 @@
+import { isNullish } from 'lib/utils';
 import {
   CHAIN_SELECT_TESTNETS,
   getChainInfoUrl,
@@ -6,19 +7,18 @@ import {
   getChainSlug,
   getCorrespondingMainnetChainId,
 } from 'lib/utils/chains';
-import Trans from 'next-translate/Trans';
-import useTranslation from 'next-translate/useTranslation';
+import { useTranslations } from 'next-intl';
 import { createElement } from 'react';
 import Href from './Href';
+import RichText from './RichText';
 
 interface Props {
   chainId: number;
   headingElement?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 
-// TODO: Add FAQ structured data
 const ChainDescription = ({ chainId, headingElement }: Props) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   const mainnetChainId = getCorrespondingMainnetChainId(chainId) ?? chainId;
   const isTestnet = CHAIN_SELECT_TESTNETS.includes(chainId);
@@ -30,27 +30,35 @@ const ChainDescription = ({ chainId, headingElement }: Props) => {
   const nativeToken = getChainNativeToken(chainId);
   const infoUrl = getChainInfoUrl(chainId);
 
-  const hasDescription = !!t(`networks:networks.${mainnetChainSlug}`, null, { default: null });
+  const hasDescription = t(`networks.networks.${mainnetChainSlug}`) !== `networks.networks.${mainnetChainSlug}`;
   if (!hasDescription) return null;
 
   return (
     <>
-      {!!headingElement && createElement(headingElement, {}, t('networks:title', { chainName }))}
+      {!isNullish(headingElement) && createElement(headingElement, {}, t('networks.title', { chainName }))}
       <p>
-        {isTestnet && <span>{t(`networks:is_testnet`, { chainName, mainnetChainName }, { default: null })} </span>}
+        {isTestnet && <span>{t('networks.is_testnet', { chainName, mainnetChainName })} </span>}
         <span>
           {isCanary
-            ? t('networks:canary_network', { chainName, mainnetChainName })
-            : t(`networks:networks.${mainnetChainSlug}`)}{' '}
-          {t(`networks:native_token`, { chainName, nativeToken })}
+            ? t('networks.canary_network', { chainName, mainnetChainName })
+            : t(`networks.networks.${mainnetChainSlug}`)}{' '}
+          {t('networks.native_token', { chainName, nativeToken })}
           {infoUrl && (
             <>
               {' '}
-              <Trans
-                i18nKey="networks:learn_more"
-                values={{ chainName }}
-                components={[<Href href={infoUrl} underline="hover" html external />]}
-              />
+              <RichText>
+                {(tags) =>
+                  t.rich('networks.learn_more', {
+                    ...tags,
+                    chainName,
+                    'info-link': (children) => (
+                      <Href href={infoUrl} underline="hover" html external>
+                        {children}
+                      </Href>
+                    ),
+                  })
+                }
+              </RichText>
             </>
           )}
         </span>

@@ -1,20 +1,22 @@
+'use client';
+
 import Logo from 'components/common/Logo';
-import Select from 'components/common/Select';
-import { useColorTheme } from 'lib/hooks/useColorTheme';
-import { track } from 'lib/utils/analytics';
-import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
-import { FormatOptionLabelMeta } from 'react-select';
+import Select from 'components/common/select/Select';
+import type { Locale } from 'lib/i18n/config';
+import { useCsrRouter } from 'lib/i18n/csr-navigation';
+import { usePathname } from 'lib/i18n/navigation';
+import analytics from 'lib/utils/analytics';
+import { useLocale } from 'next-intl';
 
 interface Option {
-  value: string;
+  value: Locale;
   name: string;
 }
 
 const LanguageSelect = () => {
-  const { asPath, replace } = useRouter();
-  const { lang } = useTranslation();
-  const { darkMode } = useColorTheme();
+  const router = useCsrRouter();
+  const path = usePathname();
+  const locale = useLocale();
 
   const options: Option[] = [
     { value: 'en', name: 'English' },
@@ -25,25 +27,23 @@ const LanguageSelect = () => {
   ];
 
   const persistLocaleCookie = (locale: string) => {
-    const date = new Date();
     const expireMs = 10 * 365 * 24 * 60 * 60 * 1000; // 10 years - i.e. effective no expiration
-    date.setTime(date.getTime() + expireMs);
-    document.cookie = `NEXT_LOCALE=${locale};expires=${date.toUTCString()};path=/`;
+    cookieStore.set({ name: 'NEXT_LOCALE', value: locale, expires: Date.now() + expireMs, path: '/' });
   };
 
   const selectLanguage = (option: Option) => {
-    const locale = option.value;
-    track('Changed language', { from: lang, to: locale });
-    replace(asPath, undefined, { locale, scroll: false });
-    persistLocaleCookie(locale);
+    const newLocale = option.value;
+    analytics.track('Changed language', { from: locale, to: newLocale });
+    router.replace(path, { locale: newLocale, scroll: false, showProgress: false, retainSearchParams: ['chainId'] });
+    persistLocaleCookie(newLocale);
   };
 
-  const displayOption = (option: Option, { context }: FormatOptionLabelMeta<Option>) => {
+  const displayOption = (option: Option) => {
     // Flag images are from https://github.com/lipis/flag-icons/tree/main/flags/1x1
     const src = `/assets/images/flags/${option.value}.svg`;
     return (
       <div className="flex gap-1 items-center">
-        <Logo src={src} alt={option.name} size={16} border className={context === 'value' ? 'border-white' : ''} />
+        <Logo src={src} alt={option.name} size={16} border className="border-white" />
         <div>{option.name}</div>
       </div>
     );
@@ -54,15 +54,14 @@ const LanguageSelect = () => {
       instanceId="language-select"
       aria-label="Select Language"
       className="w-32"
-      controlTheme="dark"
-      menuTheme="dark"
-      value={options.find((option) => option.value === lang)}
+      theme="dark"
+      value={options.find((option) => option.value === locale)}
       options={options}
-      onChange={selectLanguage}
+      onChange={(option) => selectLanguage(option!)}
       formatOptionLabel={displayOption}
       menuPlacement="top"
       isSearchable={false}
-      size="md"
+      isMulti={false}
     />
   );
 };
