@@ -23,12 +23,11 @@ An `.example.env` file is provided that needs to be copied into a `.env` file an
 
 Some of these variables are integral to the functioning of Revoke.cash:
 
-- `NEXT_PUBLIC_INFURA_API_KEY` is used for reading data from Ethereum + Testnets.
-- `NEXT_PUBLIC_ALCHEMY_API_KEY` is used for reading data from Polygon, Optimism and Arbitrum + Testnets
+- `NEXT_PUBLIC_ALCHEMY_API_KEY` is used for reading data from Ethereum, Polygon, Optimism and many other chains.
   - Alchemy is also used for ENS and UNS name resolutions - if omitted those resolutions will not work.
 - `COVALENT_API_KEY` and `COVALENT_RATE_LIMIT` is used for certain chains such as Harmony.
 - `ETHERSCAN_API_KEYS` and `ETHERSCAN_RATE_LIMITS` are used for many of the other chains such as BNB Chain or Avalanche.
-- `NEXT_PUBLIC_NODE_URLS` is used to override any RPC URLs on the frontend - e.g. if you want to use Alchemy instead of Infura.
+- `NODE_URLS` / `NEXT_PUBLIC_NODE_URLS` are used to override RPC URLs. Use `NODE_URLS` for server-side services and `NEXT_PUBLIC_NODE_URLS` for the frontend.
 - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` is used for WalletConnect - if omitted, WalletConnect will not work.
 
 If you omit any of these variables, Revoke.cash will not work for the chains you omitted.
@@ -38,9 +37,6 @@ Then there are a few less essential variables:
 - `IRON_SESSION_PASSWORD` is used for encrypting session cookies and can be filled with any random 32-character string - if omitted many chains will not work.
 - `NEXT_PUBLIC_MIXPANEL_API_KEY` is used for Analytics - if omitted, no Analytics are collected.
 - `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` are used for queueing third-party API calls - these are only necessary when hosting in a serverless environment such as Vercel.
-- `RESERVOIR_API_KEY` is used for fetching NFT prices - if omitted, NFT prices will not be shown.
-- `NODE_URLS` is currently unused, but can be used for certain networks in the future.
-- `LOCALAZY_API_KEY` is used for generating "Help Us Translate This Page" links - if omitted, those links will not work.
 
 ## Contributing
 
@@ -64,7 +60,7 @@ Also make sure that your network is listed in [ethereum-lists/chains](https://gi
 In `lib/utils/chains.ts`:
 
 - Add a network configuration for the network to the `CHAINS` mapping. A network configuration can include the following properties, and need to be filled out accordingly. `name`, `infoUrl`, `nativeToken`, `explorerUrl` and `rpc` only need to be added if the data in `ethereum-lists/chains` is different than what should be used by Revoke.cash
-  - `type`: The type of support, can be `SupportType.PROVIDER` for networks with a public RPC endpoint, `SupportType.COVALENT` for networks supported by CovalentHQ, or `SupportType.ETHERSCAN_COMPATIBLE` for networks with a block explorer API.
+  - `type`: The type of support, can be `SupportType.PROVIDER` for networks with a public RPC endpoint, `SupportType.COVALENT` for networks supported by CovalentHQ, or `SupportType.ETHERSCAN` (or `SupportType.BLOCKSCOUT`, `SupportType.ROUTESCAN`) for networks with a block explorer API.
   - `chainId`: The chain ID of the network.
   - `name`: The name of the network.
   - `logoUrl`: The URL of the network's logo. Add a logo file (preferably svg) to `public/assets/images/vendor/chains` and add the path here.
@@ -72,7 +68,7 @@ In `lib/utils/chains.ts`:
   - `nativeToken` (Optional): The symbol of the network's native token.
   - `nativeTokenCoingeckoId` (Optional): The Coingecko ID of the network's native token.
   - `explorerUrl` (Optional): The URL of the network's block explorer.
-  - `etherscanCompatibleApiUrl` (Only for `SupportType.ETHERSCAN_COMPATIBLE`): The URL of the network's block explorer API.
+  - `etherscanCompatibleApiUrl` (Only for `SupportType.ETHERSCAN` or `SupportType.BLOCKSCOUT`): The URL of the network's block explorer API.
   - `rpc.main` (Optional): The URL of the network's RPC endpoint.
   - `rpc.logs` (Optional): The URL of the network's RPC endpoint for fetching logs (if different from `main`).
   - `rpc.free` (Optional): The URL of the network's free RPC endpoint (will be used when adding the network to a wallet).

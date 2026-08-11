@@ -1,0 +1,2396 @@
+[
+  {
+    "name": "real-eoa-transferfrom-usdt",
+    "description": "REAL Ethereum tx 0xc639ff2850dfffef759db5aee5c04120b1a58539bf43e1906b3ea24033f48b76: EOA calls USDT.transferFrom directly (tx.to == token, selector 0x23b872dd, from-arg != tx.from) -> approved with spender = tx.from",
+    "chainId": 1,
+    "trace": {
+      "from": "0xaa8ba7d4611437141192e7ceced531bc0a133efb",
+      "gas": "0xbef1",
+      "gasUsed": "0xbd6e",
+      "to": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "input": "0x23b872dd00000000000000000000000079439b93f07cc2918346117b91ad3c4b99939aa3000000000000000000000000aa8ba7d4611437141192e7ceced531bc0a133efb000000000000000000000000000000000000000000000000000000008f0d1800",
+      "logs": [
+        {
+          "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x00000000000000000000000079439b93f07cc2918346117b91ad3c4b99939aa3",
+            "0x000000000000000000000000aa8ba7d4611437141192e7ceced531bc0a133efb"
+          ],
+          "data": "0x000000000000000000000000000000000000000000000000000000008f0d1800",
+          "position": "0x0",
+          "index": "0x0"
+        }
+      ],
+      "value": "0x0",
+      "type": "CALL"
+    },
+    "transferLogs": [
+      {
+        "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x00000000000000000000000079439b93f07cc2918346117b91ad3c4b99939aa3",
+          "0x000000000000000000000000aa8ba7d4611437141192e7ceced531bc0a133efb"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000000000008f0d1800",
+        "transactionHash": "0xc639ff2850dfffef759db5aee5c04120b1a58539bf43e1906b3ea24033f48b76",
+        "blockNumber": 25632854,
+        "transactionIndex": 57,
+        "logIndex": 336
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 336,
+        "classification": "approved",
+        "spenderAddress": "0xaa8ba7d4611437141192e7ceced531bc0a133efb",
+        "selector": "0x23b872dd"
+      }
+    ]
+  },
+  {
+    "name": "real-uniswap-v3-router-pull",
+    "description": "REAL Ethereum tx 0x81fd2c52b7ac84f8cf05f86a2dbdeb166441dc5567eacc28521db80025b94ba2: Uniswap V3 SwapRouter exactInputSingle swap; the pool pays out via token.transfer (direct) and the router pulls the input token (a proxy, log in DELEGATECALL frame) via transferFrom -> approved with spender = SwapRouter",
+    "chainId": 1,
+    "trace": {
+      "from": "0x77108c3af7da8a4962628053473d52208207cc7f",
+      "gas": "0x21b3c",
+      "gasUsed": "0x1f714",
+      "to": "0xe592427a0aece92de3edee1f18e0157c05861564",
+      "input": "0x414bf3890000000000000000000000001abaea1f7c830bd89acc67ec4af516284b1bc33c0000000000000000000000003619a9103397121b6157859504637689b5c67c3a0000000000000000000000000000000000000000000000000000000000000bb800000000000000000000000077108c3af7da8a4962628053473d52208207cc7f000000000000000000000000000000000000000000000000000000006a68e8fc000000000000000000000000000000000000000000000000000000001869b01600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "output": "0x00000000000000000000000000000000000000000000001a2d6229ff0b3cfa09",
+      "calls": [
+        {
+          "from": "0xe592427a0aece92de3edee1f18e0157c05861564",
+          "gas": "0x19f97",
+          "gasUsed": "0x1933c",
+          "to": "0xb0bc2fc631f18487648c00661b93137062d272c3",
+          "input": "0x128acb0800000000000000000000000077108c3af7da8a4962628053473d52208207cc7f0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000001869b01600000000000000000000000000000000000000000000000000000001000276a400000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004000000000000000000000000077108c3af7da8a4962628053473d52208207cc7f000000000000000000000000000000000000000000000000000000000000002b1abaea1f7c830bd89acc67ec4af516284b1bc33c000bb83619a9103397121b6157859504637689b5c67c3a000000000000000000000000000000000000000000",
+          "output": "0x000000000000000000000000000000000000000000000000000000001869b016ffffffffffffffffffffffffffffffffffffffffffffffe5d29dd600f4c305f7",
+          "calls": [
+            {
+              "from": "0xb0bc2fc631f18487648c00661b93137062d272c3",
+              "gas": "0xf92a",
+              "gasUsed": "0x3b6f",
+              "to": "0x3619a9103397121b6157859504637689b5c67c3a",
+              "input": "0xa9059cbb00000000000000000000000077108c3af7da8a4962628053473d52208207cc7f00000000000000000000000000000000000000000000001a2d6229ff0b3cfa09",
+              "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+              "logs": [
+                {
+                  "address": "0x3619a9103397121b6157859504637689b5c67c3a",
+                  "topics": [
+                    "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "0x000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3",
+                    "0x00000000000000000000000077108c3af7da8a4962628053473d52208207cc7f"
+                  ],
+                  "data": "0x00000000000000000000000000000000000000000000001a2d6229ff0b3cfa09",
+                  "position": "0x0",
+                  "index": "0x0"
+                }
+              ],
+              "value": "0x0",
+              "type": "CALL"
+            },
+            {
+              "from": "0xb0bc2fc631f18487648c00661b93137062d272c3",
+              "gas": "0xb1a5",
+              "gasUsed": "0x2616",
+              "to": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+              "input": "0x70a08231000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3",
+              "output": "0x00000000000000000000000000000000000000000000000000000000af69b6cc",
+              "calls": [
+                {
+                  "from": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+                  "gas": "0x935b",
+                  "gasUsed": "0x9f9",
+                  "to": "0x43506849d7c04f9138d1a2050bbf3a0c054402dd",
+                  "input": "0x70a08231000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3",
+                  "output": "0x00000000000000000000000000000000000000000000000000000000af69b6cc",
+                  "value": "0x0",
+                  "type": "DELEGATECALL"
+                }
+              ],
+              "type": "STATICCALL"
+            },
+            {
+              "from": "0xb0bc2fc631f18487648c00661b93137062d272c3",
+              "gas": "0x8911",
+              "gasUsed": "0x6904",
+              "to": "0xe592427a0aece92de3edee1f18e0157c05861564",
+              "input": "0xfa461e33000000000000000000000000000000000000000000000000000000001869b016ffffffffffffffffffffffffffffffffffffffffffffffe5d29dd600f4c305f7000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000004000000000000000000000000077108c3af7da8a4962628053473d52208207cc7f000000000000000000000000000000000000000000000000000000000000002b1abaea1f7c830bd89acc67ec4af516284b1bc33c000bb83619a9103397121b6157859504637689b5c67c3a000000000000000000000000000000000000000000",
+              "calls": [
+                {
+                  "from": "0xe592427a0aece92de3edee1f18e0157c05861564",
+                  "gas": "0x7891",
+                  "gasUsed": "0x592c",
+                  "to": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+                  "input": "0x23b872dd00000000000000000000000077108c3af7da8a4962628053473d52208207cc7f000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3000000000000000000000000000000000000000000000000000000001869b016",
+                  "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+                  "calls": [
+                    {
+                      "from": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+                      "gas": "0x7440",
+                      "gasUsed": "0x568a",
+                      "to": "0x43506849d7c04f9138d1a2050bbf3a0c054402dd",
+                      "input": "0x23b872dd00000000000000000000000077108c3af7da8a4962628053473d52208207cc7f000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3000000000000000000000000000000000000000000000000000000001869b016",
+                      "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+                      "logs": [
+                        {
+                          "address": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+                          "topics": [
+                            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                            "0x00000000000000000000000077108c3af7da8a4962628053473d52208207cc7f",
+                            "0x000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3"
+                          ],
+                          "data": "0x000000000000000000000000000000000000000000000000000000001869b016",
+                          "position": "0x0",
+                          "index": "0x1"
+                        }
+                      ],
+                      "value": "0x0",
+                      "type": "DELEGATECALL"
+                    }
+                  ],
+                  "value": "0x0",
+                  "type": "CALL"
+                }
+              ],
+              "value": "0x0",
+              "type": "CALL"
+            },
+            {
+              "from": "0xb0bc2fc631f18487648c00661b93137062d272c3",
+              "gas": "0x1f38",
+              "gasUsed": "0x4e2",
+              "to": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+              "input": "0x70a08231000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3",
+              "output": "0x00000000000000000000000000000000000000000000000000000000c7d366e2",
+              "calls": [
+                {
+                  "from": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+                  "gas": "0x1c36",
+                  "gasUsed": "0x229",
+                  "to": "0x43506849d7c04f9138d1a2050bbf3a0c054402dd",
+                  "input": "0x70a08231000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3",
+                  "output": "0x00000000000000000000000000000000000000000000000000000000c7d366e2",
+                  "value": "0x0",
+                  "type": "DELEGATECALL"
+                }
+              ],
+              "type": "STATICCALL"
+            }
+          ],
+          "logs": [
+            {
+              "address": "0xb0bc2fc631f18487648c00661b93137062d272c3",
+              "topics": [
+                "0xc42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67",
+                "0x000000000000000000000000e592427a0aece92de3edee1f18e0157c05861564",
+                "0x00000000000000000000000077108c3af7da8a4962628053473d52208207cc7f"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000000001869b016ffffffffffffffffffffffffffffffffffffffffffffffe5d29dd600f4c305f70000000000000000000000000000000000109051d3a8555da023748d1781a22e00000000000000000000000000000000000000000000000001bebade7b9ae7720000000000000000000000000000000000000000000000000000000000043dcd",
+              "position": "0x4",
+              "index": "0x2"
+            }
+          ],
+          "value": "0x0",
+          "type": "CALL"
+        }
+      ],
+      "value": "0x0",
+      "type": "CALL"
+    },
+    "transferLogs": [
+      {
+        "address": "0x3619a9103397121b6157859504637689b5c67c3a",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3",
+          "0x00000000000000000000000077108c3af7da8a4962628053473d52208207cc7f"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000001a2d6229ff0b3cfa09",
+        "transactionHash": "0x81fd2c52b7ac84f8cf05f86a2dbdeb166441dc5567eacc28521db80025b94ba2",
+        "blockNumber": 25632850,
+        "transactionIndex": 167,
+        "logIndex": 597
+      },
+      {
+        "address": "0x1abaea1f7c830bd89acc67ec4af516284b1bc33c",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x00000000000000000000000077108c3af7da8a4962628053473d52208207cc7f",
+          "0x000000000000000000000000b0bc2fc631f18487648c00661b93137062d272c3"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000000000001869b016",
+        "transactionHash": "0x81fd2c52b7ac84f8cf05f86a2dbdeb166441dc5567eacc28521db80025b94ba2",
+        "blockNumber": 25632850,
+        "transactionIndex": 167,
+        "logIndex": 598
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 597,
+        "classification": "direct",
+        "selector": "0xa9059cbb"
+      },
+      {
+        "logIndex": 598,
+        "classification": "approved",
+        "spenderAddress": "0xe592427a0aece92de3edee1f18e0157c05861564",
+        "selector": "0x23b872dd"
+      }
+    ]
+  },
+  {
+    "name": "real-universal-router-permit2",
+    "description": "REAL Ethereum tx 0x5a0ca03b3c9da9b67b31d5aa0bc2512756fcd197a12a8a522284e7605179bd2b: Uniswap UniversalRouter (0x66a9893c...) execute swap via Permit2; pool pays USDT via transfer (direct), Permit2 pulls the input token (proxy, log in DELEGATECALL frame) via transferFrom -> approved with spenderAddress = UniversalRouter (the semantic spender) and permit2Address = the Permit2 instance",
+    "chainId": 1,
+    "trace": {
+      "from": "0x42e2cbb3e737bd243c41d6322cb904ee8792d830",
+      "gas": "0x30d40",
+      "gasUsed": "0x2670c",
+      "to": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+      "input": "0x3593564c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000006a68e90100000000000000000000000000000000000000000000000000000000000000020a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000001c000000000000000000000000000000000000000000000000000000000000001600000000000000000000000009d70bae2944ffa477f37bae227fd981e6eb31982000000000000000000000000ffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000006a90758900000000000000000000000000000000000000000000000000000000000000d100000000000000000000000066a9893cc07d91d95644aedd05d03f95e1dba8af000000000000000000000000000000000000000000000000000000006a68e90100000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000041ba3a7cb51a6ca7b4988098464ec725599b1af3cf741fffe6300a7e6ab156363b6b7b0d6dfa81644cfb9a4f466ef2a17bc7a92fe905d741b8b4708c3938ec59191c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000002394b4ff736267f50e000000000000000000000000000000000000000000000000000000000a9cd9e800000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000002b9d70bae2944ffa477f37bae227fd981e6eb31982000bb8dac17f958d2ee523a2206206994597c13d831ec7000000000000000000000000000000000000000000",
+      "calls": [
+        {
+          "from": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+          "gas": "0x284b5",
+          "gasUsed": "0x3576",
+          "to": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+          "input": "0x2b67b57000000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d8300000000000000000000000009d70bae2944ffa477f37bae227fd981e6eb31982000000000000000000000000ffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000006a90758900000000000000000000000000000000000000000000000000000000000000d100000000000000000000000066a9893cc07d91d95644aedd05d03f95e1dba8af000000000000000000000000000000000000000000000000000000006a68e90100000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000041ba3a7cb51a6ca7b4988098464ec725599b1af3cf741fffe6300a7e6ab156363b6b7b0d6dfa81644cfb9a4f466ef2a17bc7a92fe905d741b8b4708c3938ec59191c00000000000000000000000000000000000000000000000000000000000000",
+          "calls": [
+            {
+              "from": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+              "gas": "0x2718f",
+              "gasUsed": "0xbb8",
+              "to": "0x0000000000000000000000000000000000000001",
+              "input": "0xaea8f9e82d862fa3f9322740290a60d0267731529fc56a66b2675652e4c2e437000000000000000000000000000000000000000000000000000000000000001cba3a7cb51a6ca7b4988098464ec725599b1af3cf741fffe6300a7e6ab156363b6b7b0d6dfa81644cfb9a4f466ef2a17bc7a92fe905d741b8b4708c3938ec5919",
+              "output": "0x00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830",
+              "type": "STATICCALL"
+            }
+          ],
+          "logs": [
+            {
+              "address": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+              "topics": [
+                "0xc6a377bfc4eb120024a8ac08eef205be16b817020812c73223e81d1bdb9708ec",
+                "0x00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830",
+                "0x0000000000000000000000009d70bae2944ffa477f37bae227fd981e6eb31982",
+                "0x00000000000000000000000066a9893cc07d91d95644aedd05d03f95e1dba8af"
+              ],
+              "data": "0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000006a90758900000000000000000000000000000000000000000000000000000000000000d1",
+              "position": "0x1",
+              "index": "0x0"
+            }
+          ],
+          "value": "0x0",
+          "type": "CALL"
+        },
+        {
+          "from": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+          "gas": "0x23c5b",
+          "gasUsed": "0x19cbd",
+          "to": "0xfaf41f3761eb08374639955bde44cbbf3dcc8384",
+          "input": "0x128acb0800000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000002394b4ff736267f50e00000000000000000000000000000000000000000000000000000001000276a400000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000004000000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830000000000000000000000000000000000000000000000000000000000000002b9d70bae2944ffa477f37bae227fd981e6eb31982000bb8dac17f958d2ee523a2206206994597c13d831ec7000000000000000000000000000000000000000000",
+          "output": "0x00000000000000000000000000000000000000000000002394b4ff736267f50efffffffffffffffffffffffffffffffffffffffffffffffffffffffff5557f0c",
+          "calls": [
+            {
+              "from": "0xfaf41f3761eb08374639955bde44cbbf3dcc8384",
+              "gas": "0x19313",
+              "gasUsed": "0x5fb5",
+              "to": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+              "input": "0xa9059cbb00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830000000000000000000000000000000000000000000000000000000000aaa80f4",
+              "logs": [
+                {
+                  "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+                  "topics": [
+                    "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "0x000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc8384",
+                    "0x00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830"
+                  ],
+                  "data": "0x000000000000000000000000000000000000000000000000000000000aaa80f4",
+                  "position": "0x0",
+                  "index": "0x1"
+                }
+              ],
+              "value": "0x0",
+              "type": "CALL"
+            },
+            {
+              "from": "0xfaf41f3761eb08374639955bde44cbbf3dcc8384",
+              "gas": "0x12855",
+              "gasUsed": "0x1d7b",
+              "to": "0x9d70bae2944ffa477f37bae227fd981e6eb31982",
+              "input": "0x70a08231000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc8384",
+              "output": "0x000000000000000000000000000000000000000000002651ef5b7fffb48fa618",
+              "calls": [
+                {
+                  "from": "0x9d70bae2944ffa477f37bae227fd981e6eb31982",
+                  "gas": "0x1110c",
+                  "gasUsed": "0xa5e",
+                  "to": "0x4a13a71d29b4e678497efd4d230c5e324cb9e5c7",
+                  "input": "0x70a08231000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc8384",
+                  "output": "0x000000000000000000000000000000000000000000002651ef5b7fffb48fa618",
+                  "value": "0x0",
+                  "type": "DELEGATECALL"
+                }
+              ],
+              "type": "STATICCALL"
+            },
+            {
+              "from": "0xfaf41f3761eb08374639955bde44cbbf3dcc8384",
+              "gas": "0x10841",
+              "gasUsed": "0x57c1",
+              "to": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+              "input": "0xfa461e3300000000000000000000000000000000000000000000002394b4ff736267f50efffffffffffffffffffffffffffffffffffffffffffffffffffffffff5557f0c000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000004000000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830000000000000000000000000000000000000000000000000000000000000002b9d70bae2944ffa477f37bae227fd981e6eb31982000bb8dac17f958d2ee523a2206206994597c13d831ec7000000000000000000000000000000000000000000",
+              "calls": [
+                {
+                  "from": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+                  "gas": "0xfb3e",
+                  "gasUsed": "0x4e2a",
+                  "to": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+                  "input": "0x36c7851600000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc838400000000000000000000000000000000000000000000002394b4ff736267f50e0000000000000000000000009d70bae2944ffa477f37bae227fd981e6eb31982",
+                  "calls": [
+                    {
+                      "from": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+                      "gas": "0xf2f3",
+                      "gasUsed": "0x4973",
+                      "to": "0x9d70bae2944ffa477f37bae227fd981e6eb31982",
+                      "input": "0x23b872dd00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc838400000000000000000000000000000000000000000000002394b4ff736267f50e",
+                      "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+                      "calls": [
+                        {
+                          "from": "0x9d70bae2944ffa477f37bae227fd981e6eb31982",
+                          "gas": "0xedc4",
+                          "gasUsed": "0x47e1",
+                          "to": "0x4a13a71d29b4e678497efd4d230c5e324cb9e5c7",
+                          "input": "0x23b872dd00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc838400000000000000000000000000000000000000000000002394b4ff736267f50e",
+                          "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+                          "logs": [
+                            {
+                              "address": "0x9d70bae2944ffa477f37bae227fd981e6eb31982",
+                              "topics": [
+                                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                                "0x00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830",
+                                "0x000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc8384"
+                              ],
+                              "data": "0x00000000000000000000000000000000000000000000002394b4ff736267f50e",
+                              "position": "0x0",
+                              "index": "0x2"
+                            }
+                          ],
+                          "value": "0x0",
+                          "type": "DELEGATECALL"
+                        }
+                      ],
+                      "value": "0x0",
+                      "type": "CALL"
+                    }
+                  ],
+                  "value": "0x0",
+                  "type": "CALL"
+                }
+              ],
+              "value": "0x0",
+              "type": "CALL"
+            },
+            {
+              "from": "0xfaf41f3761eb08374639955bde44cbbf3dcc8384",
+              "gas": "0xaf66",
+              "gasUsed": "0x417",
+              "to": "0x9d70bae2944ffa477f37bae227fd981e6eb31982",
+              "input": "0x70a08231000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc8384",
+              "output": "0x00000000000000000000000000000000000000000000267584107f7316f79b26",
+              "calls": [
+                {
+                  "from": "0x9d70bae2944ffa477f37bae227fd981e6eb31982",
+                  "gas": "0xab4e",
+                  "gasUsed": "0x28e",
+                  "to": "0x4a13a71d29b4e678497efd4d230c5e324cb9e5c7",
+                  "input": "0x70a08231000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc8384",
+                  "output": "0x00000000000000000000000000000000000000000000267584107f7316f79b26",
+                  "value": "0x0",
+                  "type": "DELEGATECALL"
+                }
+              ],
+              "type": "STATICCALL"
+            }
+          ],
+          "logs": [
+            {
+              "address": "0xfaf41f3761eb08374639955bde44cbbf3dcc8384",
+              "topics": [
+                "0xc42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67",
+                "0x00000000000000000000000066a9893cc07d91d95644aedd05d03f95e1dba8af",
+                "0x00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000002394b4ff736267f50efffffffffffffffffffffffffffffffffffffffffffffffffffffffff5557f0c0000000000000000000000000000000000000000000008c4c93432460f7ffc9300000000000000000000000000000000000000000000000004798899d41c7719fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffb95ea",
+              "position": "0x4",
+              "index": "0x3"
+            }
+          ],
+          "value": "0x0",
+          "type": "CALL"
+        }
+      ],
+      "value": "0x0",
+      "type": "CALL"
+    },
+    "transferLogs": [
+      {
+        "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc8384",
+          "0x00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000000000000aaa80f4",
+        "transactionHash": "0x5a0ca03b3c9da9b67b31d5aa0bc2512756fcd197a12a8a522284e7605179bd2b",
+        "blockNumber": 25632850,
+        "transactionIndex": 66,
+        "logIndex": 218
+      },
+      {
+        "address": "0x9d70bae2944ffa477f37bae227fd981e6eb31982",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x00000000000000000000000042e2cbb3e737bd243c41d6322cb904ee8792d830",
+          "0x000000000000000000000000faf41f3761eb08374639955bde44cbbf3dcc8384"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000002394b4ff736267f50e",
+        "transactionHash": "0x5a0ca03b3c9da9b67b31d5aa0bc2512756fcd197a12a8a522284e7605179bd2b",
+        "blockNumber": 25632850,
+        "transactionIndex": 66,
+        "logIndex": 219
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 218,
+        "classification": "direct",
+        "selector": "0xa9059cbb"
+      },
+      {
+        "logIndex": 219,
+        "classification": "approved",
+        "spenderAddress": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+        "selector": "0x23b872dd",
+        "permit2Address": "0x000000000022d473030f116ddee9f6b43ac78ba3"
+      }
+    ]
+  },
+  {
+    "name": "real-usdc-direct-transfer",
+    "description": "REAL Ethereum tx 0x2c41c7ac69c243f1bf2415d9ecf41a6b3a33bb784c034586972f86760bacf33d: plain USDC transfer; USDC is a proxy so the Transfer log sits in the DELEGATECALL frame into the implementation, msg.sender boundary is the root CALL and equals the transfer from -> direct",
+    "chainId": 1,
+    "trace": {
+      "from": "0x76170271ad97c03c4d237b85b393222c8e418902",
+      "gas": "0x1adb0",
+      "gasUsed": "0x9da8",
+      "to": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "input": "0xa9059cbb000000000000000000000000a3222357a0eccf60c73606170be6c99adecb59b3000000000000000000000000000000000000000000000000000000023ddf9f00",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+      "calls": [
+        {
+          "from": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+          "gas": "0x13808",
+          "gasUsed": "0x3f87",
+          "to": "0x43506849d7c04f9138d1a2050bbf3a0c054402dd",
+          "input": "0xa9059cbb000000000000000000000000a3222357a0eccf60c73606170be6c99adecb59b3000000000000000000000000000000000000000000000000000000023ddf9f00",
+          "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+          "logs": [
+            {
+              "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x00000000000000000000000076170271ad97c03c4d237b85b393222c8e418902",
+                "0x000000000000000000000000a3222357a0eccf60c73606170be6c99adecb59b3"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000000000000023ddf9f00",
+              "position": "0x0",
+              "index": "0x0"
+            }
+          ],
+          "value": "0x0",
+          "type": "DELEGATECALL"
+        }
+      ],
+      "value": "0x0",
+      "type": "CALL"
+    },
+    "transferLogs": [
+      {
+        "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x00000000000000000000000076170271ad97c03c4d237b85b393222c8e418902",
+          "0x000000000000000000000000a3222357a0eccf60c73606170be6c99adecb59b3"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000000000023ddf9f00",
+        "transactionHash": "0x2c41c7ac69c243f1bf2415d9ecf41a6b3a33bb784c034586972f86760bacf33d",
+        "blockNumber": 25632851,
+        "transactionIndex": 225,
+        "logIndex": 742
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 742,
+        "classification": "direct",
+        "selector": "0xa9059cbb"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-create-constructor-transfer",
+    "description": "SYNTHETIC: factory CREATEs a token whose constructor emits Transfer(alice->bob); the CREATE frame is a msg.sender boundary (creator = factory != alice) and its bytecode input has no recognized selector -> other. The root CALL deliberately carries transferFrom-shaped calldata: if the CREATE boundary were ignored this would misclassify as approved",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x1111111111111111111111111111111111111111",
+      "to": "0x6666666666666666666666666666666666666666",
+      "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb00000000000000000000000000000000000000000000000000000000000003e8",
+      "calls": [
+        {
+          "type": "CREATE",
+          "from": "0x6666666666666666666666666666666666666666",
+          "to": "0x3000000000000000000000000000000000000003",
+          "input": "0x6080604052348015600e575f5ffd5b50607980601a5f395ff3fe",
+          "logs": [
+            {
+              "address": "0x3000000000000000000000000000000000000003",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000000000000000003e8",
+              "position": "0x0"
+            }
+          ]
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x3000000000000000000000000000000000000003",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000000000000000000003e8",
+        "transactionHash": "0xabababababababababababababababababababababababababababababababab",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 0
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 0,
+        "classification": "other",
+        "selector": "0x60806040"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-duplicates-differing-callers",
+    "description": "SYNTHETIC: three byte-identical Transfer logs where the candidate frames have different callers (a root contract pulls twice and a nested contract pulls once) \u2014 outcomes disagree, so all rows come back unknown; the trace deliberately still contains position fields to prove ordering information is ignored",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x1111111111111111111111111111111111111111",
+      "to": "0x1000000000000000000000000000000000000001",
+      "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb0000000000000000000000000000000000000000000000000000000000000005",
+      "logs": [
+        {
+          "address": "0x1000000000000000000000000000000000000001",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+          "position": "0x0"
+        },
+        {
+          "address": "0x1000000000000000000000000000000000000001",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+          "position": "0x1"
+        }
+      ],
+      "calls": [
+        {
+          "type": "CALL",
+          "from": "0x1000000000000000000000000000000000000001",
+          "to": "0x2222222222222222222222222222222222222222",
+          "input": "0xabcdef0100000000000000000000000000000000000000000000000000000000",
+          "calls": [
+            {
+              "type": "CALL",
+              "from": "0x2222222222222222222222222222222222222222",
+              "to": "0x1000000000000000000000000000000000000001",
+              "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb0000000000000000000000000000000000000000000000000000000000000005",
+              "logs": [
+                {
+                  "address": "0x1000000000000000000000000000000000000001",
+                  "topics": [
+                    "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+                  ],
+                  "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+                  "position": "0x0"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "transactionHash": "0xabababababababababababababababababababababababababababababababab",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 10
+      },
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "transactionHash": "0xabababababababababababababababababababababababababababababababab",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 11
+      },
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "transactionHash": "0xabababababababababababababababababababababababababababababababab",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 12
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 10,
+        "classification": "unknown",
+        "error": "ambiguous duplicate transfer logs (candidate frames disagree)"
+      },
+      {
+        "logIndex": 11,
+        "classification": "unknown",
+        "error": "ambiguous duplicate transfer logs (candidate frames disagree)"
+      },
+      {
+        "logIndex": 12,
+        "classification": "unknown",
+        "error": "ambiguous duplicate transfer logs (candidate frames disagree)"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-duplicates-same-caller",
+    "description": "SYNTHETIC: a token-call frame emits two byte-identical Transfer logs (the same contract pulling the same amount twice) \u2014 both candidate frames classify identically, so the agreement collapse attributes both rows even though duplicates are never paired with specific frames",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x1111111111111111111111111111111111111111",
+      "to": "0x1000000000000000000000000000000000000001",
+      "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb0000000000000000000000000000000000000000000000000000000000000005",
+      "logs": [
+        {
+          "address": "0x1000000000000000000000000000000000000001",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000005"
+        },
+        {
+          "address": "0x1000000000000000000000000000000000000001",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000005"
+        }
+      ],
+      "calls": [
+        {
+          "type": "CALL",
+          "from": "0x1000000000000000000000000000000000000001",
+          "to": "0x3333333333333333333333333333333333333333",
+          "input": "0xabcdef0100000000000000000000000000000000000000000000000000000000"
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "transactionHash": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 20
+      },
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "transactionHash": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 21
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 20,
+        "classification": "approved",
+        "spenderAddress": "0x1111111111111111111111111111111111111111",
+        "selector": "0x23b872dd"
+      },
+      {
+        "logIndex": 21,
+        "classification": "approved",
+        "spenderAddress": "0x1111111111111111111111111111111111111111",
+        "selector": "0x23b872dd"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-eip3009-relayed",
+    "description": "SYNTHETIC: relayer submits token.transferWithAuthorization (EIP-3009, selector 0xe3ee160e) moving alice's tokens on a signed authorization; tx.from is the relayer, not alice -> signature_authorized with no spender",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x9999999999999999999999999999999999999999",
+      "to": "0x1000000000000000000000000000000000000001",
+      "input": "0xe3ee160e000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb00000000000000000000000000000000000000000000000000000000000000640000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffff1111111111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000000000000000000000000001b22222222222222222222222222222222222222222222222222222222222222223333333333333333333333333333333333333333333333333333333333333333",
+      "logs": [
+        {
+          "address": "0x1000000000000000000000000000000000000001",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          ],
+          "data": "0x0000000000000000000000000000000000000000000000000000000000000064",
+          "position": "0x0"
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000064",
+        "transactionHash": "0xabababababababababababababababababababababababababababababababab",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 3
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 3,
+        "classification": "signature_authorized",
+        "selector": "0xe3ee160e"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-log-not-in-trace",
+    "description": "SYNTHETIC: the stored Transfer log does not appear anywhere in the trace (e.g. truncated or mismatched trace) -> unknown with the not-found error",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x1111111111111111111111111111111111111111",
+      "to": "0x1000000000000000000000000000000000000001",
+      "input": "0xa9059cbb000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb00000000000000000000000000000000000000000000000000000000000003e7",
+      "logs": []
+    },
+    "transferLogs": [
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000000000000000000007b",
+        "transactionHash": "0xabababababababababababababababababababababababababababababababab",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 5
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 5,
+        "classification": "unknown",
+        "error": "transfer log not found in trace"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-multicall-delegatecall-self",
+    "description": "SYNTHETIC: marketplace CALLs an NFT-manager token with multicall (0xac9650d8) which DELEGATECALLs itself with transferFrom calldata, inside which the ERC-721 Transfer is emitted; the recognized selector nearest the emission wins -> approved with spender = marketplace, selector 0x23b872dd",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x3333333333333333333333333333333333333333",
+      "to": "0x2000000000000000000000000000000000000002",
+      "input": "0xac9650d8000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000006423b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb000000000000000000000000000000000000000000000000000000000000002a",
+      "calls": [
+        {
+          "type": "DELEGATECALL",
+          "from": "0x2000000000000000000000000000000000000002",
+          "to": "0x2000000000000000000000000000000000000002",
+          "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb000000000000000000000000000000000000000000000000000000000000002a",
+          "logs": [
+            {
+              "address": "0x2000000000000000000000000000000000000002",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "0x000000000000000000000000000000000000000000000000000000000000002a"
+              ],
+              "data": "0x",
+              "position": "0x0"
+            }
+          ]
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x2000000000000000000000000000000000000002",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "0x000000000000000000000000000000000000000000000000000000000000002a"
+        ],
+        "data": "0x",
+        "transactionHash": "0xabababababababababababababababababababababababababababababababab",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 7
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 7,
+        "classification": "approved",
+        "spenderAddress": "0x3333333333333333333333333333333333333333",
+        "selector": "0x23b872dd"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-permit2-batch-allowance-transfer",
+    "description": "SYNTHETIC: a Permit2 instance entered through the BATCH AllowanceTransfer transferFrom selector where the second tuple in the array corroborates the emitted Transfer log (the first tuple is an unrelated transfer), exercising the batch calldata decode path",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x5555555555555555555555555555555555555555",
+      "to": "0x9999999999999999999999999999999999999999",
+      "input": "0x0d58b1db00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000002000000000000000000000000cccccccccccccccccccccccccccccccccccccccc000000000000000000000000dddddddddddddddddddddddddddddddddddddddd00000000000000000000000000000000000000000000000000000000000000070000000000000000000000002000000000000000000000000000000000000002000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb00000000000000000000000000000000000000000000000000000000000000050000000000000000000000001000000000000000000000000000000000000001",
+      "calls": [
+        {
+          "type": "CALL",
+          "from": "0x9999999999999999999999999999999999999999",
+          "to": "0x1000000000000000000000000000000000000001",
+          "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb0000000000000000000000000000000000000000000000000000000000000005",
+          "logs": [
+            {
+              "address": "0x1000000000000000000000000000000000000001",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000005"
+            }
+          ]
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "transactionHash": "0xefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 30
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 30,
+        "classification": "approved",
+        "spenderAddress": "0x5555555555555555555555555555555555555555",
+        "permit2Address": "0x9999999999999999999999999999999999999999",
+        "selector": "0x23b872dd"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-permit2-clone-allowance-transfer",
+    "description": "SYNTHETIC: a NON-canonical Permit2 instance (deployed at an arbitrary address) is entered through the single AllowanceTransfer transferFrom selector with arguments matching the emitted Transfer log, so the structural detection attributes the inner spender and records the clone as permit2Address \u2014 no hardcoded canonical address involved",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x5555555555555555555555555555555555555555",
+      "to": "0x9999999999999999999999999999999999999999",
+      "input": "0x36c78516000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb00000000000000000000000000000000000000000000000000000000000000050000000000000000000000001000000000000000000000000000000000000001",
+      "calls": [
+        {
+          "type": "CALL",
+          "from": "0x9999999999999999999999999999999999999999",
+          "to": "0x1000000000000000000000000000000000000001",
+          "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb0000000000000000000000000000000000000000000000000000000000000005",
+          "logs": [
+            {
+              "address": "0x1000000000000000000000000000000000000001",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000005"
+            }
+          ]
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "transactionHash": "0xefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 30
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 30,
+        "classification": "approved",
+        "spenderAddress": "0x5555555555555555555555555555555555555555",
+        "permit2Address": "0x9999999999999999999999999999999999999999",
+        "selector": "0x23b872dd"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-permit2-selector-collision",
+    "description": "SYNTHETIC: an unrelated contract is coincidentally entered through a function sharing the AllowanceTransfer transferFrom selector, but the decoded arguments do NOT corroborate the emitted Transfer log (different token address), so no inner-spender attribution happens and the spender stays the token-level msg.sender",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x5555555555555555555555555555555555555555",
+      "to": "0x9999999999999999999999999999999999999999",
+      "input": "0x36c78516000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb00000000000000000000000000000000000000000000000000000000000000050000000000000000000000002000000000000000000000000000000000000002",
+      "calls": [
+        {
+          "type": "CALL",
+          "from": "0x9999999999999999999999999999999999999999",
+          "to": "0x1000000000000000000000000000000000000001",
+          "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb0000000000000000000000000000000000000000000000000000000000000005",
+          "logs": [
+            {
+              "address": "0x1000000000000000000000000000000000000001",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000000000000000000000005"
+            }
+          ]
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x1000000000000000000000000000000000000001",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000005",
+        "transactionHash": "0xefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefef",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 30
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 30,
+        "classification": "approved",
+        "spenderAddress": "0x9999999999999999999999999999999999999999",
+        "selector": "0x23b872dd"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-permit2-signature-transfer",
+    "description": "SYNTHETIC: Permit2 SignatureTransfer (permitTransferFrom, selector 0x30f28b7a) \u2014 a filler submits the owner's one-shot signed authorization; Permit2 calls token.transferFrom. Unlike AllowanceTransfer, the filler holds no permit-granted allowance and appears in no approval event, so the spender stays Permit2 itself (matching the owner's ERC-20 approval to Permit2) and permit2Address stays unset.",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x1111111111111111111111111111111111111111",
+      "to": "0x2222222222222222222222222222222222222222",
+      "input": "0xdeadbeef00000000000000000000000000000000000000000000000000000000",
+      "calls": [
+        {
+          "type": "CALL",
+          "from": "0x2222222222222222222222222222222222222222",
+          "to": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+          "input": "0x30f28b7a0000000000000000000000000000000000000000000000000000000000000000",
+          "calls": [
+            {
+              "type": "CALL",
+              "from": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+              "to": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+              "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb0000000000000000000000000000000000000000000000000000000005f5e100",
+              "logs": [
+                {
+                  "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+                  "topics": [
+                    "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+                  ],
+                  "data": "0x0000000000000000000000000000000000000000000000000000000005f5e100",
+                  "position": "0x0"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x000000000000000000000000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000005f5e100",
+        "transactionHash": "0x1234567890123456789012345678901234567890123456789012345678901234",
+        "blockNumber": 20000000,
+        "transactionIndex": 1,
+        "logIndex": 7
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 7,
+        "classification": "approved",
+        "spenderAddress": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+        "selector": "0x23b872dd"
+      }
+    ]
+  },
+  {
+    "name": "synthetic-seaport-conduit-nft",
+    "description": "SYNTHETIC: Seaport-style fill where buyer CALLs seaport, seaport CALLs its conduit, and the conduit CALLs token.transferFrom pulling the seller's ERC-721 (4-topic Transfer with tokenId) -> approved with spender = conduit",
+    "chainId": 1,
+    "trace": {
+      "type": "CALL",
+      "from": "0x1111111111111111111111111111111111111111",
+      "to": "0x7777777777777777777777777777777777777777",
+      "input": "0xfb0f3ee100000000000000000000000000000000000000000000000000000000",
+      "calls": [
+        {
+          "type": "CALL",
+          "from": "0x7777777777777777777777777777777777777777",
+          "to": "0x8888888888888888888888888888888888888888",
+          "input": "0x4ce34aa200000000000000000000000000000000000000000000000000000000",
+          "calls": [
+            {
+              "type": "CALL",
+              "from": "0x8888888888888888888888888888888888888888",
+              "to": "0x4000000000000000000000000000000000000004",
+              "input": "0x23b872dd000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa00000000000000000000000011111111111111111111111111111111111111110000000000000000000000000000000000000000000000000000000000000063",
+              "logs": [
+                {
+                  "address": "0x4000000000000000000000000000000000000004",
+                  "topics": [
+                    "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "0x0000000000000000000000001111111111111111111111111111111111111111",
+                    "0x0000000000000000000000000000000000000000000000000000000000000063"
+                  ],
+                  "data": "0x",
+                  "position": "0x0"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x4000000000000000000000000000000000000004",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "0x0000000000000000000000001111111111111111111111111111111111111111",
+          "0x0000000000000000000000000000000000000000000000000000000000000063"
+        ],
+        "data": "0x",
+        "transactionHash": "0xabababababababababababababababababababababababababababababababab",
+        "blockNumber": 12345678,
+        "transactionIndex": 1,
+        "logIndex": 21
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 21,
+        "classification": "approved",
+        "spenderAddress": "0x8888888888888888888888888888888888888888",
+        "selector": "0x23b872dd"
+      }
+    ]
+  },
+  {
+    "name": "real-rootstock-ancestor-propagated-logs",
+    "description": "REAL Rootstock tx 0x6a5cce06933cecb6ecf338785b17debc94069961233be78f932f4ddd3642a951: the Rootstock tracer propagates every subcall log into all ancestor frames (each receipt log appears once per ancestor level in the trace), which used to produce false ambiguous-duplicate verdicts; the ancestor-copy dedup must attribute all three transfers via their deepest (emitting) frames",
+    "chainId": 30,
+    "trace": {
+      "type": "CALL",
+      "from": "0xe126b3e5d052f1f575828f61feba4f4f2603652a",
+      "to": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+      "value": "0x0",
+      "gas": "0xb71b0",
+      "gasUsed": "0x69b65",
+      "input": "0xb77d239b00000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000014542ba12a337c0000000000000000000000000000000000000000000000000014150ffd235a17282d0000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f0000000000000000000000006f96096687952349dd5944e0eb1be327dcdeb705000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d00000000000000000000000030a9b9be9aa8fd64ee43b1b6c9bd474601373d34000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb96",
+      "output": "0x0",
+      "calls": [
+        {
+          "type": "CALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0x6f96096687952349dd5944e0eb1be327dcdeb705",
+          "value": "0x0",
+          "gas": "0xad4fc",
+          "gasUsed": "0x30b",
+          "input": "0x8da5cb5b",
+          "output": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9"
+        },
+        {
+          "type": "STATICCALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "value": "0x0",
+          "gas": "0x1388",
+          "gasUsed": "0x533",
+          "input": "0xd260529c",
+          "output": "0x1"
+        },
+        {
+          "type": "CALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0xb5999795be0ebb5bab23144aa5fd6a02d080299f",
+          "value": "0x0",
+          "gas": "0xac06f",
+          "gasUsed": "0x5300",
+          "input": "0x23b872dd000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d900000000000000000000000000000000000000000000014542ba12a337c00000",
+          "output": "0x1",
+          "logs": [
+            {
+              "index": 1,
+              "address": "0xb5999795be0ebb5bab23144aa5fd6a02d080299f",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a",
+                "0x000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d9"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000014542ba12a337c00000"
+            },
+            {
+              "index": 2,
+              "address": "0xb5999795be0ebb5bab23144aa5fd6a02d080299f",
+              "topics": [
+                "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+                "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a",
+                "0x00000000000000000000000098ace08d2b759a265ae326f010496bcd63c15afc"
+              ],
+              "data": "0x0000000000000000000000000000000000000000204fcd18fb6aefbdd8400000"
+            }
+          ]
+        },
+        {
+          "type": "CALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0x46ebc03ef2277308bdb106a73d11c65109c4b89b",
+          "value": "0x0",
+          "gas": "0xa618b",
+          "gasUsed": "0x2fb",
+          "input": "0xbb34534c424e54546f6b656e000000000000000000000000000000000000000000000000",
+          "output": "0x0"
+        },
+        {
+          "type": "CALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0x6f96096687952349dd5944e0eb1be327dcdeb705",
+          "value": "0x0",
+          "gas": "0xa5758",
+          "gasUsed": "0x30b",
+          "input": "0x8da5cb5b",
+          "output": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9"
+        },
+        {
+          "type": "STATICCALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "value": "0x0",
+          "gas": "0x1388",
+          "gasUsed": "0x533",
+          "input": "0xd260529c",
+          "output": "0x1"
+        },
+        {
+          "type": "CALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0x30a9b9be9aa8fd64ee43b1b6c9bd474601373d34",
+          "value": "0x0",
+          "gas": "0xa3fdf",
+          "gasUsed": "0x2c6",
+          "input": "0x8da5cb5b",
+          "output": "0x448c2474b255576554eed36c24430ccfac131ce3"
+        },
+        {
+          "type": "STATICCALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0x448c2474b255576554eed36c24430ccfac131ce3",
+          "value": "0x0",
+          "gas": "0x1388",
+          "gasUsed": "0x55f",
+          "input": "0xd260529c",
+          "output": "0x1"
+        },
+        {
+          "type": "CALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "value": "0x0",
+          "gas": "0xa1dc5",
+          "gasUsed": "0x23a6e",
+          "input": "0xe8dc12ff000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d00000000000000000000000000000000000000000000014542ba12a337c00000000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+          "output": "0x2475004be6c2336",
+          "calls": [
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x46ebc03ef2277308bdb106a73d11c65109c4b89b",
+              "value": "0x0",
+              "gas": "0x9fbba",
+              "gasUsed": "0x2fb",
+              "input": "0xbb34534c536f7672796e537761704e6574776f726b000000000000000000000000000000",
+              "output": "0x98ace08d2b759a265ae326f010496bcd63c15afc"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x46ebc03ef2277308bdb106a73d11c65109c4b89b",
+              "value": "0x0",
+              "gas": "0x9ded4",
+              "gasUsed": "0x2fb",
+              "input": "0xbb34534c536f7672796e53776170466f726d756c61000000000000000000000000000000",
+              "output": "0x3278734b16f27ed5c69fd246df9357a866fd811e"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x3278734b16f27ed5c69fd246df9357a866fd811e",
+              "value": "0x0",
+              "gas": "0x9d4d4",
+              "gasUsed": "0x41e",
+              "input": "0x94491fab000000000000000000000000000000000000000000000006e458e07e920e202f000000000000000000000000000000000000000000000000000000000007a12000000000000000000000000000000000000000000003d39845417573b77c4b55000000000000000000000000000000000000000000000000000000000007a12000000000000000000000000000000000000000000000000001c3ac41a99e38dd",
+              "output": "0xfa869735d2d94f46e2"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x3278734b16f27ed5c69fd246df9357a866fd811e",
+              "value": "0x0",
+              "gas": "0x9c9d0",
+              "gasUsed": "0x41e",
+              "input": "0x94491fab00000000000000000000000000000000000000000003d39845417573b77c4b55000000000000000000000000000000000000000000000000000000000007a120000000000000000000000000000000000000000000000006e458e07e920e202f000000000000000000000000000000000000000000000000000000000007a1200000000000000000000000000000000000000000000000fac6b9aa5b81f9b96b",
+              "output": "0x1c338be66719087"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0xd08edf687418df0107babcc8fcab9064f3a6fc05",
+              "value": "0x0",
+              "gas": "0x9ba08",
+              "gasUsed": "0x9358",
+              "input": "0x9c0e3f7a0000000000000000000000000000000000000000000007b28e13aa760ac2aeb0000000000000000000000000000000000000000000000000000018f8657f27d8",
+              "output": "0x0",
+              "logs": [
+                {
+                  "index": 3,
+                  "address": "0xd08edf687418df0107babcc8fcab9064f3a6fc05",
+                  "topics": ["0xc2b6c6efe20ca0bd2084352507ac2365a79ab0ff280b979f4e2bfc037a759654"],
+                  "data": "0x0000000000000000000000000000000000000000000007b2b08f4b261545a006000000000000000000000000000000000000000000000000000018f7fa0dc0e00000000000000000000000000000000000000000000000000000000000417727000000000000000000000000000000000000000000000000000000006274de6600000000000000000000000000000000000000062e8f9ced5a33b57158c3d06000000000000000000000000000000000000000000000000f4eec984e5eb51e9c"
+                }
+              ]
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x6f96096687952349dd5944e0eb1be327dcdeb705",
+              "value": "0x0",
+              "gas": "0x91e4b",
+              "gasUsed": "0x30b",
+              "input": "0x8da5cb5b",
+              "output": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x46ebc03ef2277308bdb106a73d11c65109c4b89b",
+              "value": "0x0",
+              "gas": "0x90f35",
+              "gasUsed": "0x2fb",
+              "input": "0xbb34534c536f7672796e53776170466f726d756c61000000000000000000000000000000",
+              "output": "0x3278734b16f27ed5c69fd246df9357a866fd811e"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x3278734b16f27ed5c69fd246df9357a866fd811e",
+              "value": "0x0",
+              "gas": "0x8fbe2",
+              "gasUsed": "0x41e",
+              "input": "0x94491fab00000000000000000000000000000000000000000003d39845417573b77c4b55000000000000000000000000000000000000000000000000000000000007a120000000000000000000000000000000000000000000000006e458e07e920e202f000000000000000000000000000000000000000000000000000000000007a12000000000000000000000000000000000000000000000014542ba12a337c00000",
+              "output": "0x2491159bfc40588"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0xb5999795be0ebb5bab23144aa5fd6a02d080299f",
+              "value": "0x0",
+              "gas": "0x8e55e",
+              "gasUsed": "0x2ee",
+              "input": "0x70a08231000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "output": "0x3d4df433bdd18803bff97"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0xb5999795be0ebb5bab23144aa5fd6a02d080299f",
+              "value": "0x0",
+              "gas": "0x8d7dd",
+              "gasUsed": "0x2ee",
+              "input": "0x70a08231000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "output": "0x3d4df433bdd18803bff97"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x46ebc03ef2277308bdb106a73d11c65109c4b89b",
+              "value": "0x0",
+              "gas": "0x8b896",
+              "gasUsed": "0x2fb",
+              "input": "0xbb34534c5377617053657474696e67730000000000000000000000000000000000000000",
+              "output": "0x3ab00befdd7bfc0667de6483d2d3b2f9a74af2da"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x3ab00befdd7bfc0667de6483d2d3b2f9a74af2da",
+              "value": "0x0",
+              "gas": "0x8af1a",
+              "gasUsed": "0x208",
+              "input": "0xb0e21e8a",
+              "output": "0x1f4"
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x542fda317318ebf1d3deaf76e0b632741a7e677d",
+              "value": "0x0",
+              "gas": "0x879b8",
+              "gasUsed": "0x3389",
+              "input": "0xa9059cbb000000000000000000000000448c2474b255576554eed36c24430ccfac131ce300000000000000000000000000000000000000000000000002475004be6c2336",
+              "output": "0x1",
+              "logs": [
+                {
+                  "index": 4,
+                  "address": "0x542fda317318ebf1d3deaf76e0b632741a7e677d",
+                  "topics": [
+                    "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "0x000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+                    "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3"
+                  ],
+                  "data": "0x00000000000000000000000000000000000000000000000002475004be6c2336"
+                }
+              ]
+            },
+            {
+              "type": "CALL",
+              "from": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "to": "0x6f96096687952349dd5944e0eb1be327dcdeb705",
+              "value": "0x0",
+              "gas": "0x83153",
+              "gasUsed": "0x1c2",
+              "input": "0x18160ddd",
+              "output": "0x275cd99e7d619533bcd"
+            }
+          ],
+          "logs": [
+            {
+              "index": 3,
+              "address": "0xd08edf687418df0107babcc8fcab9064f3a6fc05",
+              "topics": ["0xc2b6c6efe20ca0bd2084352507ac2365a79ab0ff280b979f4e2bfc037a759654"],
+              "data": "0x0000000000000000000000000000000000000000000007b2b08f4b261545a006000000000000000000000000000000000000000000000000000018f7fa0dc0e00000000000000000000000000000000000000000000000000000000000417727000000000000000000000000000000000000000000000000000000006274de6600000000000000000000000000000000000000062e8f9ced5a33b57158c3d06000000000000000000000000000000000000000000000000f4eec984e5eb51e9c"
+            },
+            {
+              "index": 4,
+              "address": "0x542fda317318ebf1d3deaf76e0b632741a7e677d",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+                "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000002475004be6c2336"
+            },
+            {
+              "index": 5,
+              "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "topics": [
+                "0x82886ccc747026f86399e87d5f3874c5d198ec2498833553651f63a13f5dbd0c",
+                "0x000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f",
+                "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d",
+                "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000014542ba12a337c0000000000000000000000000000000000000000000000000000002475004be6c233600000000000000000000000000000000000000000000000000017671811e91ef00000000000000000000000000000000000000000000000000004ae380395063"
+            },
+            {
+              "index": 6,
+              "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "topics": [
+                "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+                "0x000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f",
+                "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d"
+              ],
+              "data": "0x0000000000000000000000000000000000000000003483820608851bf9b9e8c0000000000000000000000000000000000000001d3b68a616e8a7f9f8e23cdfa0"
+            },
+            {
+              "index": 7,
+              "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "topics": [
+                "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+                "0x0000000000000000000000006f96096687952349dd5944e0eb1be327dcdeb705",
+                "0x000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f"
+              ],
+              "data": "0x000000000000000000000000000000000000003a76d14c2dd14ff3f1c479bf40000000000000000000000000000000000000000012c5043cd4e551f7259e66a0"
+            },
+            {
+              "index": 8,
+              "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "topics": [
+                "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+                "0x0000000000000000000000006f96096687952349dd5944e0eb1be327dcdeb705",
+                "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d"
+              ],
+              "data": "0x0000000000000000000000000000000000000000006907040c110a37f373d180000000000000000000000000000000000000000012c5043cd4e551f7259e66a0"
+            },
+            {
+              "index": 9,
+              "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "topics": [
+                "0x8a6a7f53b3c8fa1dc4b83e3f1be668c1b251ff8d44cdcb83eb3acec3fec6a788",
+                "0x000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000275cd99e7d619533bcd00000000000000000000000000000000000000000003d4dd87fb8816ef3c4b55000000000000000000000000000000000000000000000000000000000007a120"
+            },
+            {
+              "index": 10,
+              "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+              "topics": [
+                "0x8a6a7f53b3c8fa1dc4b83e3f1be668c1b251ff8d44cdcb83eb3acec3fec6a788",
+                "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000275cd99e7d619533bcd000000000000000000000000000000000000000000000006e21145965368ac96000000000000000000000000000000000000000000000000000000000007a120"
+            }
+          ]
+        },
+        {
+          "type": "CALL",
+          "from": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "to": "0x448c2474b255576554eed36c24430ccfac131ce3",
+          "value": "0x0",
+          "gas": "0x7ccb7",
+          "gasUsed": "0x30d6a",
+          "input": "0xe8dc12ff000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb9600000000000000000000000000000000000000000000000002475004be6c2336000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a",
+          "output": "0x142ee59ded7fd986498",
+          "calls": [
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0x46ebc03ef2277308bdb106a73d11c65109c4b89b",
+              "value": "0x0",
+              "gas": "0x7a8ac",
+              "gasUsed": "0x2fb",
+              "input": "0xbb34534c536f7672796e537761704e6574776f726b000000000000000000000000000000",
+              "output": "0x98ace08d2b759a265ae326f010496bcd63c15afc"
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0x30a9b9be9aa8fd64ee43b1b6c9bd474601373d34",
+              "value": "0x0",
+              "gas": "0x79bea",
+              "gasUsed": "0x2c6",
+              "input": "0x8da5cb5b",
+              "output": "0x448c2474b255576554eed36c24430ccfac131ce3"
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0xef0de81c7afaf42ee95e6b360c81b2cb3b39c5f7",
+              "value": "0x0",
+              "gas": "0x7872f",
+              "gasUsed": "0x5d2d",
+              "input": "0xb1772d7a000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb96",
+              "output": "0x7b22b37c579509000000000000000000000000000000000000000000000000000000de0b6b3a7640000000000000000000000000000000000000000000000000000000000006274de66",
+              "calls": [
+                {
+                  "type": "CALL",
+                  "from": "0xef0de81c7afaf42ee95e6b360c81b2cb3b39c5f7",
+                  "to": "0x4106e4bb0c339cf7e8adc64cf889f261fef1e789",
+                  "value": "0x0",
+                  "gas": "0x779c9",
+                  "gasUsed": "0x32a8",
+                  "input": "0x50d25bcd",
+                  "output": "0x7b22b37c57950900000",
+                  "calls": [
+                    {
+                      "type": "CALL",
+                      "from": "0x4106e4bb0c339cf7e8adc64cf889f261fef1e789",
+                      "to": "0x972a21c61b436354c0f35836195d7b67f54e482c",
+                      "value": "0x0",
+                      "gas": "0x771d2",
+                      "gasUsed": "0x29f8",
+                      "input": "0x59e02dd7",
+                      "output": "0x7b22b37c579509000000000000000000000000000000000000000000000000000000000000000000001",
+                      "calls": [
+                        {
+                          "type": "DELEGATECALL",
+                          "from": "0x972a21c61b436354c0f35836195d7b67f54e482c",
+                          "to": "0xec1ac4d34319ba7b6bbd920c168413320edd0f4f",
+                          "value": "0x0",
+                          "gas": "0x76b8e",
+                          "gasUsed": "0x2388",
+                          "input": "0x59e02dd7",
+                          "output": "0x7b22b37c579509000000000000000000000000000000000000000000000000000000000000000000001",
+                          "calls": [
+                            {
+                              "type": "STATICCALL",
+                              "from": "0x972a21c61b436354c0f35836195d7b67f54e482c",
+                              "to": "0xe2927a0620b82a66d67f678fc9b826b0e01b1bfd",
+                              "value": "0x0",
+                              "gas": "0x763c1",
+                              "gasUsed": "0x1b06",
+                              "input": "0x59e02dd7",
+                              "output": "0x7b22b37c579509000000000000000000000000000000000000000000000000000000000000000000001",
+                              "calls": [
+                                {
+                                  "type": "DELEGATECALL",
+                                  "from": "0xe2927a0620b82a66d67f678fc9b826b0e01b1bfd",
+                                  "to": "0xa7e86af8eb19e3dab8e7353cb27d286372aac87d",
+                                  "value": "0x0",
+                                  "gas": "0x75dcd",
+                                  "gasUsed": "0x14e3",
+                                  "input": "0x59e02dd7",
+                                  "output": "0x7b22b37c579509000000000000000000000000000000000000000000000000000000000000000000001",
+                                  "calls": [
+                                    {
+                                      "type": "STATICCALL",
+                                      "from": "0xe2927a0620b82a66d67f678fc9b826b0e01b1bfd",
+                                      "to": "0xa288319ecb63301e21963e21ef3ca8fb720d2672",
+                                      "value": "0x0",
+                                      "gas": "0x75640",
+                                      "gasUsed": "0xca3",
+                                      "input": "0x59e02dd7",
+                                      "output": "0x7b22b37c579509000000000000000000000000000000000000000000000000000000000000000000001",
+                                      "calls": [
+                                        {
+                                          "type": "DELEGATECALL",
+                                          "from": "0xa288319ecb63301e21963e21ef3ca8fb720d2672",
+                                          "to": "0x37ff40ec727349d478d2715ae58097f218f7e03f",
+                                          "value": "0x0",
+                                          "gas": "0x7504c",
+                                          "gasUsed": "0x680",
+                                          "input": "0x59e02dd7",
+                                          "output": "0x7b22b37c579509000000000000000000000000000000000000000000000000000000000000000000001"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "CALL",
+                  "from": "0xef0de81c7afaf42ee95e6b360c81b2cb3b39c5f7",
+                  "to": "0xf5df3b2ae0c4e2c8912e177f6bd8ca6d479397a2",
+                  "value": "0x0",
+                  "gas": "0x73f85",
+                  "gasUsed": "0xb8",
+                  "input": "0x50d25bcd",
+                  "output": "0xde0b6b3a7640000"
+                },
+                {
+                  "type": "CALL",
+                  "from": "0xef0de81c7afaf42ee95e6b360c81b2cb3b39c5f7",
+                  "to": "0x4106e4bb0c339cf7e8adc64cf889f261fef1e789",
+                  "value": "0x0",
+                  "gas": "0x73418",
+                  "gasUsed": "0xf9",
+                  "input": "0x8205bf6a",
+                  "output": "0x6274de66"
+                },
+                {
+                  "type": "CALL",
+                  "from": "0xef0de81c7afaf42ee95e6b360c81b2cb3b39c5f7",
+                  "to": "0xf5df3b2ae0c4e2c8912e177f6bd8ca6d479397a2",
+                  "value": "0x0",
+                  "gas": "0x72bce",
+                  "gasUsed": "0xcd",
+                  "input": "0x8205bf6a",
+                  "output": "0x6274de66"
+                }
+              ]
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0x46ebc03ef2277308bdb106a73d11c65109c4b89b",
+              "value": "0x0",
+              "gas": "0x6d074",
+              "gasUsed": "0x2fb",
+              "input": "0xbb34534c536f7672796e53776170466f726d756c61000000000000000000000000000000",
+              "output": "0x3278734b16f27ed5c69fd246df9357a866fd811e"
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0x3278734b16f27ed5c69fd246df9357a866fd811e",
+              "value": "0x0",
+              "gas": "0x6c5a2",
+              "gasUsed": "0x1959",
+              "input": "0xa11aa1b400000000000000000000000000000000000000000000001aa9abd87710c88eec00000000000000000000000000000000000000000000001aaaa74f05c07d07de0000000000000000000000000000000000000000000c0898c1c7d293b50bed400000000000000000000000000000000000000000000007b22b37c579509000000000000000000000000000000000000000000000000000000de0b6b3a7640000",
+              "output": "0x86965000000000000000000000000000000000000000000000000000000000006d8db"
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0x46ebc03ef2277308bdb106a73d11c65109c4b89b",
+              "value": "0x0",
+              "gas": "0x66741",
+              "gasUsed": "0x2fb",
+              "input": "0xbb34534c536f7672796e53776170466f726d756c61000000000000000000000000000000",
+              "output": "0x3278734b16f27ed5c69fd246df9357a866fd811e"
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0x3278734b16f27ed5c69fd246df9357a866fd811e",
+              "value": "0x0",
+              "gas": "0x65d4f",
+              "gasUsed": "0xe84",
+              "input": "0x94491fab00000000000000000000000000000000000000000000001aaaa74f05c07d07de00000000000000000000000000000000000000000000000000000000000869650000000000000000000000000000000000000000000c0898c1c7d293b50bed40000000000000000000000000000000000000000000000000000000000006d8db00000000000000000000000000000000000000000000000002475004be6c2336",
+              "output": "0x143411aaa472a700e97"
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0x542fda317318ebf1d3deaf76e0b632741a7e677d",
+              "value": "0x0",
+              "gas": "0x632de",
+              "gasUsed": "0x222",
+              "input": "0x70a08231000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+              "output": "0x1588b5e32fbc43ce7"
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0x542fda317318ebf1d3deaf76e0b632741a7e677d",
+              "value": "0x0",
+              "gas": "0x62794",
+              "gasUsed": "0x222",
+              "input": "0x70a08231000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+              "output": "0x1588b5e32fbc43ce7"
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+              "value": "0x0",
+              "gas": "0x5a4c3",
+              "gasUsed": "0x9448",
+              "input": "0xa9059cbb000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a000000000000000000000000000000000000000000000142ee59ded7fd986498",
+              "output": "0x1",
+              "calls": [
+                {
+                  "type": "STATICCALL",
+                  "from": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+                  "to": "0x1820a4b7618bde71dce8cdc73aab6c95905fad24",
+                  "value": "0x0",
+                  "gas": "0x59c71",
+                  "gasUsed": "0x412",
+                  "input": "0xaabbb8ca000000000000000000000000448c2474b255576554eed36c24430ccfac131ce329ddb589b1fb5fc7cf394961c1adf5f8c6454761adf795e67fe149f658abe895",
+                  "output": "0x0"
+                },
+                {
+                  "type": "STATICCALL",
+                  "from": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+                  "to": "0x1820a4b7618bde71dce8cdc73aab6c95905fad24",
+                  "value": "0x0",
+                  "gas": "0x515ab",
+                  "gasUsed": "0x412",
+                  "input": "0xaabbb8ca000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652ab281fc8c12954d22544db45de3159a39272895b169a852b314f9cc762e44c53b",
+                  "output": "0x0"
+                }
+              ],
+              "logs": [
+                {
+                  "index": 12,
+                  "address": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+                  "topics": [
+                    "0x06b541ddaa720db2b10a4d0cdac39b8d360425fc073085fac19bc82614677987",
+                    "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+                    "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+                    "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+                  ],
+                  "data": "0x000000000000000000000000000000000000000000000142ee59ded7fd9864980000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+                },
+                {
+                  "index": 13,
+                  "address": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+                  "topics": [
+                    "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+                    "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+                  ],
+                  "data": "0x000000000000000000000000000000000000000000000142ee59ded7fd986498"
+                }
+              ]
+            },
+            {
+              "type": "CALL",
+              "from": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "to": "0x40580e31cc14dbf7a0859f38ab36a84262df821d",
+              "value": "0x0",
+              "gas": "0x4e044",
+              "gasUsed": "0x1c2",
+              "input": "0x18160ddd",
+              "output": "0x7ed332e8d9f5380a16aa"
+            }
+          ],
+          "logs": [
+            {
+              "index": 12,
+              "address": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+              "topics": [
+                "0x06b541ddaa720db2b10a4d0cdac39b8d360425fc073085fac19bc82614677987",
+                "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+                "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+                "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000142ee59ded7fd9864980000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+            },
+            {
+              "index": 13,
+              "address": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+              "topics": [
+                "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+                "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+              ],
+              "data": "0x000000000000000000000000000000000000000000000142ee59ded7fd986498"
+            },
+            {
+              "index": 14,
+              "address": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "topics": [
+                "0x276856b36cbc45526a0ba64f44611557a2a8b68662c5388e9fe6d72e86e1c8cb",
+                "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d",
+                "0x000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb96",
+                "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+              ],
+              "data": "0x00000000000000000000000000000000000000000000000002475004be6c2336000000000000000000000000000000000000000000000142ee59ded7fd98649800000000000000000000000000000000000000000000000052c0cb6f2cd7a9ff"
+            },
+            {
+              "index": 15,
+              "address": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "topics": [
+                "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+                "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d",
+                "0x000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb96"
+              ],
+              "data": "0x00000000000000000000000000000000000000652ea35dcdafc9dbccc6b355c9000000000000000000000000000000000000000000b6a6530091e2865048ba1c"
+            },
+            {
+              "index": 16,
+              "address": "0x448c2474b255576554eed36c24430ccfac131ce3",
+              "topics": [
+                "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+                "0x00000000000000000000000040580e31cc14dbf7a0859f38ab36a84262df821d",
+                "0x000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb96"
+              ],
+              "data": "0x0000000000000000000000000000000000000000000099895606c8c5b68e6184000000000000000000000000000000000000000000007ed332e8d9f5380a16aa"
+            }
+          ]
+        }
+      ],
+      "logs": [
+        {
+          "index": 1,
+          "address": "0xb5999795be0ebb5bab23144aa5fd6a02d080299f",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a",
+            "0x000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d9"
+          ],
+          "data": "0x00000000000000000000000000000000000000000000014542ba12a337c00000"
+        },
+        {
+          "index": 2,
+          "address": "0xb5999795be0ebb5bab23144aa5fd6a02d080299f",
+          "topics": [
+            "0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
+            "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a",
+            "0x00000000000000000000000098ace08d2b759a265ae326f010496bcd63c15afc"
+          ],
+          "data": "0x0000000000000000000000000000000000000000204fcd18fb6aefbdd8400000"
+        },
+        {
+          "index": 3,
+          "address": "0xd08edf687418df0107babcc8fcab9064f3a6fc05",
+          "topics": ["0xc2b6c6efe20ca0bd2084352507ac2365a79ab0ff280b979f4e2bfc037a759654"],
+          "data": "0x0000000000000000000000000000000000000000000007b2b08f4b261545a006000000000000000000000000000000000000000000000000000018f7fa0dc0e00000000000000000000000000000000000000000000000000000000000417727000000000000000000000000000000000000000000000000000000006274de6600000000000000000000000000000000000000062e8f9ced5a33b57158c3d06000000000000000000000000000000000000000000000000f4eec984e5eb51e9c"
+        },
+        {
+          "index": 4,
+          "address": "0x542fda317318ebf1d3deaf76e0b632741a7e677d",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+            "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3"
+          ],
+          "data": "0x00000000000000000000000000000000000000000000000002475004be6c2336"
+        },
+        {
+          "index": 5,
+          "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "topics": [
+            "0x82886ccc747026f86399e87d5f3874c5d198ec2498833553651f63a13f5dbd0c",
+            "0x000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f",
+            "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d",
+            "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+          ],
+          "data": "0x00000000000000000000000000000000000000000000014542ba12a337c0000000000000000000000000000000000000000000000000000002475004be6c233600000000000000000000000000000000000000000000000000017671811e91ef00000000000000000000000000000000000000000000000000004ae380395063"
+        },
+        {
+          "index": 6,
+          "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "topics": [
+            "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+            "0x000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f",
+            "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d"
+          ],
+          "data": "0x0000000000000000000000000000000000000000003483820608851bf9b9e8c0000000000000000000000000000000000000001d3b68a616e8a7f9f8e23cdfa0"
+        },
+        {
+          "index": 7,
+          "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "topics": [
+            "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+            "0x0000000000000000000000006f96096687952349dd5944e0eb1be327dcdeb705",
+            "0x000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f"
+          ],
+          "data": "0x000000000000000000000000000000000000003a76d14c2dd14ff3f1c479bf40000000000000000000000000000000000000000012c5043cd4e551f7259e66a0"
+        },
+        {
+          "index": 8,
+          "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "topics": [
+            "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+            "0x0000000000000000000000006f96096687952349dd5944e0eb1be327dcdeb705",
+            "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d"
+          ],
+          "data": "0x0000000000000000000000000000000000000000006907040c110a37f373d180000000000000000000000000000000000000000012c5043cd4e551f7259e66a0"
+        },
+        {
+          "index": 9,
+          "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "topics": [
+            "0x8a6a7f53b3c8fa1dc4b83e3f1be668c1b251ff8d44cdcb83eb3acec3fec6a788",
+            "0x000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f"
+          ],
+          "data": "0x000000000000000000000000000000000000000000000275cd99e7d619533bcd00000000000000000000000000000000000000000003d4dd87fb8816ef3c4b55000000000000000000000000000000000000000000000000000000000007a120"
+        },
+        {
+          "index": 10,
+          "address": "0xa9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "topics": [
+            "0x8a6a7f53b3c8fa1dc4b83e3f1be668c1b251ff8d44cdcb83eb3acec3fec6a788",
+            "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d"
+          ],
+          "data": "0x000000000000000000000000000000000000000000000275cd99e7d619533bcd000000000000000000000000000000000000000000000006e21145965368ac96000000000000000000000000000000000000000000000000000000000007a120"
+        },
+        {
+          "index": 11,
+          "address": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "topics": [
+            "0x7154b38b5dd31bb3122436a96d4e09aba5b323ae1fd580025fab55074334c095",
+            "0x0000000000000000000000006f96096687952349dd5944e0eb1be327dcdeb705",
+            "0x000000000000000000000000b5999795be0ebb5bab23144aa5fd6a02d080299f",
+            "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d"
+          ],
+          "data": "0x00000000000000000000000000000000000000000000014542ba12a337c0000000000000000000000000000000000000000000000000000002475004be6c2336000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+        },
+        {
+          "index": 12,
+          "address": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+          "topics": [
+            "0x06b541ddaa720db2b10a4d0cdac39b8d360425fc073085fac19bc82614677987",
+            "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+            "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+            "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+          ],
+          "data": "0x000000000000000000000000000000000000000000000142ee59ded7fd9864980000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+        },
+        {
+          "index": 13,
+          "address": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+          "topics": [
+            "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+            "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+            "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+          ],
+          "data": "0x000000000000000000000000000000000000000000000142ee59ded7fd986498"
+        },
+        {
+          "index": 14,
+          "address": "0x448c2474b255576554eed36c24430ccfac131ce3",
+          "topics": [
+            "0x276856b36cbc45526a0ba64f44611557a2a8b68662c5388e9fe6d72e86e1c8cb",
+            "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d",
+            "0x000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb96",
+            "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+          ],
+          "data": "0x00000000000000000000000000000000000000000000000002475004be6c2336000000000000000000000000000000000000000000000142ee59ded7fd98649800000000000000000000000000000000000000000000000052c0cb6f2cd7a9ff"
+        },
+        {
+          "index": 15,
+          "address": "0x448c2474b255576554eed36c24430ccfac131ce3",
+          "topics": [
+            "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+            "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d",
+            "0x000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb96"
+          ],
+          "data": "0x00000000000000000000000000000000000000652ea35dcdafc9dbccc6b355c9000000000000000000000000000000000000000000b6a6530091e2865048ba1c"
+        },
+        {
+          "index": 16,
+          "address": "0x448c2474b255576554eed36c24430ccfac131ce3",
+          "topics": [
+            "0x77f29993cf2c084e726f7e802da0719d6a0ade3e204badc7a3ffd57ecb768c24",
+            "0x00000000000000000000000040580e31cc14dbf7a0859f38ab36a84262df821d",
+            "0x000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb96"
+          ],
+          "data": "0x0000000000000000000000000000000000000000000099895606c8c5b68e6184000000000000000000000000000000000000000000007ed332e8d9f5380a16aa"
+        },
+        {
+          "index": 17,
+          "address": "0x98ace08d2b759a265ae326f010496bcd63c15afc",
+          "topics": [
+            "0x7154b38b5dd31bb3122436a96d4e09aba5b323ae1fd580025fab55074334c095",
+            "0x00000000000000000000000030a9b9be9aa8fd64ee43b1b6c9bd474601373d34",
+            "0x000000000000000000000000542fda317318ebf1d3deaf76e0b632741a7e677d",
+            "0x000000000000000000000000ef213441a85df4d7acbdae0cf78004e1e486bb96"
+          ],
+          "data": "0x00000000000000000000000000000000000000000000000002475004be6c2336000000000000000000000000000000000000000000000142ee59ded7fd986498000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0xb5999795be0ebb5bab23144aa5fd6a02d080299f",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a",
+          "0x000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d9"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000014542ba12a337c00000",
+        "transactionHash": "0x6a5cce06933cecb6ecf338785b17debc94069961233be78f932f4ddd3642a951",
+        "blockNumber": 4290343,
+        "transactionIndex": 1,
+        "logIndex": 1
+      },
+      {
+        "address": "0x542fda317318ebf1d3deaf76e0b632741a7e677d",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000a9c3d9681215ef7623dc28ea6b75bf87fdf285d9",
+          "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000000002475004be6c2336",
+        "transactionHash": "0x6a5cce06933cecb6ecf338785b17debc94069961233be78f932f4ddd3642a951",
+        "blockNumber": 4290343,
+        "transactionIndex": 1,
+        "logIndex": 4
+      },
+      {
+        "address": "0xef213441a85df4d7acbdae0cf78004e1e486bb96",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000448c2474b255576554eed36c24430ccfac131ce3",
+          "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000142ee59ded7fd986498",
+        "transactionHash": "0x6a5cce06933cecb6ecf338785b17debc94069961233be78f932f4ddd3642a951",
+        "blockNumber": 4290343,
+        "transactionIndex": 1,
+        "logIndex": 13
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 1,
+        "classification": "approved",
+        "spenderAddress": "0x98aCE08D2b759a265ae326F010496bcD63C15afc",
+        "selector": "0x23b872dd"
+      },
+      {
+        "logIndex": 4,
+        "classification": "direct",
+        "selector": "0xa9059cbb"
+      },
+      {
+        "logIndex": 13,
+        "classification": "direct",
+        "selector": "0xa9059cbb"
+      }
+    ]
+  },
+  {
+    "name": "real-gnosis-mislabeled-reverted-frame",
+    "description": "REAL Gnosis tx 0x2c65af2e0f37f7ebb8a3dd16ea4fa2df1aec2f001f8db7d28f351e71569c93c4: the backend labels a DELEGATECALL frame \"execution reverted\" even though its Transfer log is in the receipt (a caught child revert bubbled into the parent label); the receipt-verified log must still be attributed via the reverted-marked frame since no clean frame carries it",
+    "chainId": 100,
+    "trace": {
+      "type": "CALL",
+      "from": "0xe126b3e5d052f1f575828f61feba4f4f2603652a",
+      "to": "0x1c232f01118cb8b424793ae03f870aa7d0ac7f77",
+      "value": "0x0",
+      "gas": "0x2d20c",
+      "gasUsed": "0x1c231",
+      "input": "0x18cbafe500000000000000000000000000000000000000000000000212913015a5113fe2000000000000000000000000000000000000000000000001e8dca7d41dc3a8df00000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a00000000000000000000000000000000000000000000000000000000c3178a60000000000000000000000000000000000000000000000000000000000000000200000000000000000000000044fa8e6f47987339850636f88629646662444217000000000000000000000000e91d153e0b41518a2ce8dd3d7944fa863463a97d",
+      "output": "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000212913015a5113fe2000000000000000000000000000000000000000000000001eb4e661b93ac5166",
+      "calls": [
+        {
+          "type": "STATICCALL",
+          "from": "0x1c232f01118cb8b424793ae03f870aa7d0ac7f77",
+          "to": "0x0f2d04debe312cddc308bf15e597d7bb9060e6df",
+          "gas": "0x25a98",
+          "gasUsed": "0xb4d",
+          "input": "0x0902f1ac",
+          "output": "0x00000000000000000000000000000000000000000000001cb6f9659b310eaa3b00000000000000000000000000000000000000000000001c96ce44e3c1b9089100000000000000000000000000000000000000000000000000000000618bc2be"
+        },
+        {
+          "type": "CALL",
+          "from": "0x1c232f01118cb8b424793ae03f870aa7d0ac7f77",
+          "to": "0x44fa8e6f47987339850636f88629646662444217",
+          "value": "0x0",
+          "gas": "0x23a07",
+          "gasUsed": "0x78c9",
+          "input": "0x23b872dd000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a0000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df00000000000000000000000000000000000000000000000212913015a5113fe2",
+          "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+          "logs": [
+            {
+              "address": "0x44fa8e6f47987339850636f88629646662444217",
+              "data": "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a0000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df00000000000000000000000000000000000000000000000212913015a5113fe2",
+              "topics": ["0x11249f0fc79fc134a15a10d1da8291b79515bf987e036ced05b9ec119614070b"],
+              "position": "0x1"
+            }
+          ],
+          "calls": [
+            {
+              "type": "DELEGATECALL",
+              "from": "0x44fa8e6f47987339850636f88629646662444217",
+              "to": "0xf8d1677c8a0c961938bf2f9adc3f3cfda759a9d9",
+              "value": "0x0",
+              "gas": "0x21e3f",
+              "gasUsed": "0x546d",
+              "input": "0x23b872dd000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a0000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df00000000000000000000000000000000000000000000000212913015a5113fe2",
+              "error": "execution reverted",
+              "logs": [
+                {
+                  "address": "0x44fa8e6f47987339850636f88629646662444217",
+                  "data": "0x00000000000000000000000000000000000000000000000212913015a5113fe2",
+                  "topics": [
+                    "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a",
+                    "0x0000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df"
+                  ],
+                  "position": "0x0"
+                }
+              ],
+              "calls": [
+                {
+                  "type": "CALL",
+                  "from": "0x44fa8e6f47987339850636f88629646662444217",
+                  "to": "0x0f2d04debe312cddc308bf15e597d7bb9060e6df",
+                  "value": "0x0",
+                  "gas": "0x1caca",
+                  "gasUsed": "0xf8",
+                  "input": "0xa4c0ed36000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a00000000000000000000000000000000000000000000000212913015a5113fe20000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+                  "error": "execution reverted"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "CALL",
+          "from": "0x1c232f01118cb8b424793ae03f870aa7d0ac7f77",
+          "to": "0x0f2d04debe312cddc308bf15e597d7bb9060e6df",
+          "value": "0x0",
+          "gas": "0x1c225",
+          "gasUsed": "0x10861",
+          "input": "0x022c0d9f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001eb4e661b93ac51660000000000000000000000001c232f01118cb8b424793ae03f870aa7d0ac7f7700000000000000000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000",
+          "logs": [
+            {
+              "address": "0x0f2d04debe312cddc308bf15e597d7bb9060e6df",
+              "data": "0x00000000000000000000000000000000000000000000001ec98a95b0d61fea1d00000000000000000000000000000000000000000000001aab7fdec82e0cb72b",
+              "topics": ["0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1"],
+              "position": "0x3"
+            },
+            {
+              "address": "0x0f2d04debe312cddc308bf15e597d7bb9060e6df",
+              "data": "0x00000000000000000000000000000000000000000000000212913015a5113fe200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001eb4e661b93ac5166",
+              "topics": [
+                "0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822",
+                "0x0000000000000000000000001c232f01118cb8b424793ae03f870aa7d0ac7f77",
+                "0x0000000000000000000000001c232f01118cb8b424793ae03f870aa7d0ac7f77"
+              ],
+              "position": "0x3"
+            }
+          ],
+          "calls": [
+            {
+              "type": "CALL",
+              "from": "0x0f2d04debe312cddc308bf15e597d7bb9060e6df",
+              "to": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+              "value": "0x0",
+              "gas": "0x1853e",
+              "gasUsed": "0x752b",
+              "input": "0xa9059cbb0000000000000000000000001c232f01118cb8b424793ae03f870aa7d0ac7f77000000000000000000000000000000000000000000000001eb4e661b93ac5166",
+              "output": "0x0000000000000000000000000000000000000000000000000000000000000001",
+              "logs": [
+                {
+                  "address": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+                  "data": "0x000000000000000000000000000000000000000000000001eb4e661b93ac5166",
+                  "topics": [
+                    "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+                    "0x0000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df",
+                    "0x0000000000000000000000001c232f01118cb8b424793ae03f870aa7d0ac7f77"
+                  ],
+                  "position": "0x0"
+                }
+              ]
+            },
+            {
+              "type": "STATICCALL",
+              "from": "0x0f2d04debe312cddc308bf15e597d7bb9060e6df",
+              "to": "0x44fa8e6f47987339850636f88629646662444217",
+              "gas": "0x10f4d",
+              "gasUsed": "0x51e",
+              "input": "0x70a082310000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df",
+              "output": "0x00000000000000000000000000000000000000000000001ec98a95b0d61fea1d",
+              "calls": [
+                {
+                  "type": "DELEGATECALL",
+                  "from": "0x44fa8e6f47987339850636f88629646662444217",
+                  "to": "0xf8d1677c8a0c961938bf2f9adc3f3cfda759a9d9",
+                  "value": "0x0",
+                  "gas": "0x10989",
+                  "gasUsed": "0x35a",
+                  "input": "0x70a082310000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df",
+                  "output": "0x00000000000000000000000000000000000000000000001ec98a95b0d61fea1d"
+                }
+              ]
+            },
+            {
+              "type": "STATICCALL",
+              "from": "0x0f2d04debe312cddc308bf15e597d7bb9060e6df",
+              "to": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+              "gas": "0x10886",
+              "gasUsed": "0x234",
+              "input": "0x70a082310000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df",
+              "output": "0x00000000000000000000000000000000000000000000001aab7fdec82e0cb72b"
+            }
+          ]
+        },
+        {
+          "type": "CALL",
+          "from": "0x1c232f01118cb8b424793ae03f870aa7d0ac7f77",
+          "to": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+          "value": "0x0",
+          "gas": "0xbbea",
+          "gasUsed": "0x2430",
+          "input": "0x2e1a7d4d000000000000000000000000000000000000000000000001eb4e661b93ac5166",
+          "logs": [
+            {
+              "address": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+              "data": "0x000000000000000000000000000000000000000000000001eb4e661b93ac5166",
+              "topics": [
+                "0x7fcf532c15f0a6db0bd6d0e038bea71d30d808c7d98cb3bf7268a95bf5081b65",
+                "0x0000000000000000000000001c232f01118cb8b424793ae03f870aa7d0ac7f77"
+              ],
+              "position": "0x1"
+            }
+          ],
+          "calls": [
+            {
+              "type": "CALL",
+              "from": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+              "to": "0x1c232f01118cb8b424793ae03f870aa7d0ac7f77",
+              "value": "0x1eb4e661b93ac5166",
+              "gas": "0x8fc",
+              "gasUsed": "0x59",
+              "input": "0x"
+            }
+          ]
+        },
+        {
+          "type": "CALL",
+          "from": "0x1c232f01118cb8b424793ae03f870aa7d0ac7f77",
+          "to": "0xe126b3e5d052f1f575828f61feba4f4f2603652a",
+          "value": "0x1eb4e661b93ac5166",
+          "gas": "0x7c76",
+          "gasUsed": "0x0",
+          "input": "0x"
+        }
+      ]
+    },
+    "transferLogs": [
+      {
+        "address": "0x44fa8e6f47987339850636f88629646662444217",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x000000000000000000000000e126b3e5d052f1f575828f61feba4f4f2603652a",
+          "0x0000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000000212913015a5113fe2",
+        "transactionHash": "0x2c65af2e0f37f7ebb8a3dd16ea4fa2df1aec2f001f8db7d28f351e71569c93c4",
+        "blockNumber": 18999236,
+        "transactionIndex": 11,
+        "logIndex": 30
+      },
+      {
+        "address": "0xe91d153e0b41518a2ce8dd3d7944fa863463a97d",
+        "topics": [
+          "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+          "0x0000000000000000000000000f2d04debe312cddc308bf15e597d7bb9060e6df",
+          "0x0000000000000000000000001c232f01118cb8b424793ae03f870aa7d0ac7f77"
+        ],
+        "data": "0x000000000000000000000000000000000000000000000001eb4e661b93ac5166",
+        "transactionHash": "0x2c65af2e0f37f7ebb8a3dd16ea4fa2df1aec2f001f8db7d28f351e71569c93c4",
+        "blockNumber": 18999236,
+        "transactionIndex": 11,
+        "logIndex": 32
+      }
+    ],
+    "expected": [
+      {
+        "logIndex": 30,
+        "classification": "approved",
+        "spenderAddress": "0x1C232F01118CB8B424793ae03F870aa7D0ac7f77",
+        "selector": "0x23b872dd"
+      },
+      {
+        "logIndex": 32,
+        "classification": "direct",
+        "selector": "0xa9059cbb"
+      }
+    ]
+  }
+]

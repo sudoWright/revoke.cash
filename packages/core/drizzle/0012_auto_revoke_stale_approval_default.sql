@@ -1,0 +1,1 @@
+ALTER TABLE "auto_revoke"."rules" ALTER COLUMN "stale_approval_enabled" SET DEFAULT true;

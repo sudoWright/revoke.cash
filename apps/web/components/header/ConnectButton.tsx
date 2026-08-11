@@ -1,0 +1,138 @@
+'use client';
+
+import { DialogTitle } from '@headlessui/react';
+import { isUserRejectionError, parseErrorMessage } from '@revoke.cash/core/utils/errors';
+import Button from 'components/common/Button';
+import Logo from 'components/common/Logo';
+import Modal from 'components/common/Modal';
+import Spinner from 'components/common/Spinner';
+import { useCsrRouter } from 'lib/i18n/csr-navigation';
+import analytics from 'lib/utils/analytics';
+import { filterAndSortConnectors, getConnectorName, getWalletIcon, isMobileDevice } from 'lib/utils/wallet';
+import { useTranslations } from 'next-intl';
+import { type ReactNode, useMemo, useState } from 'react';
+import type { Address } from 'viem';
+import { type Connector, useConnect, useConnection, useConnectors } from 'wagmi';
+
+interface Props {
+  text?: ReactNode;
+  size?: 'sm' | 'md' | 'lg' | 'none';
+  style?: 'primary' | 'secondary' | 'tertiary' | 'none';
+  className?: string;
+  redirect?: boolean;
+  onClick?: () => void;
+  onConnect?: (account: Address) => void;
+}
+
+const ConnectButton = ({ size, style, className, text, redirect, onClick, onConnect }: Props) => {
+  const [open, setOpen] = useState(false);
+  const t = useTranslations();
+  const router = useCsrRouter();
+
+  const { address } = useConnection();
+  const { mutateAsync: connectAsync, isPending, error, reset } = useConnect();
+  const connectors = useConnectors();
+
+  const handleClick = () => {
+    onClick?.();
+
+    if (address && redirect) {
+      router.push(`/address/${address}`, { retainSearchParams: ['chainId'] });
+    } else {
+      setOpen(true);
+    }
+  };
+
+  const handleOpen = () => setOpen(true);
+
+  // Resetting the mutation also detaches it from an in-flight connection attempt, so closing the modal abandons it
+  const handleClose = () => {
+    setOpen(false);
+    reset();
+  };
+
+  const connectAndRedirect = async (connector: Connector) => {
+    try {
+      const {
+        accounts: [account],
+      } = await connectAsync({ connector });
+
+      analytics.track('Wallet Connected', { wallet: getConnectorName(connector) });
+      handleClose();
+
+      if (account && redirect) {
+        router.push(`/address/${account}`, { retainSearchParams: ['chainId'] });
+      }
+      if (account) {
+        onConnect?.(account);
+      }
+    } catch (connectionError) {
+      if (isUserRejectionError(connectionError)) return;
+
+      analytics.track('Wallet Connection Failed', {
+        wallet: getConnectorName(connector),
+        message: parseErrorMessage(connectionError),
+        isMobile: isMobileDevice(),
+      });
+    }
+  };
+
+  const sortedConnectors = useMemo(() => filterAndSortConnectors(connectors), [connectors]);
+  const displayedError = error && !isUserRejectionError(error) ? parseErrorMessage(error) : null;
+
+  return (
+    <>
+      <Button style={style ?? 'primary'} size={size ?? 'md'} className={className} onClick={handleClick}>
+        {text ?? t('common.buttons.connect')}
+      </Button>
+
+      <Modal open={open} setOpen={(open) => (open ? handleOpen() : handleClose())}>
+        <div className="sm:flex sm:items-start">
+          <div className="text-center sm:text-left w-full flex flex-col gap-2">
+            <DialogTitle as="h2" className="text-2xl text-center">
+              {t('common.connect_wallet.title')}
+            </DialogTitle>
+
+            <div className="relative">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2 justify-center">
+                {sortedConnectors.map((connector) => (
+                  <Button
+                    style="secondary"
+                    size="none"
+                    className="flex justify-start items-center gap-2 p-2 rounded-lg w-full text-lg"
+                    key={`${connector.id} / ${connector.name}`}
+                    onClick={() => connectAndRedirect(connector)}
+                  >
+                    <Logo
+                      src={getWalletIcon(connector)}
+                      alt={getConnectorName(connector)}
+                      size={48}
+                      square
+                      border
+                      className="rounded-md"
+                    />
+                    {getConnectorName(connector)}
+                  </Button>
+                ))}
+              </div>
+
+              {isPending && (
+                <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 dark:bg-black/80">
+                  <Spinner className="w-8 h-8" />
+                </div>
+              )}
+            </div>
+
+            {displayedError && (
+              <p className="text-sm text-center text-red-600 dark:text-red-400">
+                {t('common.connect_wallet.failed', { message: displayedError })}
+              </p>
+            )}
+          </div>
+        </div>
+      </Modal>
+    </>
+  );
+};
+
+export default ConnectButton;

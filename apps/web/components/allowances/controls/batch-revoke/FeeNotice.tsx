@@ -1,0 +1,98 @@
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { getChainName } from '@revoke.cash/core/chains';
+import Href from 'components/common/Href';
+import RichText from 'components/common/RichText';
+import WithHoverTooltip from 'components/common/WithHoverTooltip';
+import { useNativeTokenPrice } from 'lib/hooks/ethereum/useNativeTokenPrice';
+import { useAddress } from 'lib/hooks/page-context/AddressIdentityContext';
+import { useTranslations } from 'next-intl';
+import type { ReactNode } from 'react';
+import { BATCH_REVOKE_FEE, FEE_SPONSORS } from './fee';
+
+interface Props {
+  chainId: number;
+  feeDollarAmount: string;
+}
+
+const FeeNotice = ({ chainId, feeDollarAmount }: Props) => {
+  const { isPremium } = useAddress();
+  const t = useTranslations();
+  const { nativeTokenPrice } = useNativeTokenPrice(chainId);
+
+  if (!nativeTokenPrice) return null;
+  if (isPremium) return null;
+
+  const sponsor = FEE_SPONSORS[chainId];
+
+  if (sponsor) {
+    return <SponsoredFeeNotice chainId={chainId} />;
+  }
+
+  const tooltipContent = (
+    <RichText>
+      {(tags) =>
+        t.rich('address.batch_revoke.fee.tooltip', {
+          ...tags,
+          BATCH_REVOKE_FEE: BATCH_REVOKE_FEE.toFixed(2),
+        })
+      }
+    </RichText>
+  );
+
+  return (
+    <div className="flex items-center justify-center gap-2 text-center text-sm text-zinc-600 dark:text-zinc-300 bg-brand/30 dark:bg-brand/20 py-2 px-4">
+      <span>
+        <RichText>
+          {(tags) =>
+            t.rich('address.batch_revoke.fee.notice', {
+              ...tags,
+              feeDollarAmount,
+            })
+          }
+        </RichText>
+      </span>
+
+      <WithHoverTooltip tooltip={tooltipContent}>
+        <InformationCircleIcon className="w-6 h-6 shrink-0" />
+      </WithHoverTooltip>
+    </div>
+  );
+};
+
+export default FeeNotice;
+
+interface SponsoredFeeNoticeProps {
+  chainId: number;
+}
+
+const SponsoredFeeNotice = ({ chainId }: SponsoredFeeNoticeProps) => {
+  const t = useTranslations();
+
+  const chainName = getChainName(chainId);
+  const sponsor = FEE_SPONSORS[chainId];
+
+  if (!sponsor) return null;
+
+  const sponsorTags = {
+    sponsor: sponsor.name,
+    chainName,
+    'sponsor-link': (children: ReactNode) =>
+      sponsor.url ? (
+        <Href href={sponsor.url} external className="font-medium">
+          {children}
+        </Href>
+      ) : (
+        <span className="font-medium">{children}</span>
+      ),
+  };
+
+  return (
+    <div className="flex items-center justify-center gap-2 text-center text-sm text-zinc-600 dark:text-zinc-300 bg-brand/30 dark:bg-brand/20 py-4 px-6">
+      <span>
+        <RichText>
+          {(tags) => t.rich('address.batch_revoke.fee.sponsored_notice', { ...tags, ...sponsorTags })}
+        </RichText>
+      </span>
+    </div>
+  );
+};
