@@ -15,7 +15,8 @@ interface Props {
   price: string;
   perWalletPerMonthPrice?: string;
   walletSlots?: number;
-  href: string;
+  href?: string;
+  onSelect?: () => void;
   className?: string;
   badgeLabel?: string;
   badgeClassName?: string;
@@ -30,6 +31,7 @@ const TierCard = ({
   perWalletPerMonthPrice,
   walletSlots,
   href,
+  onSelect,
   className,
   badgeLabel,
   badgeClassName,
@@ -74,7 +76,14 @@ const TierCard = ({
         <p className="text-sm text-zinc-600 dark:text-zinc-400">{t(`premium.pricing.tiers.${tierKey}.description`)}</p>
       </div>
 
-      <Button href={href} router style={buttonStyle} size="md" className="w-full justify-center">
+      <Button
+        href={href}
+        router={Boolean(href)}
+        onClick={onSelect}
+        style={buttonStyle}
+        size="md"
+        className="w-full justify-center"
+      >
         {t(`premium.pricing.tiers.${tierKey}.cta`)}
       </Button>
 

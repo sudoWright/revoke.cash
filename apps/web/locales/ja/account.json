@@ -177,14 +177,8 @@
   "subscription": {
     "active": "アクティブ",
     "buttons": {
-      "confirming": "支払いを確認中",
-      "creating": "支払いを作成中",
       "extend": "延長",
-      "paying": "ウォレットで確認",
-      "renew": "更新",
-      "subscribe": "購読",
-      "try_again": "もう一度お試しください",
-      "upgrade": "アップグレード"
+      "renew": "更新"
     },
     "cancellation": {
       "cancelled": "キャンセル済み",
@@ -203,7 +197,6 @@
       "requested": "キャンセル申請済み",
       "success": "返金をリクエストしました。返金が処理されるまでアクセスは維持されます。"
     },
-    "downgrade_not_supported": "有効なサブスクリプションをダウングレードすることはできません。",
     "expired": "期限切れ",
     "expired_on": "{date} に期限切れになりました。",
     "expired_preserved": "ウォレットスロットと自動取り消しのルールは保持されています。更新すれば、そのまま再開できます。",
@@ -211,34 +204,12 @@
     "expires_in": "有効期限まであと {days, plural, other {# 日}}（{date}）",
     "expires_soon": "まもなく期限切れ",
     "granted_by": "{address} により付与",
-    "insufficient_balance": "この支払いを完了するには、{chainName} 上で {amount} {token} 以上が必要です。ウォレットに残高を追加するか、別の支払いネットワークまたはトークンを選択してください。",
-    "legal_notice": "サブスクリプションに登録することで、<terms-link>利用規約</terms-link>に同意したものとみなされます。",
-    "next_setup_auto_revoke": "次のステップ：自動取り消しの設定",
     "no_subscription": "有効なプレミアムサブスクリプションはありません。購読して始めましょう。<premium-link>プレミアムについて詳しく見る</premium-link>。",
-    "optional_own_subscription": "すでに付与されたサブスクリプションを通じてアクセスをお持ちです。ご希望であれば、ご自身のプランを購読することもできます。",
-    "payment_confirmed": "支払いが確認されました！プレミアムサブスクリプションが有効になりました。",
-    "payment_expired": "お支払いの期限が切れました。すでに{token}の全額を送金済みの場合は、オンチェーンで着金し次第、自動的に反映されます。数分後にサブスクリプションの状態をご確認ください。",
-    "payment_failed": "サブスクリプションの支払いに失敗しました",
-    "payment_help": "お困りの場合は、<support-link>サポートにチャットでお問い合わせください</support-link>。",
-    "payment_network": "決済ネットワーク",
-    "payment_status_error": "お支払いのステータス：{status}",
-    "payment_summary": "{days} 日間分として {amount} {token} をお支払いいただきます。最大 {maxAddresses, plural, other {# 個のウォレット}}が含まれます。",
-    "payment_token": "決済トークン",
-    "plan": "プラン",
-    "plan_description": "${price}/年",
-    "plan_options": {
-      "basic_access": "基本アクセス",
-      "current": "現在",
-      "free": "無料"
-    },
-    "plans_unavailable": "チェックアウトは一時的にご利用いただけません。後でもう一度お試しください。",
+    "optional_own_subscription": "すでに付与されたサブスクリプションを通じてアクセスをお持ちですが、ご希望であれば、ご自身のプランを購読することもできます。",
     "slots_summary": "{used}/{max} 個のウォレットスロットを使用中",
     "title": "プレミアムサブスクリプション",
-    "ultimate_requires_metamask": "自動取り消しにはMetaMaskが必要です。お支払いは任意のウォレットで行い、その後MetaMaskで接続して自動取り消しを設定できます。",
-    "ultimate_requires_smart_account": "自動取り消しはLedgerなどのハードウェアウォレットのアカウントには対応していません。お支払いはこのウォレットで行い、その後、別のアカウントで自動取り消しを設定できます。",
     "valid_until": "{date} まで有効",
-    "wallet": "ウォレット",
-    "wrong_wallet_error": "お支払いは {address} から送金する必要があります。そのウォレットに切り替えて、もう一度お試しください。"
+    "wallet": "ウォレット"
   },
   "tabs": {
     "auto_revoke": "自動取り消し",
@@ -253,10 +224,6 @@
       "manage_subscription": "プレミアムサブスクリプションの管理",
       "title": "このページでできること"
     },
-    "description": "ログインして、プレミアムサブスクリプション、自動取り消し、ウォレットスロットを管理しましょう。",
-    "selected_plan": {
-      "summary": "年間 {price} で、最大 {maxAddresses} 個のウォレットが含まれます。続行するにはウォレットを接続してください。",
-      "title": "{planName} を購読する"
-    }
+    "description": "ログインして、プレミアムサブスクリプション、自動取り消し、ウォレットスロットを管理しましょう。"
   }
 }

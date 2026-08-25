@@ -46,6 +46,49 @@
       "list_intro": "The following wallets are currently known to support automated revoking, and more will follow as the standard gets adopted:"
     }
   },
+  "checkout": {
+    "balance": "Balance: {amount} {token}",
+    "buttons": {
+      "confirming": "Confirming payment",
+      "creating": "Creating payment",
+      "paying": "Confirm in wallet",
+      "try_again": "Try again"
+    },
+    "connect_prompt": "Connect the wallet you want to upgrade. Your subscription is linked to the wallet that pays.",
+    "connected_wallet_note": "Your subscription is linked to this wallet. You can add more wallets after checkout.",
+    "downgrade_notice": "Your {planName} subscription is already active and includes everything in this plan. You can extend it instead.",
+    "granted_access_note": "You already have access through a granted subscription, but you can still subscribe for your own plan if you'd like.",
+    "insufficient_balance": "You need at least {amount} {token} on {chainName} to complete this payment. Top up your wallet or choose a different payment network or token.",
+    "legal_notice": "By subscribing, you agree to our <terms-link>Terms of Service</terms-link>.",
+    "next_setup_auto_revoke": "Next step: set up Auto-Revoking",
+    "pay_button": "Pay {amount} {token}",
+    "payment_confirmed": "Payment confirmed! Your premium subscription is now active.",
+    "payment_expired": "The payment window expired. If you already sent the full {token} amount, it will be credited automatically once it lands on-chain. Check your subscription status in a few minutes.",
+    "payment_failed": "Subscription payment failed",
+    "payment_help": "Need help? <support-link>Chat with support</support-link>.",
+    "payment_network": "Payment network",
+    "payment_status_error": "Payment {status}",
+    "payment_summary": "You will pay {amount} {token} for {days} days. Includes up to {maxAddresses} {maxAddresses, plural, =1 {wallet} other {wallets}}.",
+    "payment_token": "Payment token",
+    "plans_unavailable": "Checkout is temporarily unavailable. Please try again later.",
+    "siwe_note": "Your wallet will first ask you to sign a free message to verify that you own it. This is not a transaction and costs no gas.",
+    "success": {
+      "add_wallets": "Add wallets to your subscription",
+      "description": "Your {planName} subscription is active. You can add up to {maxAddresses} wallets on your account page.",
+      "title": "Payment confirmed!"
+    },
+    "titles": {
+      "extend": "Extend {planName}",
+      "renew": "Renew {planName}",
+      "subscribe": "Subscribe to {planName}",
+      "upgrade": "Upgrade to {planName}"
+    },
+    "ultimate_requires_metamask": "Auto-Revoking requires MetaMask. You can pay with any wallet, and set up Auto-Revoking afterwards by connecting with MetaMask.",
+    "ultimate_requires_smart_account": "Auto-Revoking is not supported for hardware wallet accounts such as Ledger. You can still pay with this wallet, and set up Auto-Revoking afterwards with a different account.",
+    "verify_button": "Verify in wallet",
+    "wallet": "Wallet",
+    "wrong_wallet_error": "The payment must be sent from {address}. Please switch to that wallet and try again."
+  },
   "pricing": {
     "best_protection": "Best Protection",
     "compare_plans": "Compare plans",

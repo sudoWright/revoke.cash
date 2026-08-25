@@ -177,14 +177,8 @@
   "subscription": {
     "active": "Active",
     "buttons": {
-      "confirming": "Confirming payment",
-      "creating": "Creating payment",
       "extend": "Extend",
-      "paying": "Confirm in wallet",
-      "renew": "Renew",
-      "subscribe": "Subscribe",
-      "try_again": "Try again",
-      "upgrade": "Upgrade"
+      "renew": "Renew"
     },
     "cancellation": {
       "cancelled": "Cancelled",
@@ -203,7 +197,6 @@
       "requested": "Cancellation requested",
       "success": "Refund requested. You keep access until the refund is processed."
     },
-    "downgrade_not_supported": "You cannot downgrade an active subscription.",
     "expired": "Expired",
     "expired_on": "Expired on {date}.",
     "expired_preserved": "Your wallet slots and Auto-Revoking rules are preserved. Renew to pick up where you left off.",
@@ -211,34 +204,12 @@
     "expires_in": "Expires in {days, plural, =1 {1 day} other {# days}} ({date})",
     "expires_soon": "Expires soon",
     "granted_by": "Granted by {address}",
-    "insufficient_balance": "You need at least {amount} {token} on {chainName} to complete this payment. Top up your wallet or choose a different payment network or token.",
-    "legal_notice": "By subscribing, you agree to our <terms-link>Terms of Service</terms-link>.",
-    "next_setup_auto_revoke": "Next step: set up Auto-Revoking",
     "no_subscription": "You don't have an active premium subscription. Subscribe to get started. <premium-link>Learn more about Premium</premium-link>.",
-    "optional_own_subscription": "You already have access through a granted subscription. You can still subscribe for your own plan if you'd like.",
-    "payment_confirmed": "Payment confirmed! Your premium subscription is now active.",
-    "payment_expired": "The payment window expired. If you already sent the full {token} amount, it will be credited automatically once it lands on-chain. Check your subscription status in a few minutes.",
-    "payment_failed": "Subscription payment failed",
-    "payment_help": "Need help? <support-link>Chat with support</support-link>.",
-    "payment_network": "Payment network",
-    "payment_status_error": "Payment {status}",
-    "payment_summary": "You will pay {amount} {token} for {days} days. Includes up to {maxAddresses} {maxAddresses, plural, =1 {wallet} other {wallets}}.",
-    "payment_token": "Payment token",
-    "plan": "Plan",
-    "plan_description": "${price}/year",
-    "plan_options": {
-      "basic_access": "Basic Access",
-      "current": "Current",
-      "free": "Free"
-    },
-    "plans_unavailable": "Checkout is temporarily unavailable. Please try again later.",
+    "optional_own_subscription": "You already have access through a granted subscription, but you can still subscribe for your own plan if you'd like.",
     "slots_summary": "{used}/{max} wallet {max, plural, =1 {slot} other {slots}} used",
     "title": "Premium Subscription",
-    "ultimate_requires_metamask": "Auto-Revoking requires MetaMask. You can pay with any wallet, and set up Auto-Revoking afterwards by connecting with MetaMask.",
-    "ultimate_requires_smart_account": "Auto-Revoking is not supported for hardware wallet accounts such as Ledger. You can still pay with this wallet, and set up Auto-Revoking afterwards with a different account.",
     "valid_until": "Valid until {date}",
-    "wallet": "Wallet",
-    "wrong_wallet_error": "The payment must be sent from {address}. Please switch to that wallet and try again."
+    "wallet": "Wallet"
   },
   "tabs": {
     "auto_revoke": "Auto-Revoking",
@@ -253,10 +224,6 @@
       "manage_subscription": "Manage your Premium subscription",
       "title": "What you can do here"
     },
-    "description": "Sign in to manage your Premium subscription, Auto-Revoking, and wallet slots.",
-    "selected_plan": {
-      "summary": "{price} per year with up to {maxAddresses} wallets included. Connect your wallet to continue.",
-      "title": "Subscribe to {planName}"
-    }
+    "description": "Sign in to manage your Premium subscription, Auto-Revoking, and wallet slots."
   }
 }

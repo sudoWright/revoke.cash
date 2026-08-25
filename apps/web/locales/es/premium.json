@@ -46,6 +46,49 @@
       "list_intro": "Actualmente se sabe que las siguientes carteras admiten la revocación automática, y se irán añadiendo más a medida que se vaya adoptando el estándar:"
     }
   },
+  "checkout": {
+    "balance": "Saldo: {amount} {token}",
+    "buttons": {
+      "confirming": "Confirmando pago",
+      "creating": "Creando pago",
+      "paying": "Confirmar en la cartera",
+      "try_again": "Inténtalo de nuevo"
+    },
+    "connect_prompt": "Conecta la cartera que quieres mejorar. Tu suscripción queda vinculada a la cartera que paga.",
+    "connected_wallet_note": "Tu suscripción queda vinculada a esta cartera. Puedes añadir más carteras después del pago.",
+    "downgrade_notice": "Tu suscripción {planName} ya está activa e incluye todo lo de este plan. Puedes extenderla en su lugar.",
+    "granted_access_note": "Ya tienes acceso gracias a una suscripción que te han concedido, pero si quieres, aún puedes suscribirte a tu propio plan.",
+    "insufficient_balance": "Necesitas al menos {amount} {token} en {chainName} para completar este pago. Recarga tu cartera o elige otra red o token de pago.",
+    "legal_notice": "Al suscribirte, aceptas nuestros <terms-link>Términos de Servicio</terms-link>.",
+    "next_setup_auto_revoke": "Siguiente paso: configura la Revocación automática",
+    "pay_button": "Pagar {amount} {token}",
+    "payment_confirmed": "¡Pago confirmado! Tu suscripción premium ya está activa.",
+    "payment_expired": "El plazo de pago ha expirado. Si ya enviaste el monto completo en {token}, se acreditará automáticamente en cuanto se registre en la cadena de bloques. Comprueba el estado de tu suscripción en unos minutos.",
+    "payment_failed": "El pago de la suscripción ha fallado",
+    "payment_help": "¿Necesitas ayuda? <support-link>Chatea con soporte</support-link>.",
+    "payment_network": "Red de pago",
+    "payment_status_error": "Pago {status}",
+    "payment_summary": "Pagarás {amount} {token} por {days} días. Incluye hasta {maxAddresses} {maxAddresses, plural, =1 {cartera} other {carteras}}.",
+    "payment_token": "Token de pago",
+    "plans_unavailable": "El proceso de pago no está disponible temporalmente. Por favor inténtalo de nuevo más tarde.",
+    "siwe_note": "Tu cartera te pedirá primero firmar un mensaje gratuito para verificar que eres su propietario. No es una transacción y no cuesta gas.",
+    "success": {
+      "add_wallets": "Añade carteras a tu suscripción",
+      "description": "Tu suscripción {planName} está activa. Puedes añadir hasta {maxAddresses} carteras en tu página de cuenta.",
+      "title": "¡Pago confirmado!"
+    },
+    "titles": {
+      "extend": "Extender {planName}",
+      "renew": "Renovar {planName}",
+      "subscribe": "Suscribirse a {planName}",
+      "upgrade": "Actualizar a {planName}"
+    },
+    "ultimate_requires_metamask": "La Revocación automática requiere MetaMask. Puedes pagar con cualquier cartera y configurar la Revocación automática después conectándote con MetaMask.",
+    "ultimate_requires_smart_account": "La Revocación automática no es compatible con cuentas de carteras de hardware como Ledger. Aun así puedes pagar con esta cartera y configurar la Revocación automática después con una cuenta diferente.",
+    "verify_button": "Verificar en la cartera",
+    "wallet": "Cartera",
+    "wrong_wallet_error": "El pago debe enviarse desde {address}. Por favor cambia a esa cartera y vuelve a intentarlo."
+  },
   "pricing": {
     "best_protection": "La mejor protección",
     "compare_plans": "Comparar planes",

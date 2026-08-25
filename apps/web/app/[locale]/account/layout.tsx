@@ -34,8 +34,14 @@ const AccountLayout = async ({ children, params }: Props) => {
     <SharedLayout searchBar padding>
       <div className="w-full max-w-7xl mx-auto">
         <AuthSessionProvider initialSession={session}>
+          {/* The checkout modal on this page uses premium.checkout strings, so it ships that namespace too */}
           <NextIntlClientProvider
-            messages={{ common: messages.common, account: messages.account, address: messages.address }}
+            messages={{
+              common: messages.common,
+              account: messages.account,
+              address: messages.address,
+              premium: messages.premium,
+            }}
           >
             <AccountShell>{children}</AccountShell>
           </NextIntlClientProvider>

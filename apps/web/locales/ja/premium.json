@@ -46,6 +46,49 @@
       "list_intro": "現在、自動取り消しへの対応が確認されているのは以下のウォレットで、標準の普及に伴い今後さらに増えていく予定です："
     }
   },
+  "checkout": {
+    "balance": "残高: {amount} {token}",
+    "buttons": {
+      "confirming": "支払いを確認中",
+      "creating": "支払いを作成中",
+      "paying": "ウォレットで確認",
+      "try_again": "もう一度お試しください"
+    },
+    "connect_prompt": "アップグレードしたいウォレットを接続してください。サブスクリプションは支払いに使用したウォレットに紐付けられます。",
+    "connected_wallet_note": "サブスクリプションはこのウォレットに紐付けられます。支払い後にウォレットを追加できます。",
+    "downgrade_notice": "{planName}サブスクリプションはすでに有効で、このプランのすべての機能を含んでいます。代わりに延長できます。",
+    "granted_access_note": "すでに付与されたサブスクリプションを通じてアクセスをお持ちですが、ご希望であれば、ご自身のプランを購読することもできます。",
+    "insufficient_balance": "この支払いを完了するには、{chainName} 上で {amount} {token} 以上が必要です。ウォレットに残高を追加するか、別の支払いネットワークまたはトークンを選択してください。",
+    "legal_notice": "サブスクリプションに登録することで、<terms-link>利用規約</terms-link>に同意したものとみなされます。",
+    "next_setup_auto_revoke": "次のステップ：自動取り消しの設定",
+    "pay_button": "{amount} {token} を支払う",
+    "payment_confirmed": "支払いが確認されました！プレミアムサブスクリプションが有効になりました。",
+    "payment_expired": "お支払いの期限が切れました。すでに{token}の全額を送金済みの場合は、オンチェーンで着金し次第、自動的に反映されます。数分後にサブスクリプションの状態をご確認ください。",
+    "payment_failed": "サブスクリプションの支払いに失敗しました",
+    "payment_help": "お困りの場合は、<support-link>サポートにチャットでお問い合わせください</support-link>。",
+    "payment_network": "決済ネットワーク",
+    "payment_status_error": "お支払いのステータス：{status}",
+    "payment_summary": "{days} 日間分として {amount} {token} をお支払いいただきます。最大 {maxAddresses, plural, other {# 個のウォレット}}が含まれます。",
+    "payment_token": "決済トークン",
+    "plans_unavailable": "チェックアウトは一時的にご利用いただけません。後でもう一度お試しください。",
+    "siwe_note": "最初に、ウォレットの所有権を確認するための無料メッセージへの署名が求められます。これはトランザクションではなく、ガス代もかかりません。",
+    "success": {
+      "add_wallets": "サブスクリプションにウォレットを追加",
+      "description": "{planName}サブスクリプションが有効になりました。アカウントページで最大{maxAddresses}個のウォレットを追加できます。",
+      "title": "支払いが確認されました！"
+    },
+    "titles": {
+      "extend": "{planName}を延長",
+      "renew": "{planName}を更新",
+      "subscribe": "{planName}を購読",
+      "upgrade": "{planName}にアップグレード"
+    },
+    "ultimate_requires_metamask": "自動取り消しにはMetaMaskが必要です。お支払いは任意のウォレットで行い、その後MetaMaskで接続して自動取り消しを設定できます。",
+    "ultimate_requires_smart_account": "自動取り消しはLedgerなどのハードウェアウォレットのアカウントには対応していません。お支払いはこのウォレットで行い、その後、別のアカウントで自動取り消しを設定できます。",
+    "verify_button": "ウォレットで確認",
+    "wallet": "ウォレット",
+    "wrong_wallet_error": "お支払いは {address} から送金する必要があります。そのウォレットに切り替えて、もう一度お試しください。"
+  },
   "pricing": {
     "best_protection": "最高の保護",
     "compare_plans": "プランを比較",

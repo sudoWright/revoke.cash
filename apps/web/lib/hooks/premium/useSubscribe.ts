@@ -17,6 +17,7 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { type Address, isAddressEqual } from 'viem';
+import { getPremiumEntitlementsQueryKey } from './usePremiumEntitlements';
 import { getSubscriptionsQueryKey } from './usePremiumSubscriptions';
 
 export type SubscribeStatus = 'idle' | 'creating' | 'paying' | 'confirming' | 'confirmed' | 'failed';
@@ -26,6 +27,7 @@ interface UseSubscribeParams {
   selectedPlan: PremiumPlan | null;
   selectedPaymentChainId: number;
   selectedPaymentToken: PaymentToken | null;
+  isAuthenticated: boolean;
 }
 
 const PENDING_PAYMENT_STORAGE_KEY = 'revoke_pending_payment';
@@ -124,14 +126,23 @@ export const useSubscribe = ({
   selectedPlan,
   selectedPaymentChainId,
   selectedPaymentToken,
+  isAuthenticated,
 }: UseSubscribeParams) => {
   const t = useTranslations();
   const queryClient = useQueryClient();
   const { ensureWalletClient } = useEnsureWalletClient();
   const [status, setStatus] = useState<SubscribeStatus>('idle');
 
+  // A confirmed payment changes both the owner's subscriptions and their public entitlements
+  const invalidatePremiumStatus = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: getSubscriptionsQueryKey(ownerAddress) });
+    queryClient.invalidateQueries({ queryKey: getPremiumEntitlementsQueryKey(ownerAddress) });
+  }, [queryClient, ownerAddress]);
+
   // On mount, resume polling if there's a pending payment from a previous page load
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     const pendingPayment = loadPendingPayment(ownerAddress);
     if (!pendingPayment) return;
 
@@ -143,8 +154,8 @@ export const useSubscribe = ({
 
         if (finalStatus.status === 'confirmed') {
           setStatus('confirmed');
-          queryClient.invalidateQueries({ queryKey: getSubscriptionsQueryKey(ownerAddress) });
-          toast.success(t('account.subscription.payment_confirmed'));
+          invalidatePremiumStatus();
+          toast.success(t('premium.checkout.payment_confirmed'));
           analytics.track('Subscription Purchased', { paymentId: pendingPayment.paymentId, resumed: true });
         } else {
           // expired or failed — no action needed, user can try again
@@ -155,11 +166,11 @@ export const useSubscribe = ({
         // Network error — leave payment in storage to retry on next load
         setStatus('idle');
       });
-  }, [ownerAddress, queryClient, t]);
+  }, [ownerAddress, isAuthenticated, invalidatePremiumStatus, t]);
 
   const subscribeMutation = useMutation({
     mutationFn: async () => {
-      if (!selectedPlan || !selectedPaymentToken) throw new Error(t('account.subscription.payment_failed'));
+      if (!selectedPlan || !selectedPaymentToken) throw new Error(t('premium.checkout.payment_failed'));
 
       const pendingPayment = loadPendingPayment(ownerAddress);
       if (pendingPayment) {
@@ -180,7 +191,7 @@ export const useSubscribe = ({
         !(await hasSufficientTokenBalance(ownerAddress, selectedPlan, selectedPaymentChainId, selectedPaymentToken))
       ) {
         throw new Error(
-          t('account.subscription.insufficient_balance', {
+          t('premium.checkout.insufficient_balance', {
             amount: selectedPlan.priceUsdCents / 100,
             token: selectedPaymentToken.symbol,
             chainName: getChainName(selectedPaymentChainId),
@@ -213,7 +224,7 @@ export const useSubscribe = ({
 
       const connectedAddress = walletClient.account?.address;
       if (!connectedAddress || !isAddressEqual(connectedAddress, ownerAddress)) {
-        throw new Error(t('account.subscription.wrong_wallet_error', { address: ownerAddress }));
+        throw new Error(t('premium.checkout.wrong_wallet_error', { address: ownerAddress }));
       }
 
       const hash = await walletClient.writeContract({
@@ -249,8 +260,8 @@ export const useSubscribe = ({
       if (finalStatus.status !== 'confirmed') {
         const errorMessage =
           finalStatus.status === 'expired'
-            ? t('account.subscription.payment_expired', { token: payment.token.symbol })
-            : t('account.subscription.payment_status_error', { status: finalStatus.status });
+            ? t('premium.checkout.payment_expired', { token: payment.token.symbol })
+            : t('premium.checkout.payment_status_error', { status: finalStatus.status });
         throw new Error(errorMessage);
       }
 
@@ -266,12 +277,12 @@ export const useSubscribe = ({
     },
     onSuccess: () => {
       setStatus('confirmed');
-      queryClient.invalidateQueries({ queryKey: getSubscriptionsQueryKey(ownerAddress) });
-      toast.success(t('account.subscription.payment_confirmed'));
+      invalidatePremiumStatus();
+      toast.success(t('premium.checkout.payment_confirmed'));
     },
     onError: (error) => {
       setStatus('failed');
-      toast.error(parseErrorMessage(error) || t('account.subscription.payment_failed'));
+      toast.error(parseErrorMessage(error) || t('premium.checkout.payment_failed'));
       analytics.track('Subscription Payment Failed', {
         planId: selectedPlan?.id,
         chainId: selectedPaymentChainId,

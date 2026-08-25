@@ -3,14 +3,13 @@ import ContentPageHero from 'components/common/ContentPageHero';
 import Href from 'components/common/Href';
 import { Feature } from 'components/landing/FeaturesShowcase';
 import LandingPageFaqItem from 'components/landing/LandingPageFaqItem';
+import PricingTierGrid from 'components/premium/checkout/PricingTierGrid';
 import { useTranslations } from 'next-intl';
 import ActiveSubscriptionBanner from './ActiveSubscriptionBanner';
 import ComparisonTable from './ComparisonTable';
-import { TIER_MAX_ADDRESSES } from './pricing-data';
-import TierCard from './TierCard';
+import { DEMO_ADDRESS_URL, TIER_MAX_ADDRESSES } from './pricing-data';
 
 const TRANSLATION_PREFIX = 'premium.pricing.feature_sections';
-const DEMO_ADDRESS_URL = '/address/0xe126b3E5d052f1F575828f61fEBA4f4f2603652a';
 
 const PremiumPricingPageContent = () => {
   const t = useTranslations();
@@ -20,40 +19,7 @@ const PremiumPricingPageContent = () => {
       <ContentPageHero title={t('premium.pricing.title')} subtitle={t('premium.pricing.description')} />
       <ActiveSubscriptionBanner />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <TierCard tierKey="free" price="$0" href="/token-approval-checker/ethereum" />
-        <TierCard
-          tierKey="premium"
-          price="$99"
-          perWalletPerMonthPrice="$0.83"
-          walletSlots={10}
-          href="/account?plan=premium"
-          link={{
-            href: DEMO_ADDRESS_URL,
-            label: t('premium.pricing.feature_sections.multichain_dashboard.link_label'),
-          }}
-          className="border-2 border-brand/70"
-          badgeLabel={t('premium.pricing.most_popular_label')}
-          badgeClassName="bg-brand text-zinc-900"
-          referencesTier="free"
-        />
-        <TierCard
-          tierKey="ultimate"
-          price="$199"
-          perWalletPerMonthPrice="$1.66"
-          walletSlots={10}
-          href="/account?plan=ultimate"
-          link={{
-            href: '/premium/automated-revoking',
-            label: t('premium.pricing.feature_sections.automated_revoking.link_label'),
-          }}
-          className="border-2 border-zinc-900 dark:border-zinc-200"
-          badgeLabel={t('premium.pricing.best_protection')}
-          badgeClassName="bg-zinc-900 text-white dark:bg-zinc-200 dark:text-zinc-900"
-          buttonStyle="primary"
-          referencesTier="premium"
-        />
-      </div>
+      <PricingTierGrid />
 
       <p className="-mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">{t('premium.pricing.payment_note')}</p>
 

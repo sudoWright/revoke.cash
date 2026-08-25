@@ -56,3 +56,33 @@ export const getGrantedEntitlements = async (address: Address): Promise<PremiumE
   const entitlements = await getActivePremiumEntitlements(address);
   return entitlements.filter((entitlement) => entitlement.ownerAddress.toLowerCase() !== address.toLowerCase());
 };
+
+export interface EntitlementSummary {
+  isPremium: boolean;
+  isUltimate: boolean;
+  ownTier: PremiumPlanTier | null;
+  grantedTier: PremiumPlanTier | null;
+}
+
+// Collapses an address's entitlements into the tier levels the checkout needs, split by whether
+// the access comes from an own subscription or through someone else's
+export const summarizeEntitlements = (address: Address, entitlements: PremiumEntitlement[]): EntitlementSummary => {
+  const ownEntitlements = entitlements.filter(
+    (entitlement) => entitlement.ownerAddress.toLowerCase() === address.toLowerCase(),
+  );
+  const grantedEntitlements = entitlements.filter(
+    (entitlement) => entitlement.ownerAddress.toLowerCase() !== address.toLowerCase(),
+  );
+
+  return {
+    isPremium: entitlements.length > 0,
+    isUltimate: highestTier(entitlements) === 'ultimate',
+    ownTier: highestTier(ownEntitlements),
+    grantedTier: highestTier(grantedEntitlements),
+  };
+};
+
+const highestTier = (entitlements: PremiumEntitlement[]): PremiumPlanTier | null => {
+  if (entitlements.some((entitlement) => isUltimatePlan(entitlement))) return 'ultimate';
+  return entitlements.length > 0 ? 'premium' : null;
+};

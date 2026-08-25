@@ -6,7 +6,8 @@ import { useAccountSubscriptions } from 'lib/hooks/premium/useAccountSubscriptio
 import { useTranslations } from 'next-intl';
 import AutoRevokeSetupBanner from '../auto-revoke/AutoRevokeSetupBanner';
 import PremiumAddressesSection from '../PremiumAddressesSection';
-import PremiumSubscriptionSection from '../PremiumSubscriptionSection';
+import SubscriptionActions from '../SubscriptionActions';
+import SubscriptionOverview from '../SubscriptionOverview';
 
 const SubscriptionTab = () => {
   const t = useTranslations();
@@ -24,12 +25,15 @@ const SubscriptionTab = () => {
   return (
     <div className="w-full flex flex-col gap-4">
       {setupNeeded && <AutoRevokeSetupBanner />}
-      <PremiumSubscriptionSection
-        account={account!}
-        activeSubscription={activeSubscription}
-        expiredSubscription={latestExpiredSubscription}
-        entitlements={entitlements}
-      />
+      <Card header={<CardTitle title={t('account.subscription.title')} />} className="flex flex-col gap-4">
+        <SubscriptionOverview
+          account={account!}
+          activeSubscription={activeSubscription}
+          expiredSubscription={latestExpiredSubscription}
+          entitlements={entitlements}
+        />
+        <SubscriptionActions activeSubscription={activeSubscription} expiredSubscription={latestExpiredSubscription} />
+      </Card>
       {activeSubscription && <PremiumAddressesSection activeSubscription={activeSubscription} account={account!} />}
     </div>
   );

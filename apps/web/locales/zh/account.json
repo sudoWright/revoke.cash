@@ -177,14 +177,8 @@
   "subscription": {
     "active": "生效中",
     "buttons": {
-      "confirming": "正在确认付款",
-      "creating": "正在创建付款",
       "extend": "延长",
-      "paying": "请在钱包中确认",
-      "renew": "续订",
-      "subscribe": "订阅",
-      "try_again": "重试",
-      "upgrade": "升级"
+      "renew": "续订"
     },
     "cancellation": {
       "cancelled": "已取消",
@@ -203,7 +197,6 @@
       "requested": "已申请取消",
       "success": "退款已申请。在退款处理完成之前，您仍可继续使用。"
     },
-    "downgrade_not_supported": "无法降级生效中的订阅。",
     "expired": "已过期",
     "expired_on": "已于 {date} 过期。",
     "expired_preserved": "您的钱包名额和自动撤销规则已保留。续订后即可继续使用。",
@@ -211,34 +204,12 @@
     "expires_in": "将于 {days, plural, other {# 天}}后到期（{date}）",
     "expires_soon": "即将到期",
     "granted_by": "由 {address} 授予",
-    "insufficient_balance": "您需要在 {chainName} 上至少拥有 {amount} {token} 才能完成此付款。请为钱包充值，或选择其他付款网络或代币。",
-    "legal_notice": "订阅即表示您同意我们的<terms-link>服务条款</terms-link>。",
-    "next_setup_auto_revoke": "下一步：设置自动撤销",
     "no_subscription": "您目前没有生效中的 Premium 订阅。立即订阅即可开始使用。<premium-link>了解更多关于 Premium 的信息</premium-link>。",
-    "optional_own_subscription": "您已通过他人授予的订阅获得访问权限。如果需要，您仍然可以订阅自己的方案。",
-    "payment_confirmed": "付款已确认！您的 Premium 订阅现已生效。",
-    "payment_expired": "付款时限已过。如果您已发送全额 {token}，款项上链后将自动入账。请几分钟后查看您的订阅状态。",
-    "payment_failed": "订阅付款失败",
-    "payment_help": "需要帮助？<support-link>联系客服</support-link>。",
-    "payment_network": "付款网络",
-    "payment_status_error": "付款状态：{status}",
-    "payment_summary": "您将支付 {amount} {token}，有效期 {days} 天，最多包含 {maxAddresses, plural, other {# 个钱包}}。",
-    "payment_token": "付款代币",
-    "plan": "方案",
-    "plan_description": "${price}/年",
-    "plan_options": {
-      "basic_access": "基础访问权限",
-      "current": "当前方案",
-      "free": "免费版"
-    },
-    "plans_unavailable": "结账功能暂时不可用。请稍后重试。",
+    "optional_own_subscription": "您已通过他人授予的订阅获得访问权限，但如果需要，您仍然可以订阅自己的方案。",
     "slots_summary": "已使用 {used}/{max} 个钱包名额",
     "title": "Premium 订阅",
-    "ultimate_requires_metamask": "自动撤销需要 MetaMask。您可以使用任意钱包付款，之后再连接 MetaMask 设置自动撤销。",
-    "ultimate_requires_smart_account": "自动撤销不支持 Ledger 等硬件钱包账户。您仍可使用此钱包付款，之后再用其他账户设置自动撤销。",
     "valid_until": "有效期至 {date}",
-    "wallet": "钱包",
-    "wrong_wallet_error": "付款必须从 {address} 发送。请切换到该钱包后重试。"
+    "wallet": "钱包"
   },
   "tabs": {
     "auto_revoke": "自动撤销",
@@ -253,10 +224,6 @@
       "manage_subscription": "管理您的 Premium 订阅",
       "title": "您可以在这里进行的操作"
     },
-    "description": "登录以管理您的 Premium 订阅、自动撤销和钱包名额。",
-    "selected_plan": {
-      "summary": "每年 {price}，最多包含 {maxAddresses} 个钱包。连接钱包以继续。",
-      "title": "订阅 {planName}"
-    }
+    "description": "登录以管理您的 Premium 订阅、自动撤销和钱包名额。"
   }
 }

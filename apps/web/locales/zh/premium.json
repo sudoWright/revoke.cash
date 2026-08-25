@@ -46,6 +46,49 @@
       "list_intro": "目前已知支持自动撤销的钱包如下，随着标准逐步得到采用，还会有更多钱包加入："
     }
   },
+  "checkout": {
+    "balance": "余额：{amount} {token}",
+    "buttons": {
+      "confirming": "正在确认付款",
+      "creating": "正在创建付款",
+      "paying": "请在钱包中确认",
+      "try_again": "重试"
+    },
+    "connect_prompt": "连接您想升级的钱包。订阅将绑定到用于支付的钱包。",
+    "connected_wallet_note": "订阅将绑定到此钱包。支付完成后可以添加更多钱包。",
+    "downgrade_notice": "您的 {planName} 订阅已生效，并包含此方案的全部功能。您可以选择延长该订阅。",
+    "granted_access_note": "您已通过他人授予的订阅获得访问权限，但如果需要，您仍然可以订阅自己的方案。",
+    "insufficient_balance": "您需要在 {chainName} 上至少拥有 {amount} {token} 才能完成此付款。请为钱包充值，或选择其他付款网络或代币。",
+    "legal_notice": "订阅即表示您同意我们的<terms-link>服务条款</terms-link>。",
+    "next_setup_auto_revoke": "下一步：设置自动撤销",
+    "pay_button": "支付 {amount} {token}",
+    "payment_confirmed": "付款已确认！您的 Premium 订阅现已生效。",
+    "payment_expired": "付款时限已过。如果您已发送全额 {token}，款项上链后将自动入账。请几分钟后查看您的订阅状态。",
+    "payment_failed": "订阅付款失败",
+    "payment_help": "需要帮助？<support-link>联系客服</support-link>。",
+    "payment_network": "付款网络",
+    "payment_status_error": "付款状态：{status}",
+    "payment_summary": "您将支付 {amount} {token}，有效期 {days} 天，最多包含 {maxAddresses, plural, other {# 个钱包}}。",
+    "payment_token": "付款代币",
+    "plans_unavailable": "结账功能暂时不可用。请稍后重试。",
+    "siwe_note": "钱包会先请您签署一条免费消息以验证钱包所有权。这不是交易，也不消耗 gas。",
+    "success": {
+      "add_wallets": "为订阅添加钱包",
+      "description": "您的 {planName} 订阅已生效。您可以在账户页面添加最多 {maxAddresses} 个钱包。",
+      "title": "支付已确认！"
+    },
+    "titles": {
+      "extend": "延长 {planName}",
+      "renew": "续订 {planName}",
+      "subscribe": "订阅 {planName}",
+      "upgrade": "升级至 {planName}"
+    },
+    "ultimate_requires_metamask": "自动撤销需要 MetaMask。您可以使用任意钱包付款，之后再连接 MetaMask 设置自动撤销。",
+    "ultimate_requires_smart_account": "自动撤销不支持 Ledger 等硬件钱包账户。您仍可使用此钱包付款，之后再用其他账户设置自动撤销。",
+    "verify_button": "在钱包中验证",
+    "wallet": "钱包",
+    "wrong_wallet_error": "付款必须从 {address} 发送。请切换到该钱包后重试。"
+  },
   "pricing": {
     "best_protection": "最佳保护",
     "compare_plans": "比较方案",

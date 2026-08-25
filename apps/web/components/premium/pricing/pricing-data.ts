@@ -60,6 +60,8 @@ export const FEATURES: PricingFeature[] = [
 
 export const TIER_KEYS: TierKey[] = ['free', 'premium', 'ultimate'];
 
+export const DEMO_ADDRESS_URL = '/address/0xe126b3E5d052f1F575828f61fEBA4f4f2603652a';
+
 export const TIER_MAX_ADDRESSES: Record<TierKey, number> = {
   free: 0,
   premium: 10,

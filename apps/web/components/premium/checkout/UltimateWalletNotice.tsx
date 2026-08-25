@@ -13,8 +13,8 @@ const UltimateWalletNotice = () => {
   return (
     <NoticeBanner style="warning">
       {supportStatus === 'unsupported_account'
-        ? t('account.subscription.ultimate_requires_smart_account')
-        : t('account.subscription.ultimate_requires_metamask')}
+        ? t('premium.checkout.ultimate_requires_smart_account')
+        : t('premium.checkout.ultimate_requires_metamask')}
     </NoticeBanner>
   );
 };
