@@ -21,7 +21,7 @@ import { FEE_SPONSORS, isZeroFeeDollarAmount } from 'components/allowances/contr
 import { trackRevokeTransaction } from 'lib/allowances';
 import { recordBatchRevoke, trackBatchRevoke } from 'lib/allowances/batch-revoke';
 import { useTranslations } from 'next-intl';
-import type PQueue from 'p-queue';
+import PQueue from 'p-queue';
 import { useCallback, useRef } from 'react';
 import type { Capabilities, EstimateContractGasParameters, Hash } from 'viem'; // viem has an issue with typing the capability. Until they fix it, we are manually importing it.
 import { usePublicClient } from 'wagmi';
@@ -29,7 +29,6 @@ import { useTransactionStore, wrapTransaction } from '../../stores/transaction-s
 import { useAddress } from '../page-context/AddressIdentityContext';
 import { useEnsureWalletClient } from './ensureWalletClient';
 import { useFeePayment } from './useFeePayment';
-import { createRevokeQueue } from './useRevokeBatchQueuedTransactions';
 import { useWalletCapabilities } from './useWalletCapabilities';
 
 export const useRevokeBatchEip5792 = (allowances: TokenAllowanceData[], onUpdate: OnUpdate) => {
@@ -50,7 +49,8 @@ export const useRevokeBatchEip5792 = (allowances: TokenAllowanceData[], onUpdate
 
   const revoke = async (feeDollarAmount: string) => {
     // One queue per revoke invocation; retries with a smaller batch size reuse the same queue
-    const revokeQueue = createRevokeQueue(false);
+    // The queued tasks only track the status of already-submitted batches, so they can run concurrently
+    const revokeQueue = new PQueue({ concurrency: 50, interval: 100, intervalCap: 1 });
     revokeQueueRef.current = revokeQueue;
 
     return executeRevoke(revokeQueue, feeDollarAmount, Number.POSITIVE_INFINITY);

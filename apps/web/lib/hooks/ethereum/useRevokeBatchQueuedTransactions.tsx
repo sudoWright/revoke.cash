@@ -7,24 +7,15 @@ import { isUserRejectionError, parseErrorMessage } from '@revoke.cash/core/utils
 import { FEE_SPONSORS, isZeroFeeDollarAmount } from 'components/allowances/controls/batch-revoke/fee';
 import { revokeAllowance, trackRevokeTransaction } from 'lib/allowances';
 import { recordBatchRevoke, trackBatchRevoke } from 'lib/allowances/batch-revoke';
-import { isMobileDevice } from 'lib/utils/wallet';
 import { useTranslations } from 'next-intl';
 import PQueue from 'p-queue';
 import { useCallback, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useConnection, usePublicClient } from 'wagmi';
+import { usePublicClient } from 'wagmi';
 import { useTransactionStore, wrapTransaction } from '../../stores/transaction-store';
 import { useAddress } from '../page-context/AddressIdentityContext';
 import { useEnsureWalletClient } from './ensureWalletClient';
 import { useFeePayment } from './useFeePayment';
-
-// Mobile wallets (connected through WalletConnect or as the wallet's in-app browser) can typically only
-// handle a single request at a time, so we wait for the wallet to answer each transaction request before
-// sending the next one. Other wallets get up to 50 concurrent requests to avoid crashing them.
-export const createRevokeQueue = (sequential: boolean) => {
-  if (sequential) return new PQueue({ concurrency: 1, interval: 500, intervalCap: 1 });
-  return new PQueue({ concurrency: 50, interval: 100, intervalCap: 1 });
-};
 
 export type BatchRevokeProgress = {
   isPayingFee: boolean;
@@ -36,7 +27,6 @@ export const useRevokeBatchQueuedTransactions = (allowances: TokenAllowanceData[
   const t = useTranslations();
   const { getTransaction, updateTransaction } = useTransactionStore();
   const { address, isPremium } = useAddress();
-  const { connector } = useConnection();
   // Get chainId from the first allowance (all selected allowances should be from the same chain)
   const chainId = allowances[0]?.chainId ?? 1;
   const { sendFeePayment } = useFeePayment(chainId);
@@ -55,8 +45,8 @@ export const useRevokeBatchQueuedTransactions = (allowances: TokenAllowanceData[
 
     if (allowancesToRevoke.length === 0) return;
 
-    const sequentialDispatch = connector?.type === 'walletConnect' || isMobileDevice();
-    const revokeQueue = createRevokeQueue(sequentialDispatch);
+    // Many wallets can't handle concurrent requests, so we limit the concurrency to 1 and ask for sequential confirmations
+    const revokeQueue = new PQueue({ concurrency: 1, interval: 500, intervalCap: 1 });
     revokeQueueRef.current = revokeQueue;
 
     setProgress({
