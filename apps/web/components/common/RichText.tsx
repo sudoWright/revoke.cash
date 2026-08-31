@@ -61,6 +61,16 @@ const tags = {
       {children}
     </Href>
   ),
+  'wei-link': (children: ReactNode) => (
+    <Href href="https://wei.domains" className="font-medium" underline="hover" html external>
+      {children}
+    </Href>
+  ),
+  'gwei-link': (children: ReactNode) => (
+    <Href href="https://gwei.domains" className="font-medium" underline="hover" html external>
+      {children}
+    </Href>
+  ),
   'faq-link': (children: ReactNode) => (
     <Href href="/learn/faq" className="font-medium" html underline="hover" router>
       {children}

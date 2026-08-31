@@ -53,7 +53,7 @@
       "question": "Какие сети поддерживает Revoke.cash?"
     },
     "which_domains": {
-      "answer": "При поиске учетных записей в строке поиска вы можете использовать несколько различных служб доменных имен. В настоящее время мы поддерживаем <ens-link>ENS</ens-link>, <uns-link>Unstoppable Domains</uns-link> и <avvy-link>Avvy Domains</avvy-link>. В будущем мы можем добавить другие службы доменных имен.",
+      "answer": "При поиске учетных записей в строке поиска вы можете использовать несколько различных служб доменных имен. В настоящее время мы поддерживаем <ens-link>ENS</ens-link>, <uns-link>Unstoppable Domains</uns-link>, <avvy-link>Avvy Domains</avvy-link>, <wei-link>Wei Name Service</wei-link> и <gwei-link>Gwei Name Service</gwei-link>. В будущем мы можем добавить другие службы доменных имен.",
       "question": "Какие типы доменов поддерживает Revoke.cash?"
     }
   },

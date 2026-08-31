@@ -1,11 +1,14 @@
 import { ChainId } from '@revoke.cash/chains';
-import { AVVY_DOMAINS_ABI, UNSTOPPABLE_DOMAINS_ABI } from '@revoke.cash/core/abis';
+import { AVVY_DOMAINS_ABI, UNSTOPPABLE_DOMAINS_ABI, WEI_DOMAINS_ABI } from '@revoke.cash/core/abis';
 import { createViemPublicClientForChain } from '@revoke.cash/core/chains';
 import {
+  ADDRESS_ZERO,
   ALCHEMY_API_KEY,
   AVVY_DOMAINS_ADDRESS,
+  GWEI_DOMAINS_ADDRESS,
   UNSTOPPABLE_DOMAINS_ETH_ADDRESS,
   UNSTOPPABLE_DOMAINS_POLYGON_ADDRESS,
+  WEI_DOMAINS_ADDRESS,
 } from '@revoke.cash/core/constants';
 import type { RiskFactor } from '@revoke.cash/core/risk';
 import type { Nullable } from '@revoke.cash/core/types';
@@ -163,13 +166,71 @@ export const resolveAvvyName = async (avvyName?: string): Promise<Address | null
   }
 };
 
+// Wei Name Service (.wei) and Gwei Name Service (.gwei) share the same contract interface
+export const lookupWeiName = async (address?: Address): Promise<Nullable<string>> => {
+  return lookupWeiDomainsName(WEI_DOMAINS_ADDRESS, address);
+};
+
+export const resolveWeiName = async (weiName?: string): Promise<Address | null> => {
+  return resolveWeiDomainsName(WEI_DOMAINS_ADDRESS, weiName);
+};
+
+export const lookupGweiName = async (address?: Address): Promise<Nullable<string>> => {
+  return lookupWeiDomainsName(GWEI_DOMAINS_ADDRESS, address);
+};
+
+export const resolveGweiName = async (gweiName?: string): Promise<Address | null> => {
+  return resolveWeiDomainsName(GWEI_DOMAINS_ADDRESS, gweiName);
+};
+
+const lookupWeiDomainsName = async (contractAddress: Address, address?: Address): Promise<Nullable<string>> => {
+  if (!address) return null;
+
+  try {
+    const name = await GlobalClients.ETHEREUM.readContract({
+      abi: WEI_DOMAINS_ABI,
+      address: contractAddress,
+      functionName: 'reverseResolve',
+      args: [address],
+    });
+
+    return name || null;
+  } catch {
+    return null;
+  }
+};
+
+const resolveWeiDomainsName = async (contractAddress: Address, name?: string): Promise<Address | null> => {
+  if (!name) return null;
+
+  try {
+    // Token IDs follow the ENS namehash algorithm; unregistered or expired names resolve to the zero address
+    const address = await GlobalClients.ETHEREUM.readContract({
+      abi: WEI_DOMAINS_ABI,
+      address: contractAddress,
+      functionName: 'resolve',
+      args: [BigInt(namehash(name))],
+    });
+
+    if (!address || address === ADDRESS_ZERO) return null;
+
+    return getAddress(address);
+  } catch {
+    return null;
+  }
+};
+
 // Note that we don't wait for the UNS name to resolve before returning the ENS name
 export const lookupDomainName = async (address: Address) => {
   try {
     const unsNamePromise = lookupUnsName(address);
     const avvyNamePromise = lookupAvvyName(address);
+    const weiNamePromise = lookupWeiName(address);
+    const gweiNamePromise = lookupGweiName(address);
     const ensName = await lookupEnsName(address);
-    return ensName ?? (await unsNamePromise) ?? (await avvyNamePromise);
+    return (
+      ensName ?? (await unsNamePromise) ?? (await avvyNamePromise) ?? (await weiNamePromise) ?? (await gweiNamePromise)
+    );
   } catch {
     return null;
   }
@@ -183,6 +244,10 @@ export const parseInputAddress = async (inputAddressOrName: string): Promise<Add
   if (tld) {
     // Avvy Domains
     if (tld === 'avax') return resolveAvvyName(sanitisedInput);
+    // Wei Name Service
+    if (tld === 'wei') return resolveWeiName(sanitisedInput);
+    // Gwei Name Service
+    if (tld === 'gwei') return resolveGweiName(sanitisedInput);
     // Unstoppable Domains
     if (UNSTOPPABLE_TLDS.includes(tld)) return resolveUnsName(sanitisedInput);
     // Treat anything else as a potential ENS name, which include .eth and all DNS domains

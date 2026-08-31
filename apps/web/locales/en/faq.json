@@ -53,7 +53,7 @@
       "question": "Which networks does Revoke.cash support?"
     },
     "which_domains": {
-      "answer": "When searching for accounts in the search bar, you can use several different domain name services. Currently we support <ens-link>ENS</ens-link>, <uns-link>Unstoppable Domains</uns-link> and <avvy-link>Avvy Domains</avvy-link>. We may add other domain name services in the future.",
+      "answer": "When searching for accounts in the search bar, you can use several different domain name services. Currently we support <ens-link>ENS</ens-link>, <uns-link>Unstoppable Domains</uns-link>, <avvy-link>Avvy Domains</avvy-link>, <wei-link>Wei Name Service</wei-link> and <gwei-link>Gwei Name Service</gwei-link>. We may add other domain name services in the future.",
       "question": "Which kinds of domains does Revoke.cash support?"
     }
   },

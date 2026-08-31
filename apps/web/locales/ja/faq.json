@@ -53,7 +53,7 @@
       "question": "Revoke.cashはどのネットワークに対応していますか？"
     },
     "which_domains": {
-      "answer": "検索バーにてアカウント検索する場合、いくつかのドメインネームサービスを利用することが可能です。現状では、<ens-link>ENS</ens-link>、<uns-link>Unstoppable Domains</uns-link>、<avvy-link>Avvy Domains</avvy-link>をサポートしています。今後、他のドメインネームサービスを追加する可能性があります。",
+      "answer": "検索バーにてアカウント検索する場合、いくつかのドメインネームサービスを利用することが可能です。現状では、<ens-link>ENS</ens-link>、<uns-link>Unstoppable Domains</uns-link>、<avvy-link>Avvy Domains</avvy-link>、<wei-link>Wei Name Service</wei-link>、<gwei-link>Gwei Name Service</gwei-link>をサポートしています。今後、他のドメインネームサービスを追加する可能性があります。",
       "question": "Revoke.cashはどのようなドメインに対応していますか？"
     }
   },

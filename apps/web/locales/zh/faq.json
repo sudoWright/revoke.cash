@@ -53,7 +53,7 @@
       "question": "Revoke.cash 支持哪些网络？"
     },
     "which_domains": {
-      "answer": "在搜索栏中搜索账户时，您可以使用多种不同的域名服务。目前我们支持 <ens-link>ENS</ens-link>、<uns-link>Unstoppable Domains</uns-link> 和 <avvy-link>Avvy Domains</avvy-link>。将来我们可能会添加其他域名服务。",
+      "answer": "在搜索栏中搜索账户时，您可以使用多种不同的域名服务。目前我们支持 <ens-link>ENS</ens-link>、<uns-link>Unstoppable Domains</uns-link>、<avvy-link>Avvy Domains</avvy-link>、<wei-link>Wei Name Service</wei-link> 和 <gwei-link>Gwei Name Service</gwei-link>。将来我们可能会添加其他域名服务。",
       "question": "Revoke.cash 支持哪些类型的域名？"
     }
   },

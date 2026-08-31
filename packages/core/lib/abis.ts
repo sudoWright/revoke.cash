@@ -100,6 +100,12 @@ export const AVVY_DOMAINS_ABI = parseAbi([
   'function reverseResolveEVMToName(address addy) external view returns (string memory preimage)',
 ]);
 
+// Shared by Wei Name Service (.wei) and Gwei Name Service (.gwei)
+export const WEI_DOMAINS_ABI = parseAbi([
+  'function resolve(uint256 tokenId) external view returns (address)',
+  'function reverseResolve(address addr) external view returns (string memory)',
+]);
+
 export const AGW_SESSIONS_ABI = parseAbi([
   'function sessionStatus(address account, bytes32 sessionHash) external view returns (uint8)',
   'function revokeKey(bytes32 sessionHash) external',

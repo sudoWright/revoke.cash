@@ -1,6 +1,6 @@
 import { isNullish } from '@revoke.cash/core/utils';
 import { HOUR } from '@revoke.cash/core/utils/time';
-import { lookupAvvyName, lookupEnsName, lookupUnsName } from '@revoke.cash/core/whois';
+import { lookupAvvyName, lookupEnsName, lookupGweiName, lookupUnsName, lookupWeiName } from '@revoke.cash/core/whois';
 import { useQuery } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
@@ -26,5 +26,21 @@ export const useNameLookup = (address?: Address) => {
     staleTime: 12 * HOUR,
   });
 
-  return { ensName, unsName, avvyName, domainName: ensName || unsName || avvyName };
+  const { data: weiName } = useQuery({
+    queryKey: ['weiName', address, { persist: true }],
+    queryFn: () => lookupWeiName(address),
+    enabled: !isNullish(address),
+    staleTime: 12 * HOUR,
+  });
+
+  const { data: gweiName } = useQuery({
+    queryKey: ['gweiName', address, { persist: true }],
+    queryFn: () => lookupGweiName(address),
+    enabled: !isNullish(address),
+    staleTime: 12 * HOUR,
+  });
+
+  const domainName = ensName || unsName || avvyName || weiName || gweiName;
+
+  return { ensName, unsName, avvyName, weiName, gweiName, domainName };
 };
