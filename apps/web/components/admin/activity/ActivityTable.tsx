@@ -97,7 +97,6 @@ const ActivityTable = ({ scope, title, subtitle, initialFilters }: Props) => {
         loading={isLoading}
         error={error}
         emptyChildren="No activity matches the current filters"
-        loaderRows={10}
         renderSubComponent={(row) => <ActivityDiagnosticsRow item={row.original} />}
         className={twMerge('border-none', isPlaceholderData && 'opacity-60')}
       />

@@ -133,6 +133,7 @@ const PermissionsCard = ({ address, permissions, isLoading }: Props) => {
     columns,
     getRowId: (row) => `${row.address}-${row.chainId}`,
     columnVisibility: { wallet: !isAddressScope },
+    pageSize: 10,
   });
 
   return (

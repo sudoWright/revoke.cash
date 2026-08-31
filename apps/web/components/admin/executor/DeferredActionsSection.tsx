@@ -79,6 +79,7 @@ const DeferredActionsSection = () => {
     data: data?.deferred ?? [],
     columns: buildColumns(retryAction),
     getRowId: (row) => row.id,
+    pageSize: 10,
   });
 
   return (

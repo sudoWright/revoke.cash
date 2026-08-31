@@ -133,7 +133,7 @@ const RefundRequestsPanel = ({ isOpen }: Props) => {
 
   const rows = useMemo(() => data ?? [], [data]);
 
-  const table = useTable({ data: rows, columns, getRowId: (row) => row.id });
+  const table = useTable({ data: rows, columns, getRowId: (row) => row.id, pageSize: 10 });
 
   if (!isOpen) return null;
 

@@ -29,6 +29,7 @@ const SessionsTable = ({ chainId }: Props) => {
     columns,
     getRowId: (row) => `${row.payload.sessionHash}`,
     meta: { onSessionRevoke } as any,
+    pageSize: 10,
   });
 
   if (selectedChainId !== ChainId.Abstract) {

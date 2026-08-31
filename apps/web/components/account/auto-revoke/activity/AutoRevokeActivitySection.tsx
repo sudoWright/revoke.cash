@@ -39,6 +39,7 @@ const AutoRevokeActivitySection = ({ subscriptionId, addressCount, isPreview = f
     columns,
     getRowId: (row) => row.id,
     columnVisibility: { [ColumnId.WALLET]: scope.type === 'subscription' },
+    pageSize: 10,
   });
 
   return (

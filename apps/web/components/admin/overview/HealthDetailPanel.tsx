@@ -20,7 +20,7 @@ const HealthDetailPanel = <T,>({ isOpen, query, columns, getRowId, emptyChildren
 
   const rows = useMemo(() => data ?? [], [data]);
 
-  const table = useTable({ data: rows, columns, getRowId });
+  const table = useTable({ data: rows, columns, getRowId, pageSize: 10 });
 
   if (!isOpen) return null;
 

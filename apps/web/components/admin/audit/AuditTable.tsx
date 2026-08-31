@@ -87,7 +87,6 @@ const AuditTable = ({ scope, title, subtitle, initialFilters }: Props) => {
         loading={isLoading}
         error={error}
         emptyChildren="No audit events match the current filters"
-        loaderRows={10}
         renderSubComponent={(row) => <AuditDetailsRow item={row.original} />}
         className={twMerge('border-none', isPlaceholderData && 'opacity-60')}
       />

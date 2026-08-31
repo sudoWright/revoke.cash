@@ -69,6 +69,7 @@ const StuckSubmittedSection = () => {
     data: data?.stuckSubmitted ?? [],
     columns,
     getRowId: (row) => row.id,
+    pageSize: 10,
   });
 
   return (

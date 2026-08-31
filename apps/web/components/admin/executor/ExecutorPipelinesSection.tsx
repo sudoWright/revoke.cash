@@ -97,6 +97,7 @@ const ExecutorPipelinesSection = () => {
     data: rows,
     columns,
     getRowId: (row) => `${row.chainId}-${row.lane}`,
+    pageSize: 10,
   });
 
   return (

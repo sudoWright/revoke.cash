@@ -24,6 +24,7 @@ const DelegationsTable = ({ delegations, isLoading, error, onRevoke }: Props) =>
     data,
     columns,
     meta: { onRevoke } as any,
+    pageSize: 10,
   });
 
   return (

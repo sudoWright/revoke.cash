@@ -67,6 +67,7 @@ const PaymentFunnelSection = () => {
     data: newestFirst,
     columns,
     getRowId: (row) => row.month,
+    pageSize: 12,
   });
 
   return (

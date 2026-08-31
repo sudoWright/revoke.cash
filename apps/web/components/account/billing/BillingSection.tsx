@@ -30,6 +30,7 @@ const BillingSection = ({ subscriptions, isLoading }: Props) => {
     data,
     columns,
     getRowCanExpand: (row) => getPaymentRefundStatus(row.original) !== 'final',
+    pageSize: 10,
   });
 
   return (

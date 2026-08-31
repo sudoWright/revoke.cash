@@ -89,6 +89,7 @@ const BatchRevokeSplitSection = () => {
     data: monthsNewestFirst,
     columns,
     getRowId: (month) => month,
+    pageSize: 12,
   });
 
   return (

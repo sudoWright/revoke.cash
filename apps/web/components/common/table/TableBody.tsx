@@ -7,7 +7,6 @@ import { twMerge } from 'tailwind-merge';
 interface Props<T> {
   isLoading?: boolean;
   table: Table<T>;
-  loaderRows?: number;
   partialLoadingRows?: number;
   // Renders a full-width sub-row (e.g. an expanded details <tr>) below rows that are expanded
   renderSubComponent?: (row: Row<T>) => React.ReactNode;
@@ -18,7 +17,6 @@ interface Props<T> {
 const TableBody = <T,>({
   table,
   isLoading,
-  loaderRows,
   partialLoadingRows = 0,
   renderSubComponent,
   expandOnRowClick,
@@ -30,7 +28,7 @@ const TableBody = <T,>({
     return (
       <TableBodyLoader
         columns={table.getVisibleFlatColumns()}
-        rowCount={loaderRows ?? 5}
+        rowCount={table.getState().pagination.pageSize}
         className="allowances-loader"
       />
     );

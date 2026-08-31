@@ -82,7 +82,6 @@ const SubscriptionsTable = () => {
         loading={isLoading}
         error={error}
         emptyChildren="No subscriptions match this filter"
-        loaderRows={10}
         className="border-none"
       />
     </Card>

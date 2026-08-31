@@ -56,6 +56,7 @@ const ExecutorBalancesSection = () => {
     data: chainIds,
     columns,
     getRowId: (chainId) => String(chainId),
+    pageSize: 10,
   });
 
   return (

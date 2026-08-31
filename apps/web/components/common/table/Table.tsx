@@ -19,7 +19,6 @@ interface Props<T> {
   table: ReactTable<T>;
   error?: Nullable<Error>;
   emptyChildren?: React.ReactNode;
-  loaderRows?: number;
   partialLoadingRows?: number;
   // Renders a full-width sub-row (e.g. an expanded details <tr>) below rows that are expanded
   renderSubComponent?: (row: Row<T>) => React.ReactNode;
@@ -33,7 +32,6 @@ const Table = <T,>({
   error,
   table,
   emptyChildren,
-  loaderRows,
   partialLoadingRows,
   renderSubComponent,
   expandOnRowClick,
@@ -60,7 +58,6 @@ const Table = <T,>({
               <TableBody
                 table={table}
                 isLoading={loading}
-                loaderRows={loaderRows}
                 partialLoadingRows={partialLoadingRows}
                 renderSubComponent={renderSubComponent}
                 expandOnRowClick={expandOnRowClick}
