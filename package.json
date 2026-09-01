@@ -36,9 +36,9 @@
     "postinstall": "husky"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.8",
-    "@commitlint/cli": "^21.2.1",
-    "@commitlint/config-conventional": "^21.2.0",
+    "@biomejs/biome": "^2.5.10",
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/config-conventional": "^21.2.2",
     "@lavamoat/allow-scripts": "^5.1.0",
     "husky": "^9.1.7"
   },

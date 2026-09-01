@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@nestjs/bullmq": "^11.0.5",
-    "@nestjs/common": "^11.1.29",
-    "@nestjs/core": "^11.1.29",
+    "@nestjs/common": "^11.2.3",
+    "@nestjs/core": "^11.2.3",
     "@nestjs/terminus": "^11.1.1",
     "@revoke.cash/core": "workspace:*",
     "bottleneck": "^2.19.5",
@@ -26,7 +26,7 @@
     "pino-http": "^11.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
-    "viem": "^2.55.13"
+    "viem": "^2.55.19"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",

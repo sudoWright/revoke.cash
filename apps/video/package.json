@@ -13,19 +13,19 @@
     "allow-scripts": "cd ../.. && yarn allow-scripts"
   },
   "dependencies": {
-    "@remotion/cli": "^4.0.508",
-    "@remotion/fonts": "^4.0.508",
-    "@remotion/tailwind-v4": "^4.0.508",
-    "@remotion/transitions": "^4.0.508",
+    "@remotion/cli": "^4.0.516",
+    "@remotion/fonts": "^4.0.516",
+    "@remotion/tailwind-v4": "^4.0.516",
+    "@remotion/transitions": "^4.0.516",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "remotion": "^4.0.508",
+    "remotion": "^4.0.516",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "4.3.3"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
+    "@types/react-dom": "^19.2.5",
     "typescript": "^6.0.3"
   },
   "lavamoat": {
