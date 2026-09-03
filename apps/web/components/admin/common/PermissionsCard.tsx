@@ -13,6 +13,7 @@ import Table from 'components/common/table/Table';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import { useOnChainPermissionCheck } from 'lib/hooks/admin/useAdminLookup';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo } from 'react';
 import type { Address } from 'viem';
 import AdminAddressLink from './AdminAddressLink';
@@ -31,9 +32,9 @@ interface PermissionRow {
   permission?: AutoRevokePermission;
 }
 
-const columnHelper = createColumnHelper<PermissionRow>();
+const columnHelper = createColumnHelper<AppTableFeatures, PermissionRow>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('chainId', {
     id: 'chain',
     header: 'Chain',
@@ -101,7 +102,7 @@ const columns = [
       />
     ),
   }),
-];
+]);
 
 const PermissionsCard = ({ address, permissions, isLoading }: Props) => {
   const isAddressScope = address !== undefined;

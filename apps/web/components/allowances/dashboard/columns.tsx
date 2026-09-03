@@ -9,7 +9,8 @@ import {
 import { isErc721 } from '@revoke.cash/core/tokens';
 import { isNullish } from '@revoke.cash/core/utils';
 import { formatFixedPointBigInt } from '@revoke.cash/core/utils/formatting';
-import { createColumnHelper, filterFns, type Row, type RowData, sortingFns } from '@tanstack/react-table';
+import { createColumnHelper, filterFns, type Row, sortFns, type Table } from '@tanstack/react-table';
+import { createTableFeatures } from 'lib/utils/table';
 import RevokeSelectedButton from '../controls/batch-revoke/RevokeSelectedButton';
 import AllowanceCell from './cells/AllowanceCell';
 import AssetCell from './cells/AssetCell';
@@ -22,12 +23,15 @@ import SpenderCell from './cells/SpenderCell';
 import TransactionDateCell from './cells/TransactionDateCell';
 import ValueAtRiskCell from './cells/ValueAtRiskCell';
 
-declare module '@tanstack/table-core' {
-  interface TableMeta<TData extends RowData> {
-    onUpdate: OnUpdate;
-    timeMachineTimestamp?: number;
-  }
+export interface AllowancesTableMeta {
+  onUpdate: OnUpdate;
+  timeMachineTimestamp?: number;
 }
+
+export const allowancesTableFeatures = createTableFeatures<AllowancesTableMeta>();
+export type AllowancesTableFeatures = typeof allowancesTableFeatures;
+export type AllowancesRow = Row<AllowancesTableFeatures, TokenAllowanceData>;
+export type AllowancesTable = Table<AllowancesTableFeatures, TokenAllowanceData>;
 
 export enum ColumnId {
   SELECT = 'Select',
@@ -90,31 +94,31 @@ export const accessors = {
 };
 
 export const customSortingFns = {
-  timestamp: (rowA: Row<TokenAllowanceData>, rowB: Row<TokenAllowanceData>, columnId: string) => {
-    return sortingFns.basic(rowA, rowB, columnId);
+  timestamp: (rowA: AllowancesRow, rowB: AllowancesRow, columnId: string) => {
+    return sortFns.basic(rowA, rowB, columnId);
   },
-  allowance: (rowA: Row<TokenAllowanceData>, rowB: Row<TokenAllowanceData>, columnId: string) => {
+  allowance: (rowA: AllowancesRow, rowB: AllowancesRow, columnId: string) => {
     if (rowA.getValue(columnId) === rowB.getValue(columnId)) return 0;
     if (rowA.getValue(columnId) === 'Unlimited') return 1;
     if (rowB.getValue(columnId) === 'Unlimited') return -1;
-    return sortingFns.alphanumeric(rowA, rowB, columnId);
+    return sortFns.alphanumeric(rowA, rowB, columnId);
   },
-  spender: (rowA: Row<TokenAllowanceData>, rowB: Row<TokenAllowanceData>, columnId: string) => {
+  spender: (rowA: AllowancesRow, rowB: AllowancesRow, columnId: string) => {
     if (!rowA.original.payload.spenderData?.name) return 1;
     if (!rowB.original.payload.spenderData?.name) return -1;
-    return sortingFns.text(rowA, rowB, columnId);
+    return sortFns.text(rowA, rowB, columnId);
   },
 };
 
 export const customFilterFns = {
-  assetType: (row: Row<TokenAllowanceData>, columnId: string, filterValues: string[]) => {
+  assetType: (row: AllowancesRow, columnId: string, filterValues: string[]) => {
     const results = filterValues.map((filterValue) => {
       return row.getValue(columnId) === filterValue;
     });
 
     return results.some((result) => result);
   },
-  balance: (row: Row<TokenAllowanceData>, columnId: string, filterValues: string[]) => {
+  balance: (row: AllowancesRow, columnId: string, filterValues: string[]) => {
     const results = filterValues.map((filterValue) => {
       if (filterValue === 'Zero') return row.getValue(columnId) === '0';
       if (filterValue === 'Non-Zero') return row.getValue(columnId) !== '0';
@@ -123,7 +127,7 @@ export const customFilterFns = {
 
     return results.some((result) => result);
   },
-  allowance: (row: Row<TokenAllowanceData>, columnId: string, filterValues: string[]) => {
+  allowance: (row: AllowancesRow, columnId: string, filterValues: string[]) => {
     const results = filterValues.map((filterValue) => {
       if (filterValue === 'Unlimited') return row.getValue(columnId) === 'Unlimited';
       if (filterValue === 'None') return row.getValue(columnId) === undefined;
@@ -134,17 +138,17 @@ export const customFilterFns = {
 
     return results.some((result) => result);
   },
-  spender: (row: Row<TokenAllowanceData>, columnId: string, filterValues: string[]) => {
+  spender: (row: AllowancesRow, columnId: string, filterValues: string[]) => {
     const results = filterValues.map((filterValue) => {
-      return filterFns.includesString(row, columnId, filterValue, () => {});
+      return filterFns.includesString(row, columnId, filterValue.toLowerCase(), () => {});
     });
 
     return results.some((result) => result);
   },
 };
 
-const columnHelper = createColumnHelper<TokenAllowanceData>();
-export const columns = [
+const columnHelper = createColumnHelper<AllowancesTableFeatures, TokenAllowanceData>();
+export const columns = columnHelper.columns([
   columnHelper.display({
     id: ColumnId.SELECT,
     footer: ({ table }) => <GlobalSelectCell table={table} />,
@@ -156,7 +160,7 @@ export const columns = [
     footer: ({ table }) => <RevokeSelectedButton table={table} />,
     cell: (info) => <AssetCell asset={info.row.original} />,
     enableSorting: true,
-    sortingFn: sortingFns.text,
+    sortFn: sortFns.text,
   }),
   columnHelper.accessor(accessors.assetType, {
     id: ColumnId.ASSET_TYPE,
@@ -184,7 +188,7 @@ export const columns = [
       />
     ),
     enableSorting: true,
-    sortingFn: customSortingFns.allowance,
+    sortFn: customSortingFns.allowance,
     sortUndefined: 'last',
     enableColumnFilter: true,
     filterFn: customFilterFns.allowance,
@@ -194,7 +198,7 @@ export const columns = [
     header: () => <HeaderCell i18nKey="address.headers.value_at_risk" align="right" />,
     cell: (info) => <ValueAtRiskCell allowance={info.row.original} />,
     enableSorting: true,
-    sortingFn: sortingFns.basic,
+    sortFn: sortFns.basic,
     sortUndefined: 'last',
   }),
   columnHelper.accessor(accessors.spender, {
@@ -202,7 +206,7 @@ export const columns = [
     header: () => <HeaderCell i18nKey="address.headers.spender" />,
     cell: (info) => <SpenderCell allowance={info.row.original} />,
     enableSorting: true,
-    sortingFn: customSortingFns.spender,
+    sortFn: customSortingFns.spender,
     sortUndefined: 'last',
     enableColumnFilter: true,
     filterFn: customFilterFns.spender,
@@ -214,7 +218,7 @@ export const columns = [
       <TransactionDateCell chainId={info.row.original.chainId} timeLog={info.row.original.payload.lastUpdated} />
     ),
     enableSorting: true,
-    sortingFn: customSortingFns.timestamp,
+    sortFn: customSortingFns.timestamp,
     sortUndefined: 'last',
   }),
   columnHelper.display({
@@ -228,4 +232,4 @@ export const columns = [
       />
     ),
   }),
-];
+]);

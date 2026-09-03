@@ -6,6 +6,7 @@ import AssetDisplay from 'components/allowances/dashboard/cells/AssetDisplay';
 import HeaderCell from 'components/allowances/dashboard/cells/HeaderCell';
 import TransactionDateCell from 'components/allowances/dashboard/cells/TransactionDateCell';
 import HistoryChainCell from 'components/history/cells/HistoryChainCell';
+import type { AppTableFeatures } from 'lib/utils/table';
 import AutoRevokeActivityStatusBadge from './AutoRevokeActivityStatusBadge';
 import AutoRevokeActivityTriggerBadge from './AutoRevokeActivityTriggerBadge';
 
@@ -20,8 +21,8 @@ export enum ColumnId {
   DATE = 'Date',
 }
 
-const columnHelper = createColumnHelper<AutoRevokeActivityItem>();
-export const columns = [
+const columnHelper = createColumnHelper<AppTableFeatures, AutoRevokeActivityItem>();
+export const columns = columnHelper.columns([
   columnHelper.accessor('address', {
     id: ColumnId.WALLET,
     header: () => <HeaderCell i18nKey="account.auto_revoke.activity.columns.wallet" />,
@@ -97,4 +98,4 @@ export const columns = [
       />
     ),
   }),
-];
+]);

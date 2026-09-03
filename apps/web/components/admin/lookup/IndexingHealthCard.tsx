@@ -12,6 +12,7 @@ import Table from 'components/common/table/Table';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import { useResetAddressIndexing } from 'lib/hooks/admin/useAdminLookup';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { twMerge } from 'tailwind-merge';
 import type { Address } from 'viem';
 
@@ -21,9 +22,9 @@ interface Props {
   isLoading: boolean;
 }
 
-const columnHelper = createColumnHelper<AddressIndexerState>();
+const columnHelper = createColumnHelper<AppTableFeatures, AddressIndexerState>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('chainId', {
     id: 'chain',
     header: 'Chain',
@@ -111,7 +112,7 @@ const columns = [
       );
     },
   }),
-];
+]);
 
 const IndexingHealthCard = ({ address, indexerStates, isLoading }: Props) => {
   const resetIndexing = useResetAddressIndexing(address);

@@ -10,66 +10,68 @@ import ChainDisplay from 'components/common/ChainDisplay';
 import Table from 'components/common/table/Table';
 import { useAdminExecutorProblems, useAdminRetryAction } from 'lib/hooks/admin/useAdminExecutor';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 
-const columnHelper = createColumnHelper<ProblemAction>();
+const columnHelper = createColumnHelper<AppTableFeatures, ProblemAction>();
 
-const buildColumns = (retryAction: ReturnType<typeof useAdminRetryAction>) => [
-  columnHelper.accessor('chainId', {
-    id: 'chain',
-    header: 'Chain',
-    cell: (info) => (
-      <div className="py-1.5 pr-4">
-        <ChainDisplay chainId={info.getValue()} />
-      </div>
-    ),
-  }),
-  columnHelper.accessor('lane', {
-    id: 'lane',
-    header: 'Lane',
-    cell: (info) => <div className="py-1.5 pr-4">{info.getValue() ?? '-'}</div>,
-  }),
-  columnHelper.accessor('address', {
-    id: 'address',
-    header: 'Address',
-    cell: (info) => (
-      <div className="py-1.5 pr-4">
-        <AdminAddressLink address={info.getValue()} />
-      </div>
-    ),
-  }),
-  columnHelper.accessor('errorCode', {
-    id: 'errorCode',
-    header: 'Error code',
-    cell: (info) => <div className="py-1.5 pr-4 font-mono text-xs">{info.getValue() ?? '-'}</div>,
-  }),
-  columnHelper.accessor('costDeferredAt', {
-    id: 'deferred',
-    header: 'Deferred',
-    cell: (info) => <TimeAgoCell timestamp={info.getValue()} />,
-  }),
-  columnHelper.accessor('nextRetryAt', {
-    id: 'nextRetry',
-    header: 'Next retry',
-    cell: (info) => <TimeAgoCell timestamp={info.getValue()} />,
-  }),
-  columnHelper.display({
-    id: 'retry',
-    header: () => null,
-    cell: (info) => (
-      <div className="py-1.5 pr-4">
-        <Button
-          style="secondary"
-          size="sm"
-          disabled={retryAction.isPending}
-          loading={retryAction.isPending && retryAction.variables === info.row.original.id}
-          onClick={() => retryAction.mutate(info.row.original.id)}
-        >
-          Retry now
-        </Button>
-      </div>
-    ),
-  }),
-];
+const buildColumns = (retryAction: ReturnType<typeof useAdminRetryAction>) =>
+  columnHelper.columns([
+    columnHelper.accessor('chainId', {
+      id: 'chain',
+      header: 'Chain',
+      cell: (info) => (
+        <div className="py-1.5 pr-4">
+          <ChainDisplay chainId={info.getValue()} />
+        </div>
+      ),
+    }),
+    columnHelper.accessor('lane', {
+      id: 'lane',
+      header: 'Lane',
+      cell: (info) => <div className="py-1.5 pr-4">{info.getValue() ?? '-'}</div>,
+    }),
+    columnHelper.accessor('address', {
+      id: 'address',
+      header: 'Address',
+      cell: (info) => (
+        <div className="py-1.5 pr-4">
+          <AdminAddressLink address={info.getValue()} />
+        </div>
+      ),
+    }),
+    columnHelper.accessor('errorCode', {
+      id: 'errorCode',
+      header: 'Error code',
+      cell: (info) => <div className="py-1.5 pr-4 font-mono text-xs">{info.getValue() ?? '-'}</div>,
+    }),
+    columnHelper.accessor('costDeferredAt', {
+      id: 'deferred',
+      header: 'Deferred',
+      cell: (info) => <TimeAgoCell timestamp={info.getValue()} />,
+    }),
+    columnHelper.accessor('nextRetryAt', {
+      id: 'nextRetry',
+      header: 'Next retry',
+      cell: (info) => <TimeAgoCell timestamp={info.getValue()} />,
+    }),
+    columnHelper.display({
+      id: 'retry',
+      header: () => null,
+      cell: (info) => (
+        <div className="py-1.5 pr-4">
+          <Button
+            style="secondary"
+            size="sm"
+            disabled={retryAction.isPending}
+            loading={retryAction.isPending && retryAction.variables === info.row.original.id}
+            onClick={() => retryAction.mutate(info.row.original.id)}
+          >
+            Retry now
+          </Button>
+        </div>
+      ),
+    }),
+  ]);
 
 const DeferredActionsSection = () => {
   const { data, isLoading } = useAdminExecutorProblems();

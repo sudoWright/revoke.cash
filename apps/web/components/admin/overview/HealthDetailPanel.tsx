@@ -1,21 +1,22 @@
 'use client';
 
 import type { UseQueryResult } from '@tanstack/react-query';
-import type { ColumnDef } from '@tanstack/react-table';
+import type { ColumnDef, RowData } from '@tanstack/react-table';
 import Table from 'components/common/table/Table';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo } from 'react';
 
-interface Props<T> {
+interface Props<T extends RowData> {
   isOpen: boolean;
   query: UseQueryResult<T[]>;
-  columns: ColumnDef<T, any>[];
+  columns: ReadonlyArray<ColumnDef<AppTableFeatures, T, unknown>>;
   getRowId: (row: T) => string;
   emptyChildren: React.ReactNode;
 }
 
 // Shared drill-down shell for the health section: a bordered, paginated table over all matching rows
-const HealthDetailPanel = <T,>({ isOpen, query, columns, getRowId, emptyChildren }: Props<T>) => {
+const HealthDetailPanel = <T extends RowData>({ isOpen, query, columns, getRowId, emptyChildren }: Props<T>) => {
   const { data, isLoading, error } = query;
 
   const rows = useMemo(() => data ?? [], [data]);

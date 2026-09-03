@@ -3,12 +3,14 @@
 import type { ExecutorSpend } from '@revoke.cash/core/admin/executor';
 import type { ExecutionLane } from '@revoke.cash/core/auto-revoke/execution/signer';
 import { formatFiatAmount } from '@revoke.cash/core/utils/formatting';
-import { createColumnHelper, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { createColumnHelper } from '@tanstack/react-table';
 import Card, { CardTitle } from 'components/common/Card';
 import ChainDisplay from 'components/common/ChainDisplay';
 import EmptyState from 'components/common/EmptyState';
 import Table from 'components/common/table/Table';
 import { useAdminBalances } from 'lib/hooks/admin/useAdminOverview';
+import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -21,9 +23,9 @@ interface LaneSpendRow {
   spendUsd: number;
 }
 
-const columnHelper = createColumnHelper<LaneSpendRow>();
+const columnHelper = createColumnHelper<AppTableFeatures, LaneSpendRow>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('chainId', {
     id: 'chain',
     header: 'Chain',
@@ -55,7 +57,7 @@ const columns = [
       </div>
     ),
   }),
-];
+]);
 
 const ExecutorSpendSection = () => {
   const { data, isLoading } = useAdminBalances();
@@ -94,10 +96,9 @@ const LaneSpendTable = ({ lane, spend }: LaneSpendTableProps) => {
     return [...sortedSpend, { chainId: null, actionCount: totalActionCount, spendUsd: totalSpendUsd }];
   }, [spend]);
 
-  const table = useReactTable({
+  const table = useTable({
     data: rows,
     columns,
-    getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => (row.chainId === null ? 'total' : String(row.chainId)),
   });
 

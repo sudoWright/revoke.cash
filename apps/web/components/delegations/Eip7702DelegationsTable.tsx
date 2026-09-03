@@ -1,11 +1,11 @@
 'use client';
 
 import type { Delegation } from '@revoke.cash/core/delegations/DelegatePlatform';
-import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import Card, { CardTitle } from 'components/common/Card';
 import Table from 'components/common/table/Table';
+import { useTable } from 'lib/hooks/useTable';
 import { useTranslations } from 'next-intl';
-import { eip7702Columns } from './columns';
+import { delegationsTableFeatures, eip7702Columns } from './columns';
 
 interface Props {
   delegations: Delegation[];
@@ -16,13 +16,10 @@ interface Props {
 const Eip7702DelegationsTable = ({ delegations, isLoading, error }: Props) => {
   const t = useTranslations();
 
-  // Create TanStack table instance with empty meta
-  const table = useReactTable<Delegation>({
+  const table = useTable({
+    features: delegationsTableFeatures,
     data: delegations || [],
     columns: eip7702Columns,
-    getCoreRowModel: getCoreRowModel(),
-    // @ts-expect-error - meta may have other properties from elsewhere in the code
-    meta: {},
   });
 
   return (

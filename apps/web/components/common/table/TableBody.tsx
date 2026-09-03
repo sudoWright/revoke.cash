@@ -1,26 +1,27 @@
-import { flexRender, type Row, type Table } from '@tanstack/react-table';
+import { flexRender, type ReactTable, type Row, type RowData } from '@tanstack/react-table';
 import { ColumnId } from 'components/allowances/dashboard/columns';
 import TableBodyLoader from 'components/common/TableBodyLoader';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { Fragment } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface Props<T> {
+interface Props<TMeta extends object, T extends RowData> {
   isLoading?: boolean;
-  table: Table<T>;
+  table: ReactTable<AppTableFeatures<TMeta>, T>;
   partialLoadingRows?: number;
   // Renders a full-width sub-row (e.g. an expanded details <tr>) below rows that are expanded
-  renderSubComponent?: (row: Row<T>) => React.ReactNode;
+  renderSubComponent?: (row: Row<AppTableFeatures<TMeta>, T>) => React.ReactNode;
   // Makes expandable rows toggle their expansion when clicked anywhere outside an interactive element
   expandOnRowClick?: boolean;
 }
 
-const TableBody = <T,>({
+const TableBody = <TMeta extends object, T extends RowData>({
   table,
   isLoading,
   partialLoadingRows = 0,
   renderSubComponent,
   expandOnRowClick,
-}: Props<T>) => {
+}: Props<TMeta, T>) => {
   const rows = table.getRowModel().rows;
   const hasRows = rows.length > 0;
 
@@ -28,7 +29,7 @@ const TableBody = <T,>({
     return (
       <TableBodyLoader
         columns={table.getVisibleFlatColumns()}
-        rowCount={table.getState().pagination.pageSize}
+        rowCount={table.state.pagination.pageSize}
         className="allowances-loader"
       />
     );
@@ -57,7 +58,12 @@ const TableBody = <T,>({
 
 export default TableBody;
 
-const TableBodyRow = <T,>({ row, expandOnRowClick }: { row: Row<T>; expandOnRowClick?: boolean }) => {
+interface RowProps<TMeta extends object, T extends RowData> {
+  row: Row<AppTableFeatures<TMeta>, T>;
+  expandOnRowClick?: boolean;
+}
+
+const TableBodyRow = <TMeta extends object, T extends RowData>({ row, expandOnRowClick }: RowProps<TMeta, T>) => {
   const togglesExpansionOnClick = Boolean(expandOnRowClick && row.getCanExpand());
 
   const toggleExpandedUnlessInteractive = (event: React.MouseEvent<HTMLTableRowElement>) => {

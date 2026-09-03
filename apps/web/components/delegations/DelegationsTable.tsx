@@ -6,7 +6,7 @@ import Table from 'components/common/table/Table';
 import { useTable } from 'lib/hooks/useTable';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
-import { columns } from './columns';
+import { columns, delegationsTableFeatures } from './columns';
 
 interface Props {
   delegations: Delegation[];
@@ -23,7 +23,8 @@ const DelegationsTable = ({ delegations, isLoading, error, onRevoke }: Props) =>
   const table = useTable({
     data,
     columns,
-    meta: { onRevoke } as any,
+    features: delegationsTableFeatures,
+    meta: { onRevoke },
     pageSize: 10,
   });
 

@@ -1,16 +1,17 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import type { Row } from '@tanstack/react-table';
+import type { Row, RowData } from '@tanstack/react-table';
 import Button from 'components/common/Button';
+import type { AppTableFeatures } from 'lib/utils/table';
 import type { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface Props<TData> {
-  row: Row<TData>;
+interface Props<TMeta extends object, TData extends RowData> {
+  row: Row<AppTableFeatures<TMeta>, TData>;
   // Rendered before the expand toggle, e.g. per-row action buttons
   children?: ReactNode;
 }
 
-const ExpanderCell = <TData,>({ row, children }: Props<TData>) => (
+const ExpanderCell = <TMeta extends object, TData extends RowData>({ row, children }: Props<TMeta, TData>) => (
   <div className="flex items-center justify-end gap-2 py-1.5 text-sm">
     {children}
     <Button style="tertiary" size="sm" onClick={row.getToggleExpandedHandler()} aria-label="Toggle details">

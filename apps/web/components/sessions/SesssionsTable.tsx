@@ -9,7 +9,7 @@ import { AddressPageContext } from 'lib/hooks/page-context/AddressPageContext';
 import { useTable } from 'lib/hooks/useTable';
 import { useTranslations } from 'next-intl';
 import { useContext, useMemo } from 'react';
-import { columns } from './columns';
+import { columns, sessionsTableFeatures } from './columns';
 
 interface Props {
   chainId?: number;
@@ -28,7 +28,8 @@ const SessionsTable = ({ chainId }: Props) => {
     data,
     columns,
     getRowId: (row) => `${row.payload.sessionHash}`,
-    meta: { onSessionRevoke } as any,
+    features: sessionsTableFeatures,
+    meta: { onSessionRevoke },
     pageSize: 10,
   });
 

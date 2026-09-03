@@ -4,14 +4,7 @@ import type { Erc721SingleAllowance, OnUpdate, TokenAllowanceData } from '@revok
 import { isNullish } from '@revoke.cash/core/utils';
 import { formatFiatAmount } from '@revoke.cash/core/utils/formatting';
 import { SECOND } from '@revoke.cash/core/utils/time';
-import {
-  type ColumnSort,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { type ColumnSort, type RowSelectionState, useTable } from '@tanstack/react-table';
 import ChainSectionHeader from 'components/common/ChainSectionHeader';
 import CollapsibleCard from 'components/common/CollapsibleCard';
 import Spinner from 'components/common/Spinner';
@@ -22,7 +15,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import Table from '../../common/table/Table';
-import { ColumnId, columns } from './columns';
+import { allowancesTableFeatures, ColumnId, columns } from './columns';
 import NoAllowancesFound from './NoAllowancesFound';
 
 interface Props {
@@ -62,7 +55,7 @@ const ChainAllowanceSection = ({
     }
   }, [status, allowances.length, allExpanded]);
 
-  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const data = useMemo(() => allowances, [allowances]);
   const columnFilters = useMemo(
     () => (spenderFilters.length > 0 ? [{ id: ColumnId.SPENDER, value: spenderFilters }] : []),
@@ -74,14 +67,15 @@ const ChainAllowanceSection = ({
       if (!data || data.length === 0) return {};
       if (Object.keys(currentSelection).length === 0) return {};
 
-      return data.reduce<Record<string, boolean>>((acc, allowance) => {
+      return data.reduce<RowSelectionState>((acc, allowance) => {
         if (currentSelection[getRowId(allowance)]) acc[getRowId(allowance)] = true;
         return acc;
       }, {});
     });
   }, [data]);
 
-  const table = useReactTable({
+  const table = useTable({
+    features: allowancesTableFeatures,
     data,
     columns,
     state: {
@@ -98,15 +92,12 @@ const ChainAllowanceSection = ({
       !isNullish(row.original.payload) &&
       isNullish(row.original.payload.revokeError),
     onRowSelectionChange: setRowSelection,
-    getCoreRowModel: getCoreRowModel<TokenAllowanceData>(),
-    getSortedRowModel: getSortedRowModel<TokenAllowanceData>(),
-    getFilteredRowModel: getFilteredRowModel<TokenAllowanceData>(),
-    getPaginationRowModel: getPaginationRowModel<TokenAllowanceData>(),
     autoResetPageIndex: false,
     getRowId,
-    meta: { onUpdate, timeMachineTimestamp } as any,
+    meta: { onUpdate, timeMachineTimestamp },
     initialState: {
       pagination: {
+        pageIndex: 0,
         pageSize: 25,
       },
     },

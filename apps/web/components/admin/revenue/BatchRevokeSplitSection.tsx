@@ -10,12 +10,17 @@ import Table from 'components/common/table/Table';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import { useAdminRevenueData } from 'lib/hooks/admin/useAdminRevenue';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo } from 'react';
 
 const PAID_BUCKET = 'Paid';
 const PREMIUM_BUCKET = 'Revoke Premium';
 
-const columnHelper = createColumnHelper<string>();
+interface MonthRow {
+  month: string;
+}
+
+const columnHelper = createColumnHelper<AppTableFeatures, MonthRow>();
 
 const BatchRevokeSplitSection = () => {
   const { data, isLoading } = useAdminRevenueData(12);
@@ -26,7 +31,8 @@ const BatchRevokeSplitSection = () => {
     () =>
       deduplicateArray(splitPoints.map((point) => point.month))
         .sort()
-        .reverse(),
+        .reverse()
+        .map((month) => ({ month })),
     [splitPoints],
   );
 
@@ -43,18 +49,18 @@ const BatchRevokeSplitSection = () => {
       splitPoints.map((point) => [`${point.month}|${point.sponsor ?? PAID_BUCKET}`, point]),
     );
 
-    return [
+    return columnHelper.columns([
       columnHelper.display({
         id: 'month',
         header: 'Month',
-        cell: (info) => <div className="py-1.5 pr-4 text-sm">{info.row.original}</div>,
+        cell: (info) => <div className="py-1.5 pr-4 text-sm">{info.row.original.month}</div>,
       }),
       ...bucketNames.map((bucketName) =>
         columnHelper.display({
           id: `bucket-${bucketName}`,
           header: () => <div className="text-right">{bucketName}</div>,
           cell: (info) => {
-            const point = pointsByMonthAndBucket.get(`${info.row.original}|${bucketName}`);
+            const point = pointsByMonthAndBucket.get(`${info.row.original.month}|${bucketName}`);
 
             if (!point) {
               return (
@@ -82,13 +88,13 @@ const BatchRevokeSplitSection = () => {
           },
         }),
       ),
-    ];
+    ]);
   }, [splitPoints]);
 
   const table = useTable({
     data: monthsNewestFirst,
     columns,
-    getRowId: (month) => month,
+    getRowId: (row) => row.month,
     pageSize: 12,
   });
 

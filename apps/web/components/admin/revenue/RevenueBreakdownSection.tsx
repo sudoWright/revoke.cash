@@ -11,6 +11,7 @@ import EmptyState from 'components/common/EmptyState';
 import Table from 'components/common/table/Table';
 import { useAdminRevenueData } from 'lib/hooks/admin/useAdminRevenue';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -54,9 +55,9 @@ const RevenueBreakdownSection = () => {
   );
 };
 
-const chainColumnHelper = createColumnHelper<ChainRevenue>();
+const chainColumnHelper = createColumnHelper<AppTableFeatures, ChainRevenue>();
 
-const chainColumns = [
+const chainColumns = chainColumnHelper.columns([
   chainColumnHelper.accessor('chainId', {
     id: 'chain',
     header: 'Chain',
@@ -86,7 +87,7 @@ const chainColumns = [
       </div>
     ),
   }),
-];
+]);
 
 const RevenueByChainTable = ({ byChain }: { byChain: ChainRevenue[] }) => {
   const table = useTable({
@@ -100,9 +101,9 @@ const RevenueByChainTable = ({ byChain }: { byChain: ChainRevenue[] }) => {
   return <Table table={table} loading={false} className="border-none" />;
 };
 
-const planColumnHelper = createColumnHelper<PlanRevenue>();
+const planColumnHelper = createColumnHelper<AppTableFeatures, PlanRevenue>();
 
-const planColumns = [
+const planColumns = planColumnHelper.columns([
   planColumnHelper.accessor('planName', {
     id: 'plan',
     header: 'Plan',
@@ -118,7 +119,7 @@ const planColumns = [
     header: () => <div className="text-right">Revenue</div>,
     cell: (info) => <div className="py-1.5 text-right text-sm font-medium">{formatUsdCents(info.getValue())}</div>,
   }),
-];
+]);
 
 const RevenueByPlanTable = ({ byPlan }: { byPlan: PlanRevenue[] }) => {
   const table = useTable({

@@ -1,27 +1,28 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
-import type { Table } from '@tanstack/react-table';
+import type { ReactTable, RowData } from '@tanstack/react-table';
 import Button from 'components/common/Button';
 import RichText from 'components/common/RichText';
 import Select from 'components/common/select/Select';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
 
-interface Props<T> {
-  table: Table<T>;
+interface Props<TMeta extends object, T extends RowData> {
+  table: ReactTable<AppTableFeatures<TMeta>, T>;
   className?: string;
 }
 
 // Tables at or below this size don't benefit from pagination, so the bar is hidden for them
 const PAGINATION_ROW_THRESHOLD = 20;
 
-const TablePagination = <T,>({ table, className }: Props<T>) => {
+const TablePagination = <TMeta extends object, T extends RowData>({ table, className }: Props<TMeta, T>) => {
   const t = useTranslations();
 
   const canPreviousPage = table.getCanPreviousPage();
   const canNextPage = table.getCanNextPage();
-  const pageIndex = table.getState().pagination.pageIndex;
+  const pageIndex = table.state.pagination.pageIndex;
   const pageCount = Math.max(table.getPageCount(), 1);
-  const pageSize = table.getState().pagination.pageSize;
+  const pageSize = table.state.pagination.pageSize;
   const totalRows = table.getRowCount();
 
   const unfilteredRowCount = table.getPreFilteredRowModel().rows.length;

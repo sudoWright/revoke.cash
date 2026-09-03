@@ -7,6 +7,7 @@ import ChainDisplay from 'components/common/ChainDisplay';
 import Table from 'components/common/table/Table';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { type ReactNode, useMemo } from 'react';
 
 export interface TreasuryBalanceRow {
@@ -27,7 +28,7 @@ interface Props {
   emptyChildren?: ReactNode;
 }
 
-const columnHelper = createColumnHelper<TreasuryBalanceRow>();
+const columnHelper = createColumnHelper<AppTableFeatures, TreasuryBalanceRow>();
 
 // Every balance fits on a single page, since the point of these tables is to see all chains at once
 const PAGE_SIZE = 100;
@@ -53,7 +54,7 @@ const TreasuryBalancesTable = ({ rows, isLoading, error, emptyChildren }: Props)
     // only appears once there is something to add up
     const totalFooter = (content: ReactNode) => (rows.length > 0 ? () => content : undefined);
 
-    return [
+    return columnHelper.columns([
       columnHelper.accessor('chainId', {
         id: 'chain',
         header: 'Chain',
@@ -83,7 +84,7 @@ const TreasuryBalancesTable = ({ rows, isLoading, error, emptyChildren }: Props)
           </div>
         ),
       }),
-    ];
+    ]);
   }, [rows]);
 
   const table = useTable({ data: displayedRows, columns, getRowId: (row) => row.id, pageSize: PAGE_SIZE });

@@ -6,12 +6,13 @@ import TransactionHashCell from 'components/allowances/dashboard/cells/Transacti
 import StatusLabel from 'components/common/StatusLabel';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import HistoryChainCell from 'components/history/cells/HistoryChainCell';
+import type { AppTableFeatures } from 'lib/utils/table';
 import PaymentStatusBadge from './PaymentStatusBadge';
 import ReconcilePaymentButton from './ReconcilePaymentButton';
 
-const columnHelper = createColumnHelper<AdminPayment>();
+const columnHelper = createColumnHelper<AppTableFeatures, AdminPayment>();
 
-export const columns = [
+export const columns = columnHelper.columns([
   columnHelper.accessor('createdAt', {
     id: 'date',
     header: 'Date',
@@ -85,4 +86,4 @@ export const columns = [
       </div>
     ),
   }),
-];
+]);

@@ -2,11 +2,18 @@ import { twMerge } from 'tailwind-merge';
 import Check from './icons/Check';
 import Minus from './icons/Minus';
 
+// Shaped to satisfy TanStack table selection handlers
+export interface CheckboxToggleEvent {
+  target: { checked: boolean };
+  shiftKey: boolean;
+  nativeEvent: MouseEvent | KeyboardEvent;
+}
+
 interface Props {
   checked: boolean;
   indeterminate?: boolean;
   disabled?: boolean;
-  onChange?: (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void;
+  onChange?: (event: CheckboxToggleEvent) => void;
   className?: string;
   iconClassName?: string;
 }
@@ -29,14 +36,25 @@ const Checkbox = ({ checked, indeterminate, disabled, onChange, className, iconC
     <Minus className={iconClasses} />
   ) : null;
 
+  const emitToggle = (event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
+    if (disabled) return;
+    onChange?.({
+      target: { checked: !checked },
+      shiftKey: event.shiftKey,
+      nativeEvent: event.nativeEvent,
+    });
+  };
+
   return (
     // biome-ignore lint/a11y/useSemanticElements: we want to use a div instead of a native checkbox for styling reasons
     <div
       role="checkbox"
       aria-checked={checked}
       className={classes}
-      onClick={(event) => !disabled && onChange?.(event)}
-      onKeyDown={(event) => !disabled && event.key === 'Enter' && onChange?.(event)}
+      onClick={emitToggle}
+      onKeyDown={(event) => event.key === 'Enter' && emitToggle(event)}
+      // Prevent default text selection behavior on shift-click
+      onMouseDown={(event) => event.preventDefault()}
       tabIndex={0}
     >
       {icon}

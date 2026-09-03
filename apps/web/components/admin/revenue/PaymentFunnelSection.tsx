@@ -6,12 +6,13 @@ import Card, { CardTitle } from 'components/common/Card';
 import Table from 'components/common/table/Table';
 import { useAdminRevenueData } from 'lib/hooks/admin/useAdminRevenue';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const columnHelper = createColumnHelper<PaymentFunnelPoint>();
+const columnHelper = createColumnHelper<AppTableFeatures, PaymentFunnelPoint>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('month', {
     id: 'month',
     header: 'Month',
@@ -56,7 +57,7 @@ const columns = [
     header: () => <div className="text-right">Refunded</div>,
     cell: (info) => <div className="py-1.5 text-right text-sm">{info.getValue()}</div>,
   }),
-];
+]);
 
 const PaymentFunnelSection = () => {
   const { data, isLoading } = useAdminRevenueData(12);

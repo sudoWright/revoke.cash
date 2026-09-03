@@ -6,15 +6,16 @@ import AdminAddressLink from 'components/admin/common/AdminAddressLink';
 import TimeAgoCell from 'components/admin/common/TimeAgoCell';
 import ChainDisplay from 'components/common/ChainDisplay';
 import { useAdminEvaluationBacklog } from 'lib/hooks/admin/useAdminHealthDetails';
+import type { AppTableFeatures } from 'lib/utils/table';
 import HealthDetailPanel from './HealthDetailPanel';
 
 interface Props {
   isOpen: boolean;
 }
 
-const columnHelper = createColumnHelper<EvaluationBacklogRow>();
+const columnHelper = createColumnHelper<AppTableFeatures, EvaluationBacklogRow>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('address', {
     id: 'address',
     header: 'Address',
@@ -51,7 +52,7 @@ const columns = [
       </div>
     ),
   }),
-];
+]);
 
 const EvaluationBacklogPanel = ({ isOpen }: Props) => {
   const query = useAdminEvaluationBacklog(isOpen);

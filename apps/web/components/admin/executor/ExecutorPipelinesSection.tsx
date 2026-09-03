@@ -9,6 +9,7 @@ import Table from 'components/common/table/Table';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import { useAdminExecutorPipelines, useAdminExecutorProblems } from 'lib/hooks/admin/useAdminExecutor';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -17,9 +18,9 @@ interface PipelineRow extends ExecutorPipeline {
   hasStuckHeadOfLine: boolean;
 }
 
-const columnHelper = createColumnHelper<PipelineRow>();
+const columnHelper = createColumnHelper<AppTableFeatures, PipelineRow>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('chainId', {
     id: 'chain',
     header: 'Chain',
@@ -68,7 +69,7 @@ const columns = [
     header: 'Max assigned nonce',
     cell: (info) => <div className="py-1.5 pr-4">{info.getValue() ?? '-'}</div>,
   }),
-];
+]);
 
 const ExecutorPipelinesSection = () => {
   const pipelinesQuery = useAdminExecutorPipelines();

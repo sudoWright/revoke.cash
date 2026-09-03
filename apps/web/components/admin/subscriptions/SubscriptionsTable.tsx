@@ -1,12 +1,13 @@
 'use client';
 
 import type { AdminSubscriptionFilter } from '@revoke.cash/core/admin/subscriptions';
-import { getCoreRowModel, type PaginationState, useReactTable } from '@tanstack/react-table';
+import { type PaginationState, useTable } from '@tanstack/react-table';
 import Card, { CardTitle } from 'components/common/Card';
 import Input from 'components/common/Input';
 import SegmentedControl from 'components/common/SegmentedControl';
 import Table from 'components/common/table/Table';
 import { useAdminSubscriptions } from 'lib/hooks/admin/useAdminSubscriptions';
+import { appTableFeatures } from 'lib/utils/table';
 import { useState } from 'react';
 import { getAddress, isAddress } from 'viem';
 import { columns } from './columns';
@@ -35,10 +36,10 @@ const SubscriptionsTable = () => {
     pageSize: pagination.pageSize,
   });
 
-  const table = useReactTable({
+  const table = useTable({
+    features: appTableFeatures,
     data: data?.items ?? [],
     columns: columns,
-    getCoreRowModel: getCoreRowModel(),
     getRowId: (row) => row.id,
     manualPagination: true,
     rowCount: data?.totalCount ?? 0,

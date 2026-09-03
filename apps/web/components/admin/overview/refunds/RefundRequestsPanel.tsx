@@ -10,6 +10,7 @@ import Href from 'components/common/Href';
 import Table from 'components/common/table/Table';
 import { useAdminRefunds } from 'lib/hooks/admin/useAdminRefunds';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import RefundActionsCell from './RefundActionsCell';
@@ -22,9 +23,9 @@ interface Props {
 // Refunds are legally due within 14 days of the request, so deadlines this close need action
 const DEADLINE_WARNING_WINDOW = 7 * DAY;
 
-const columnHelper = createColumnHelper<PendingRefundRequest>();
+const columnHelper = createColumnHelper<AppTableFeatures, PendingRefundRequest>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('payment.ownerAddress', {
     id: 'owner',
     header: 'Owner',
@@ -126,7 +127,7 @@ const columns = [
     header: () => null,
     cell: (info) => <RefundActionsCell request={info.row.original} />,
   }),
-];
+]);
 
 const RefundRequestsPanel = ({ isOpen }: Props) => {
   const { data, isLoading, error } = useAdminRefunds(isOpen);

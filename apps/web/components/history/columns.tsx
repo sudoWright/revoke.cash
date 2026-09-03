@@ -8,20 +8,24 @@ import {
   TokenEventType,
 } from '@revoke.cash/core/events';
 import { isNullish } from '@revoke.cash/core/utils';
-import { createColumnHelper, filterFns, type Row, type RowData } from '@tanstack/react-table';
+import { createColumnHelper, filterFns, type ReactTable, type Row, sortFns } from '@tanstack/react-table';
 import HeaderCell from 'components/allowances/dashboard/cells/HeaderCell';
 import TransactionDateCell from 'components/allowances/dashboard/cells/TransactionDateCell';
+import { createTableFeatures } from 'lib/utils/table';
 import EventTypeCell from './cells/EventTypeCell';
 import HistoryAmountCell from './cells/HistoryAmountCell';
 import HistoryAssetCell from './cells/HistoryAssetCell';
 import HistoryChainCell from './cells/HistoryChainCell';
 import HistorySpenderCell from './cells/HistorySpenderCell';
 
-declare module '@tanstack/table-core' {
-  interface TableMeta<TData extends RowData> {
-    onFilter: (filterValue: string) => void;
-  }
+export interface HistoryTableMeta {
+  onFilter: (filterValue: string) => void;
 }
+
+export const historyTableFeatures = createTableFeatures<HistoryTableMeta>();
+export type HistoryTableFeatures = typeof historyTableFeatures;
+export type HistoryRow = Row<HistoryTableFeatures, EnrichedTokenEvent>;
+export type HistoryReactTable = ReactTable<HistoryTableFeatures, EnrichedTokenEvent>;
 
 export enum ColumnId {
   CHAIN = 'Network',
@@ -64,22 +68,22 @@ const accessors = {
 
 // Custom filter functions for history table
 export const customFilterFns = {
-  includesOneOfStrings: (row: Row<EnrichedTokenEvent>, columnId: string, filterValues: string[]) => {
+  includesOneOfStrings: (row: HistoryRow, columnId: string, filterValues: string[]) => {
     const results = filterValues.map((filterValue) => {
-      return filterFns.includesString(row, columnId, filterValue, () => {});
+      return filterFns.includesString(row, columnId, filterValue.toLowerCase(), () => {});
     });
 
     return results.some((result) => result);
   },
-  tokenOrSpender: (row: Row<EnrichedTokenEvent>, _columnId: string, filterValues: string[]) => {
+  tokenOrSpender: (row: HistoryRow, _columnId: string, filterValues: string[]) => {
     const spenderMatches = customFilterFns.includesOneOfStrings(row, ColumnId.SPENDER, filterValues);
     const tokenMatches = customFilterFns.includesOneOfStrings(row, ColumnId.ASSET, filterValues);
     return spenderMatches || tokenMatches;
   },
 };
 
-const columnHelper = createColumnHelper<EnrichedTokenEvent>();
-export const columns = [
+const columnHelper = createColumnHelper<HistoryTableFeatures, EnrichedTokenEvent>();
+export const columns = columnHelper.columns([
   // Virtual column for combined search (not displayed)
   columnHelper.display({
     id: ColumnId.COMBINED_SEARCH,
@@ -90,7 +94,6 @@ export const columns = [
     id: ColumnId.CHAIN,
     header: () => <HeaderCell i18nKey="address.headers.chain" />,
     cell: ({ row }) => <HistoryChainCell chainId={row.original.chainId} />,
-    size: 132,
     enableSorting: false,
     enableColumnFilter: true,
     filterFn: customFilterFns.includesOneOfStrings,
@@ -99,7 +102,6 @@ export const columns = [
     id: ColumnId.ASSET,
     header: () => <HeaderCell i18nKey="address.headers.asset" />,
     cell: (info) => <HistoryAssetCell event={info.row.original} onFilter={info.table.options.meta!.onFilter} />,
-    size: 160,
     enableSorting: false,
     enableColumnFilter: true,
     filterFn: customFilterFns.includesOneOfStrings,
@@ -108,7 +110,6 @@ export const columns = [
     id: ColumnId.EVENT_TYPE,
     header: () => <HeaderCell i18nKey="address.headers.event_type" />,
     cell: ({ row }) => <EventTypeCell event={row.original} />,
-    size: 96,
     enableSorting: false,
     enableColumnFilter: true,
     filterFn: customFilterFns.includesOneOfStrings,
@@ -132,7 +133,6 @@ export const columns = [
         />
       );
     },
-    size: 160,
     enableSorting: false,
     enableColumnFilter: true,
     filterFn: customFilterFns.includesOneOfStrings,
@@ -141,15 +141,13 @@ export const columns = [
     id: ColumnId.AMOUNT,
     header: () => <HeaderCell i18nKey="address.headers.amount" />,
     cell: ({ row }) => <HistoryAmountCell event={row.original} />,
-    size: 128,
     enableSorting: false,
   }),
   columnHelper.accessor(accessors.timestamp, {
     id: ColumnId.DATE,
     header: () => <HeaderCell i18nKey="address.headers.date" />,
     cell: ({ row }) => <TransactionDateCell timeLog={row.original.time} chainId={row.original.chainId} />,
-    size: 128,
     enableSorting: true,
-    sortingFn: 'basic',
+    sortFn: sortFns.basic,
   }),
-];
+]);

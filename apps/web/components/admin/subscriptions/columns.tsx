@@ -4,12 +4,13 @@ import { formatDate } from '@revoke.cash/core/utils/time';
 import { createColumnHelper } from '@tanstack/react-table';
 import AdminAddressLink from 'components/admin/common/AdminAddressLink';
 import Button from 'components/common/Button';
+import type { AppTableFeatures } from 'lib/utils/table';
 import SubscriptionPlanLabel from './SubscriptionPlanLabel';
 import SubscriptionStatusBadge from './SubscriptionStatusBadge';
 
-const columnHelper = createColumnHelper<AdminSubscriptionListItem>();
+const columnHelper = createColumnHelper<AppTableFeatures, AdminSubscriptionListItem>();
 
-export const columns = [
+export const columns = columnHelper.columns([
   columnHelper.accessor('ownerAddress', {
     id: 'owner',
     header: 'Owner',
@@ -68,4 +69,4 @@ export const columns = [
       </div>
     ),
   }),
-];
+]);

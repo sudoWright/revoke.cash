@@ -12,14 +12,22 @@ import Table from 'components/common/table/Table';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import { useAdminBalances } from 'lib/hooks/admin/useAdminOverview';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo } from 'react';
 
-const columnHelper = createColumnHelper<number>();
+interface ChainRow {
+  chainId: number;
+}
+
+const columnHelper = createColumnHelper<AppTableFeatures, ChainRow>();
 
 const ExecutorBalancesSection = () => {
   const { data, isLoading, error } = useAdminBalances();
 
-  const chainIds = useMemo(() => deduplicateArray((data?.balances ?? []).map((balance) => balance.chainId)), [data]);
+  const rows = useMemo(
+    () => deduplicateArray((data?.balances ?? []).map((balance) => balance.chainId)).map((chainId) => ({ chainId })),
+    [data],
+  );
 
   const columns = useMemo(() => {
     const laneColumn = (lane: ExecutorGasBalance['lane'], header: string) =>
@@ -29,33 +37,35 @@ const ExecutorBalancesSection = () => {
         cell: (info) => (
           <div className="py-1.5 pr-4 text-sm">
             <BalanceCell
-              balance={data?.balances.find((entry) => entry.chainId === info.row.original && entry.lane === lane)}
-              spend={data?.spend30d.find((entry) => entry.chainId === info.row.original && entry.lane === lane)}
+              balance={data?.balances.find(
+                (entry) => entry.chainId === info.row.original.chainId && entry.lane === lane,
+              )}
+              spend={data?.spend30d.find((entry) => entry.chainId === info.row.original.chainId && entry.lane === lane)}
             />
           </div>
         ),
       });
 
-    return [
+    return columnHelper.columns([
       columnHelper.display({
         id: 'chain',
         header: 'Chain',
         cell: (info) => (
           <div className="flex items-center gap-2 py-1.5 pr-4 text-sm">
-            <ChainLogo chainId={info.row.original} size={20} />
-            {getChainName(info.row.original)}
+            <ChainLogo chainId={info.row.original.chainId} size={20} />
+            {getChainName(info.row.original.chainId)}
           </div>
         ),
       }),
       laneColumn('normal', 'Normal lane'),
       laneColumn('urgent', 'Urgent lane'),
-    ];
+    ]);
   }, [data]);
 
   const table = useTable({
-    data: chainIds,
+    data: rows,
     columns,
-    getRowId: (chainId) => String(chainId),
+    getRowId: (row) => String(row.chainId),
     pageSize: 10,
   });
 

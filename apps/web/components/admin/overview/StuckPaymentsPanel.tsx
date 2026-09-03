@@ -8,15 +8,16 @@ import TimeAgoCell from 'components/admin/common/TimeAgoCell';
 import ChainDisplay from 'components/common/ChainDisplay';
 import Href from 'components/common/Href';
 import { useAdminStuckPayments } from 'lib/hooks/admin/useAdminHealthDetails';
+import type { AppTableFeatures } from 'lib/utils/table';
 import HealthDetailPanel from './HealthDetailPanel';
 
 interface Props {
   isOpen: boolean;
 }
 
-const columnHelper = createColumnHelper<StuckPendingPaymentRow>();
+const columnHelper = createColumnHelper<AppTableFeatures, StuckPendingPaymentRow>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('ownerAddress', {
     id: 'owner',
     header: 'Owner',
@@ -76,7 +77,7 @@ const columns = [
       );
     },
   }),
-];
+]);
 
 const StuckPaymentsPanel = ({ isOpen }: Props) => {
   const query = useAdminStuckPayments(isOpen);

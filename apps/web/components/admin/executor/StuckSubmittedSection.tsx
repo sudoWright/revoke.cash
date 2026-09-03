@@ -10,10 +10,11 @@ import ChainDisplay from 'components/common/ChainDisplay';
 import Table from 'components/common/table/Table';
 import { useAdminExecutorProblems } from 'lib/hooks/admin/useAdminExecutor';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 
-const columnHelper = createColumnHelper<ProblemAction>();
+const columnHelper = createColumnHelper<AppTableFeatures, ProblemAction>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('chainId', {
     id: 'chain',
     header: 'Chain',
@@ -60,7 +61,7 @@ const columns = [
       </div>
     ),
   }),
-];
+]);
 
 const StuckSubmittedSection = () => {
   const { data, isLoading } = useAdminExecutorProblems();

@@ -1,11 +1,12 @@
 import { isNullish } from '@revoke.cash/core/utils';
-import { flexRender, type Table } from '@tanstack/react-table';
+import { flexRender, type ReactTable, type RowData } from '@tanstack/react-table';
+import type { AppTableFeatures } from 'lib/utils/table';
 
-interface Props<T> {
-  table: Table<T>;
+interface Props<TMeta extends object, T extends RowData> {
+  table: ReactTable<AppTableFeatures<TMeta>, T>;
 }
 
-const TableFooter = <T,>({ table }: Props<T>) => {
+const TableFooter = <TMeta extends object, T extends RowData>({ table }: Props<TMeta, T>) => {
   const footers = table
     .getFooterGroups()
     .flatMap((group) => group.headers.map((header) => header.column.columnDef.footer))

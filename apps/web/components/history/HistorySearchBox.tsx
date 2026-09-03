@@ -1,8 +1,6 @@
 'use client';
 
 import { XCircleIcon } from '@heroicons/react/24/outline';
-import type { EnrichedTokenEvent } from '@revoke.cash/core/events';
-import type { Table } from '@tanstack/react-table';
 import Button from 'components/common/Button';
 import FocusTrap from 'components/common/FocusTrap';
 import SearchBox from 'components/common/SearchBox';
@@ -18,12 +16,12 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { ColumnId } from './columns';
+import { ColumnId, type HistoryReactTable } from './columns';
 import HistoryChainMultiSelect from './HistoryChainMultiSelect';
 import HistoryEventTypeMultiSelect from './HistoryEventTypeMultiSelect';
 
 interface Props {
-  table: Table<EnrichedTokenEvent>;
+  table: HistoryReactTable;
   isPremium?: boolean;
   ref?: Ref<HistorySearchBoxRef>;
 }
@@ -89,6 +87,7 @@ const HistorySearchBox = ({ table, isPremium = false, ref }: Props) => {
     setInputValue,
   }));
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: table is stable
   useEffect(() => {
     const tableFilters = [];
     const categorisedTerms = parseSearchTerms(searchValue);
@@ -123,7 +122,7 @@ const HistorySearchBox = ({ table, isPremium = false, ref }: Props) => {
     );
 
     updateTableFilters(table, tableFilters, ignoreIds);
-  }, [table, searchValue]);
+  }, [searchValue]);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setInputValue(event.target.value);

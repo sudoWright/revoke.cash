@@ -1,13 +1,12 @@
-import type { TokenAllowanceData } from '@revoke.cash/core/allowances';
 import { isRevertedError } from '@revoke.cash/core/utils/errors';
-import type { Row } from '@tanstack/react-table';
 import ControlsWrapper from 'components/allowances/controls/ControlsWrapper';
+import type { AllowancesRow } from 'components/allowances/dashboard/columns';
 import Checkbox from 'components/common/Checkbox';
 import { useAddress } from 'lib/hooks/page-context/AddressIdentityContext';
 import { useTranslations } from 'next-intl';
 
 interface Props {
-  row: Row<TokenAllowanceData>;
+  row: AllowancesRow;
 }
 
 const SelectCell = ({ row }: Props) => {

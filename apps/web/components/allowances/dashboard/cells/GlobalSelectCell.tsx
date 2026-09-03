@@ -1,11 +1,10 @@
-import type { TokenAllowanceData } from '@revoke.cash/core/allowances';
-import type { Table } from '@tanstack/react-table';
 import ControlsWrapper from 'components/allowances/controls/ControlsWrapper';
+import type { AllowancesTable } from 'components/allowances/dashboard/columns';
 import Checkbox from 'components/common/Checkbox';
 import { useAddress } from 'lib/hooks/page-context/AddressIdentityContext';
 
 interface Props {
-  table: Table<TokenAllowanceData>;
+  table: AllowancesTable;
 }
 
 const GlobalSelectCell = ({ table }: Props) => {

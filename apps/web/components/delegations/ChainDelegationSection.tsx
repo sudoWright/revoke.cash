@@ -9,7 +9,7 @@ import { useTable } from 'lib/hooks/useTable';
 import { useTranslations } from 'next-intl';
 import { useEffect, useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { ColumnId, columns } from './columns';
+import { ColumnId, columns, delegationsTableFeatures } from './columns';
 
 interface Props {
   chainData: ChainDelegationsData;
@@ -44,7 +44,8 @@ const ChainDelegationSection = ({ chainData, onRevoke, defaultExpanded }: Props)
     columns,
     getRowId: getDelegationRowId,
     columnVisibility: { [ColumnId.CHAIN]: false },
-    meta: { onRevoke } as any,
+    features: delegationsTableFeatures,
+    meta: { onRevoke },
     autoResetPageIndex: false,
   });
 

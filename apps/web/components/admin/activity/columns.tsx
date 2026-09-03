@@ -10,6 +10,7 @@ import TimeAgo from 'components/common/TimeAgo';
 import ExpanderCell from 'components/common/table/ExpanderCell';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import HistoryChainCell from 'components/history/cells/HistoryChainCell';
+import type { AppTableFeatures } from 'lib/utils/table';
 import ActivityStatusCell from './ActivityStatusCell';
 import ActivityTxHashCell from './ActivityTxHashCell';
 import RetryActionButton from './RetryActionButton';
@@ -18,9 +19,9 @@ const RETRYABLE_STATUSES: readonly ActionStatus[] = ['queued', 'blocked_budget',
 
 const cellClasses = 'pr-4 text-sm';
 
-const columnHelper = createColumnHelper<AdminActivityItem>();
+const columnHelper = createColumnHelper<AppTableFeatures, AdminActivityItem>();
 
-export const columns = [
+export const columns = columnHelper.columns([
   columnHelper.accessor('date', {
     id: 'date',
     header: 'Date',
@@ -167,4 +168,4 @@ export const columns = [
       </ExpanderCell>
     ),
   }),
-];
+]);

@@ -1,11 +1,10 @@
-import type { TokenAllowanceData } from '@revoke.cash/core/allowances';
-import type { Table } from '@tanstack/react-table';
+import type { AllowancesTable } from 'components/allowances/dashboard/columns';
 import { useState } from 'react';
 import BatchRevokeModalWithButton from './BatchRevokeModalWithButton';
 import RevokeSingleSelectedButton from './RevokeSingleSelectedButton';
 
 interface Props {
-  table: Table<TokenAllowanceData>;
+  table: AllowancesTable;
 }
 
 const RevokeSelectedButton = ({ table }: Props) => {

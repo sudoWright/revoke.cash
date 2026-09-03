@@ -9,6 +9,7 @@ import ChainDisplay from 'components/common/ChainDisplay';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import { useAdminIndexerProblems } from 'lib/hooks/admin/useAdminHealthDetails';
 import { useResetAddressIndexing, useResetChainIndexing } from 'lib/hooks/admin/useAdminLookup';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
 import type { Address } from 'viem';
@@ -19,89 +20,90 @@ interface Props {
   isOpen: boolean;
 }
 
-const columnHelper = createColumnHelper<IndexerProblemRow>();
+const columnHelper = createColumnHelper<AppTableFeatures, IndexerProblemRow>();
 
 // The Disabled column only applies to indexer rows that were disabled after repeated failures
-const buildIndexerProblemColumns = (kind: IndexerProblemKind) => [
-  columnHelper.accessor('address', {
-    id: 'address',
-    header: 'Address',
-    cell: (info) => (
-      <div className="py-1.5 pr-4 text-sm">
-        <AdminAddressLink address={info.getValue()} />
-      </div>
-    ),
-  }),
-  columnHelper.accessor('chainId', {
-    id: 'chain',
-    header: 'Chain',
-    cell: (info) => (
-      <div className="py-1.5 pr-4 text-sm">
-        <ChainDisplay chainId={info.getValue()} />
-      </div>
-    ),
-  }),
-  columnHelper.accessor('consecutiveFailures', {
-    id: 'failures',
-    header: 'Failures',
-    cell: (info) => (
-      <div className="py-1.5 pr-4 text-sm">
-        <span className={twMerge(info.getValue() > 0 && 'text-red-600 dark:text-red-400 font-medium')}>
-          {info.getValue()}
-        </span>
-      </div>
-    ),
-  }),
-  ...(kind === 'disabled'
-    ? [
-        columnHelper.accessor('disabledAt', {
-          id: 'disabled',
-          header: 'Disabled',
-          cell: (info) => (
-            <div className="py-1.5 pr-4 text-sm">
-              <TimeAgoCell timestamp={info.getValue()} />
-            </div>
-          ),
-        }),
-      ]
-    : []),
-  columnHelper.accessor('lastError', {
-    id: 'lastError',
-    header: 'Last error',
-    cell: (info) => {
-      const lastError = info.getValue();
-      return (
+const buildIndexerProblemColumns = (kind: IndexerProblemKind) =>
+  columnHelper.columns([
+    columnHelper.accessor('address', {
+      id: 'address',
+      header: 'Address',
+      cell: (info) => (
         <div className="py-1.5 pr-4 text-sm">
-          {lastError ? (
-            <WithHoverTooltip tooltip={lastError}>
-              <span className="block max-w-60 truncate text-red-600 dark:text-red-400">{lastError}</span>
-            </WithHoverTooltip>
-          ) : (
-            <span className="text-zinc-500">-</span>
-          )}
+          <AdminAddressLink address={info.getValue()} />
         </div>
-      );
-    },
-  }),
-  columnHelper.accessor('nextRunAt', {
-    id: 'nextRun',
-    header: 'Next run',
-    cell: (info) => (
-      <div className="py-1.5 pr-4 text-sm">
-        <TimeAgoCell timestamp={info.getValue()} />
-      </div>
-    ),
-  }),
-  columnHelper.display({
-    id: 'actions',
-    header: 'Actions',
-    cell: (info) => (
-      <div className="py-1.5 text-sm">
-        <ResetIndexingCell address={info.row.original.address} chainId={info.row.original.chainId} />
-      </div>
-    ),
-  }),
-];
+      ),
+    }),
+    columnHelper.accessor('chainId', {
+      id: 'chain',
+      header: 'Chain',
+      cell: (info) => (
+        <div className="py-1.5 pr-4 text-sm">
+          <ChainDisplay chainId={info.getValue()} />
+        </div>
+      ),
+    }),
+    columnHelper.accessor('consecutiveFailures', {
+      id: 'failures',
+      header: 'Failures',
+      cell: (info) => (
+        <div className="py-1.5 pr-4 text-sm">
+          <span className={twMerge(info.getValue() > 0 && 'text-red-600 dark:text-red-400 font-medium')}>
+            {info.getValue()}
+          </span>
+        </div>
+      ),
+    }),
+    ...(kind === 'disabled'
+      ? [
+          columnHelper.accessor('disabledAt', {
+            id: 'disabled',
+            header: 'Disabled',
+            cell: (info) => (
+              <div className="py-1.5 pr-4 text-sm">
+                <TimeAgoCell timestamp={info.getValue()} />
+              </div>
+            ),
+          }),
+        ]
+      : []),
+    columnHelper.accessor('lastError', {
+      id: 'lastError',
+      header: 'Last error',
+      cell: (info) => {
+        const lastError = info.getValue();
+        return (
+          <div className="py-1.5 pr-4 text-sm">
+            {lastError ? (
+              <WithHoverTooltip tooltip={lastError}>
+                <span className="block max-w-60 truncate text-red-600 dark:text-red-400">{lastError}</span>
+              </WithHoverTooltip>
+            ) : (
+              <span className="text-zinc-500">-</span>
+            )}
+          </div>
+        );
+      },
+    }),
+    columnHelper.accessor('nextRunAt', {
+      id: 'nextRun',
+      header: 'Next run',
+      cell: (info) => (
+        <div className="py-1.5 pr-4 text-sm">
+          <TimeAgoCell timestamp={info.getValue()} />
+        </div>
+      ),
+    }),
+    columnHelper.display({
+      id: 'actions',
+      header: 'Actions',
+      cell: (info) => (
+        <div className="py-1.5 text-sm">
+          <ResetIndexingCell address={info.row.original.address} chainId={info.row.original.chainId} />
+        </div>
+      ),
+    }),
+  ]);
 
 const IndexerProblemsPanel = ({ kind, isOpen }: Props) => {
   const query = useAdminIndexerProblems(kind, isOpen);

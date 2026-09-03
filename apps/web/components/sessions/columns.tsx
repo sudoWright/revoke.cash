@@ -1,18 +1,21 @@
 import type { Session } from '@revoke.cash/core/sessions';
-import { createColumnHelper, type Row, type RowData, sortingFns } from '@tanstack/react-table';
+import { createColumnHelper, type Row, sortFns } from '@tanstack/react-table';
 import HeaderCell from 'components/allowances/dashboard/cells/HeaderCell';
 import TransactionDateCell from 'components/allowances/dashboard/cells/TransactionDateCell';
+import { createTableFeatures } from 'lib/utils/table';
 import ControlsCell from './cells/ControlsCell';
 import ExpirationCell from './cells/ExpirationCell';
 import HashCell from './cells/HashCell';
 import PolicyTypeCell from './cells/PolicyTypeCell';
 import SignerCell from './cells/SignerCell';
 
-declare module '@tanstack/table-core' {
-  interface TableMeta<TData extends RowData> {
-    onSessionRevoke: (session: Session) => void;
-  }
+export interface SessionsTableMeta {
+  onSessionRevoke: (session: Session) => void;
 }
+
+export const sessionsTableFeatures = createTableFeatures<SessionsTableMeta>();
+export type SessionsTableFeatures = typeof sessionsTableFeatures;
+export type SessionsRow = Row<SessionsTableFeatures, Session>;
 
 export enum ColumnId {
   SELECT = 'Select',
@@ -55,13 +58,13 @@ export const accessors = {
 };
 
 export const customSortingFns = {
-  timestamp: (rowA: Row<Session>, rowB: Row<Session>, columnId: string) => {
-    return sortingFns.basic(rowA, rowB, columnId);
+  timestamp: (rowA: SessionsRow, rowB: SessionsRow, columnId: string) => {
+    return sortFns.basic(rowA, rowB, columnId);
   },
 };
 
-const columnHelper = createColumnHelper<Session>();
-export const columns = [
+const columnHelper = createColumnHelper<SessionsTableFeatures, Session>();
+export const columns = columnHelper.columns([
   // columnHelper.display({
   //   id: ColumnId.SELECT,
   //   footer: ({ table }) => <GlobalSelectCell table={table} />,
@@ -99,4 +102,4 @@ export const columns = [
     header: () => <HeaderCell i18nKey="address.headers.actions" align="right" />,
     cell: (info) => <ControlsCell session={info.row.original} onRevoke={info.table.options.meta!.onSessionRevoke} />,
   }),
-];
+]);

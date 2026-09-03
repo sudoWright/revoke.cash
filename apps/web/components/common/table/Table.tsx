@@ -3,31 +3,32 @@
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import type { Nullable } from '@revoke.cash/core/types';
 import { isNullish } from '@revoke.cash/core/utils';
-import type { Table as ReactTable, Row } from '@tanstack/react-table';
+import type { ReactTable, Row, RowData } from '@tanstack/react-table';
 import EmptyState from 'components/common/EmptyState';
 import ErrorDisplay from 'components/common/ErrorDisplay';
 import ScrollFade from 'components/common/ScrollFade';
 import TablePagination from 'components/history/TablePagination';
 import { useScrollFades } from 'lib/hooks/useScrollFades';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { twMerge } from 'tailwind-merge';
 import TableBody from './TableBody';
 import TableFooter from './TableFooter';
 import TableHeader from './TableHeader';
 
-interface Props<T> {
+interface Props<TMeta extends object, T extends RowData> {
   loading: boolean;
-  table: ReactTable<T>;
+  table: ReactTable<AppTableFeatures<TMeta>, T>;
   error?: Nullable<Error>;
   emptyChildren?: React.ReactNode;
   partialLoadingRows?: number;
   // Renders a full-width sub-row (e.g. an expanded details <tr>) below rows that are expanded
-  renderSubComponent?: (row: Row<T>) => React.ReactNode;
+  renderSubComponent?: (row: Row<AppTableFeatures<TMeta>, T>) => React.ReactNode;
   // Makes expandable rows toggle their expansion when clicked anywhere outside an interactive element
   expandOnRowClick?: boolean;
   className?: string;
 }
 
-const Table = <T,>({
+const Table = <TMeta extends object, T extends RowData>({
   loading,
   error,
   table,
@@ -36,7 +37,7 @@ const Table = <T,>({
   renderSubComponent,
   expandOnRowClick,
   className,
-}: Props<T>) => {
+}: Props<TMeta, T>) => {
   const { scrollContainerRef, canScrollLeft, canScrollRight } = useScrollFades<HTMLDivElement>();
 
   const classes = {

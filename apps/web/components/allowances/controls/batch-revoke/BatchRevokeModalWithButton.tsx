@@ -1,5 +1,4 @@
-import type { TokenAllowanceData } from '@revoke.cash/core/allowances';
-import type { Table } from '@tanstack/react-table';
+import type { AllowancesTable } from 'components/allowances/dashboard/columns';
 import Button from 'components/common/Button';
 import Modal from 'components/common/Modal';
 import { useRevokeBatch } from 'lib/hooks/ethereum/useRevokeBatch';
@@ -12,7 +11,7 @@ import BatchRevokeHeader from './BatchRevokeHeader';
 import BatchRevokeTable from './BatchRevokeTable';
 
 interface Props {
-  table: Table<TokenAllowanceData>;
+  table: AllowancesTable;
   open: boolean;
   setOpen: (open: boolean) => void;
 }
@@ -40,12 +39,9 @@ const BatchRevokeModalWithButton = ({ table, open, setOpen }: Props) => {
 
   if (!selectedAllowances || !results) return null;
 
-  // Somehow, if filters are applied, getIsSomeRowsSelected() returns false if *all* rows are selected
-  const isSomeRowsSelected = table.getIsSomeRowsSelected() || table.getIsAllRowsSelected();
-
   return (
     <>
-      <ControlsWrapper address={address} overrideDisabled={!isSomeRowsSelected}>
+      <ControlsWrapper address={address} overrideDisabled={!table.getIsSomeRowsSelected()}>
         {(disabled) => (
           <div className="w-fit">
             <Button style="primary" size="sm" disabled={disabled} onClick={() => setOpen(true)}>

@@ -9,6 +9,7 @@ import Card, { CardHeader } from 'components/common/Card';
 import Table from 'components/common/table/Table';
 import { useAdminVatReport, type VatStream } from 'lib/hooks/admin/useAdminRevenue';
 import { useTable } from 'lib/hooks/useTable';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { useMemo, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -83,9 +84,9 @@ const buildVatRows = (stream: VatStream): RegionSummary[] => {
   return [...visibleRows, totalsRow];
 };
 
-const columnHelper = createColumnHelper<RegionSummary>();
+const columnHelper = createColumnHelper<AppTableFeatures, RegionSummary>();
 
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor('region', {
     id: 'region',
     header: 'Region',
@@ -122,7 +123,7 @@ const columns = [
       </div>
     ),
   }),
-];
+]);
 
 interface VatStreamTableProps {
   title: string;

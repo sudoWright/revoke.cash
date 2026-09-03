@@ -1,10 +1,11 @@
 'use client';
 
 import type { AuditAction } from '@revoke.cash/core/audit/actions';
-import { getCoreRowModel, getExpandedRowModel, type PaginationState, useReactTable } from '@tanstack/react-table';
+import { type PaginationState, useTable } from '@tanstack/react-table';
 import Card, { CardTitle } from 'components/common/Card';
 import Table from 'components/common/table/Table';
 import { useAdminAudit } from 'lib/hooks/admin/useAdminAudit';
+import { appTableFeatures } from 'lib/utils/table';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { type Address, isAddress } from 'viem';
@@ -46,13 +47,13 @@ const AuditTable = ({ scope, title, subtitle, initialFilters }: Props) => {
     pageSize: pagination.pageSize,
   });
 
-  const table = useReactTable({
+  const table = useTable({
+    features: appTableFeatures,
     data: data?.items ?? [],
     columns: columns,
-    getCoreRowModel: getCoreRowModel(),
-    getExpandedRowModel: getExpandedRowModel(),
     getRowId: (row) => row.id,
     getRowCanExpand: () => true,
+    autoResetExpanded: false,
     manualPagination: true,
     rowCount: data?.totalCount ?? 0,
     state: { pagination },

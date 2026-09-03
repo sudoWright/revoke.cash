@@ -2,14 +2,8 @@
 
 import type { Erc721SingleAllowance, TokenAllowanceData } from '@revoke.cash/core/allowances';
 import { isNullish } from '@revoke.cash/core/utils';
-import {
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-import { ColumnId, columns } from 'components/allowances/dashboard/columns';
+import { type RowSelectionState, useTable } from '@tanstack/react-table';
+import { allowancesTableFeatures, ColumnId, columns } from 'components/allowances/dashboard/columns';
 import Table from 'components/common/table/Table';
 import { useAddressAllowances } from 'lib/hooks/page-context/AddressPageContext';
 import { updateTableFilters } from 'lib/utils/table';
@@ -24,7 +18,7 @@ const getRowId = (row: TokenAllowanceData) => {
 const AllowanceDashboard = () => {
   const { allowances, isLoading, error, onUpdate } = useAddressAllowances();
 
-  const [rowSelection, setRowSelection] = useState<Record<string, boolean>>({});
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   // We fall back to an empty array because the table crashes if the data is undefined
   // and we use useMemo to prevent the table from infinite re-rendering
@@ -35,18 +29,19 @@ const AllowanceDashboard = () => {
   // When rows are deleted, the row selection state is not updated automatically (see https://github.com/TanStack/table/issues/4369)
   // This effect manually syncs the row selection state with the new table data
   useEffect(() => {
-    setRowSelection((currentSelection: Record<string, boolean>) => {
+    setRowSelection((currentSelection: RowSelectionState) => {
       if (!data || data.length === 0) return {};
       if (Object.keys(currentSelection).length === 0) return {};
 
-      return data.reduce<Record<string, boolean>>((acc, allowance) => {
+      return data.reduce<RowSelectionState>((acc, allowance) => {
         if (currentSelection[getRowId(allowance)]) acc[getRowId(allowance)] = true;
         return acc;
       }, {});
     });
   }, [data]);
 
-  const table = useReactTable({
+  const table = useTable({
+    features: allowancesTableFeatures,
     data,
     columns,
     state: {
@@ -54,32 +49,27 @@ const AllowanceDashboard = () => {
     },
     enableRowSelection: (row) => isNullish(row.original.payload.revokeError),
     onRowSelectionChange: setRowSelection,
-    getCoreRowModel: getCoreRowModel<TokenAllowanceData>(),
-    getSortedRowModel: getSortedRowModel<TokenAllowanceData>(),
-    getFilteredRowModel: getFilteredRowModel<TokenAllowanceData>(),
-    getPaginationRowModel: getPaginationRowModel<TokenAllowanceData>(),
     autoResetPageIndex: false,
     getRowId,
-    meta: { onUpdate } as any,
+    meta: { onUpdate },
     initialState: {
       sorting: [{ id: ColumnId.LAST_UPDATED, desc: true }],
       columnVisibility: {
         [ColumnId.BALANCE]: false,
       },
       pagination: {
+        pageIndex: 0,
         pageSize: 25,
       },
     },
   });
 
-  const onSearchValuesChange = useCallback(
-    (values: string[]) => {
-      const tableFilters = values.length > 0 ? [{ id: ColumnId.SPENDER, value: values }] : [];
-      const ignoreIds = Object.values(ColumnId).filter((id) => id !== ColumnId.SPENDER);
-      updateTableFilters(table, tableFilters, ignoreIds);
-    },
-    [table],
-  );
+  // biome-ignore lint/correctness/useExhaustiveDependencies: table is stable
+  const onSearchValuesChange = useCallback((values: string[]) => {
+    const tableFilters = values.length > 0 ? [{ id: ColumnId.SPENDER, value: values }] : [];
+    const ignoreIds = Object.values(ColumnId).filter((id) => id !== ColumnId.SPENDER);
+    updateTableFilters(table, tableFilters, ignoreIds);
+  }, []);
 
   return (
     <div className="flex flex-col justify-start mx-auto gap-2">

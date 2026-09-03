@@ -2,8 +2,9 @@
 
 import { ORDERED_CHAINS } from '@revoke.cash/core/chains';
 import type { Delegation } from '@revoke.cash/core/delegations/DelegatePlatform';
-import { createColumnHelper, filterFns, type Row, type RowData, sortingFns } from '@tanstack/react-table';
+import { createColumnHelper, filterFns, type Row, sortFns } from '@tanstack/react-table';
 import HeaderCell from 'components/allowances/dashboard/cells/HeaderCell';
+import { createTableFeatures } from 'lib/utils/table';
 import ChainCell from './cells/ChainCell';
 import ContractCell from './cells/ContractCell';
 import ControlsCell from './cells/ControlsCell';
@@ -12,6 +13,14 @@ import DelegationTypeCell from './cells/DelegationTypeCell';
 import DelegatorCell from './cells/DelegatorCell';
 import Eip7702RevokeCell from './cells/Eip7702RevokeCell';
 import PlatformCell from './cells/PlatformCell';
+
+export interface DelegationsTableMeta {
+  onRevoke?: (delegation: Delegation) => void;
+}
+
+export const delegationsTableFeatures = createTableFeatures<DelegationsTableMeta>();
+export type DelegationsTableFeatures = typeof delegationsTableFeatures;
+export type DelegationsRow = Row<DelegationsTableFeatures, Delegation>;
 
 export enum ColumnId {
   TYPE = 'Delegation Type',
@@ -24,7 +33,7 @@ export enum ColumnId {
 }
 
 export const customSortingFns = {
-  type: (rowA: Row<Delegation>, rowB: Row<Delegation>, columnId: string) => {
+  type: (rowA: DelegationsRow, rowB: DelegationsRow, columnId: string) => {
     const typeOrder = {
       WALLET: 1,
       CONTRACT: 2,
@@ -42,7 +51,7 @@ export const customSortingFns = {
 
     return orderA - orderB;
   },
-  chainId: (rowA: Row<Delegation>, rowB: Row<Delegation>, columnId: string) => {
+  chainId: (rowA: DelegationsRow, rowB: DelegationsRow, columnId: string) => {
     const indexOfA = ORDERED_CHAINS.indexOf(rowA.getValue(columnId) as number);
     const indexOfB = ORDERED_CHAINS.indexOf(rowB.getValue(columnId) as number);
     return indexOfA - indexOfB;
@@ -50,63 +59,57 @@ export const customSortingFns = {
 };
 
 export const customFilterFns = {
-  type: (row: Row<Delegation>, columnId: string, filterValues: string[]) => {
+  type: (row: DelegationsRow, columnId: string, filterValues: string[]) => {
     if (!filterValues.length) return true;
     const results = filterValues.map((filterValue) => row.getValue(columnId) === filterValue);
     return results.some((result) => result);
   },
-  platform: (row: Row<Delegation>, columnId: string, filterValues: string[]) => {
+  platform: (row: DelegationsRow, columnId: string, filterValues: string[]) => {
     if (!filterValues.length) return true;
     const results = filterValues.map((filterValue) => {
-      return filterFns.includesString(row, columnId, filterValue, () => {});
+      return filterFns.includesString(row, columnId, filterValue.toLowerCase(), () => {});
     });
     return results.some((result) => result);
   },
 };
 
-declare module '@tanstack/table-core' {
-  interface TableMeta<TData extends RowData> {
-    onRevoke?: (delegation: Delegation) => void;
-  }
-}
+const columnHelper = createColumnHelper<DelegationsTableFeatures, Delegation>();
 
-const columnHelper = createColumnHelper<Delegation>();
-
-export const columns = [
+export const columns = columnHelper.columns([
   columnHelper.accessor('delegator', {
     id: ColumnId.DELEGATOR,
     header: () => <HeaderCell i18nKey="address.delegations.columns.delegator" />,
     cell: (info) => <DelegatorCell delegation={info.row.original} />,
     enableSorting: true,
-    sortingFn: sortingFns.alphanumeric,
+    sortFn: sortFns.alphanumeric,
   }),
   columnHelper.accessor('delegate', {
     id: ColumnId.DELEGATE,
     header: () => <HeaderCell i18nKey="address.delegations.columns.delegate" />,
     cell: (info) => <DelegateCell delegation={info.row.original} />,
     enableSorting: true,
-    sortingFn: sortingFns.alphanumeric,
+    sortFn: sortFns.alphanumeric,
   }),
   columnHelper.accessor('contract', {
     id: ColumnId.CONTRACT,
     header: () => <HeaderCell i18nKey="address.delegations.columns.contract" />,
     cell: (info) => <ContractCell delegation={info.row.original} />,
     enableSorting: true,
-    sortingFn: sortingFns.alphanumeric,
+    sortFn: sortFns.alphanumeric,
   }),
   columnHelper.accessor('platform', {
     id: ColumnId.PLATFORM,
     header: () => <HeaderCell i18nKey="address.delegations.columns.platform" />,
     cell: (info) => <PlatformCell delegation={info.row.original} />,
     enableSorting: true,
-    sortingFn: sortingFns.alphanumeric,
+    sortFn: sortFns.alphanumeric,
   }),
   columnHelper.accessor('type', {
     id: ColumnId.TYPE,
     header: () => <HeaderCell i18nKey="address.delegations.columns.type" />,
     cell: (info) => <DelegationTypeCell delegation={info.row.original} />,
     enableSorting: true,
-    sortingFn: customSortingFns.type,
+    sortFn: customSortingFns.type,
     enableColumnFilter: true,
     filterFn: customFilterFns.type,
   }),
@@ -120,29 +123,29 @@ export const columns = [
       return <ControlsCell delegation={info.row.original} onRevoke={onRevoke} />;
     },
   }),
-];
+]);
 
-export const eip7702Columns = [
+export const eip7702Columns = columnHelper.columns([
   columnHelper.accessor('chainId', {
     id: ColumnId.CHAIN,
     header: () => <HeaderCell i18nKey="address.delegations.columns.chain" />,
     cell: (info) => <ChainCell chainId={info.row.original.chainId} />,
     enableSorting: true,
-    sortingFn: customSortingFns.chainId,
+    sortFn: customSortingFns.chainId,
   }),
   columnHelper.accessor('delegate', {
     id: ColumnId.DELEGATE,
     header: () => <HeaderCell i18nKey="address.delegations.columns.delegate" />,
     cell: (info) => <DelegateCell delegation={info.row.original} />,
     enableSorting: true,
-    sortingFn: sortingFns.alphanumeric,
+    sortFn: sortFns.alphanumeric,
   }),
   columnHelper.accessor('type', {
     id: ColumnId.TYPE,
     header: () => <HeaderCell i18nKey="address.delegations.columns.type" />,
     cell: (info) => <DelegationTypeCell delegation={info.row.original} />,
     enableSorting: true,
-    sortingFn: customSortingFns.type,
+    sortFn: customSortingFns.type,
     enableColumnFilter: true,
     filterFn: customFilterFns.type,
   }),
@@ -151,4 +154,4 @@ export const eip7702Columns = [
     header: () => '',
     cell: () => <Eip7702RevokeCell />,
   }),
-];
+]);

@@ -1,19 +1,13 @@
 'use client';
 
 import type { EnrichedTokenEvent } from '@revoke.cash/core/events';
-import {
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { useTable } from '@tanstack/react-table';
 import Card, { CardTitle } from 'components/common/Card';
 import InformationIconTooltip from 'components/common/InformationIconTooltip';
 import Table from 'components/common/table/Table';
 import { useTranslations } from 'next-intl';
 import { type ReactNode, useCallback, useMemo, useRef } from 'react';
-import { ColumnId, columns, customFilterFns } from './columns';
+import { ColumnId, columns, historyTableFeatures } from './columns';
 import HistorySearchBox, { type HistorySearchBoxRef } from './HistorySearchBox';
 
 interface Props {
@@ -38,17 +32,14 @@ const SharedHistoryTable = ({ approvalHistory, isLoading, error, isPremium = fal
     }
   }, []);
 
-  const table = useReactTable({
+  const table = useTable({
+    features: historyTableFeatures,
     data,
     columns,
     autoResetPageIndex: !isPremium,
-    getCoreRowModel: getCoreRowModel<EnrichedTokenEvent>(),
-    getSortedRowModel: getSortedRowModel<EnrichedTokenEvent>(),
-    getFilteredRowModel: getFilteredRowModel<EnrichedTokenEvent>(),
-    getPaginationRowModel: getPaginationRowModel<EnrichedTokenEvent>(),
-    filterFns: customFilterFns,
     initialState: {
       pagination: {
+        pageIndex: 0,
         pageSize: 25,
       },
       columnVisibility: {
@@ -59,7 +50,7 @@ const SharedHistoryTable = ({ approvalHistory, isLoading, error, isPremium = fal
     getRowId(row) {
       return `${row.chainId}-${row.time.transactionHash}-${row.time.logIndex}`;
     },
-    meta: { onFilter } as any,
+    meta: { onFilter },
   });
 
   const title = titleTooltip ? (

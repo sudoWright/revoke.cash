@@ -3,6 +3,7 @@ import type { SubscriptionPayment } from '@revoke.cash/core/premium/types';
 import { createColumnHelper } from '@tanstack/react-table';
 import HeaderCell from 'components/allowances/dashboard/cells/HeaderCell';
 import TransactionHashCell from 'components/allowances/dashboard/cells/TransactionHashCell';
+import type { AppTableFeatures } from 'lib/utils/table';
 import { twMerge } from 'tailwind-merge';
 import PaymentAmountCell from './PaymentAmountCell';
 import PaymentStatusCell from './PaymentStatusCell';
@@ -17,8 +18,8 @@ export enum ColumnId {
   EXPANDER = 'Expander',
 }
 
-const columnHelper = createColumnHelper<SubscriptionPayment>();
-export const columns = [
+const columnHelper = createColumnHelper<AppTableFeatures, SubscriptionPayment>();
+export const columns = columnHelper.columns([
   columnHelper.accessor('paidAt', {
     id: ColumnId.DATE,
     header: () => <HeaderCell i18nKey="account.billing.columns.date" />,
@@ -66,4 +67,4 @@ export const columns = [
         </div>
       ),
   }),
-];
+]);

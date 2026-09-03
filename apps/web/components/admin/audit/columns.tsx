@@ -7,14 +7,15 @@ import TimeAgo from 'components/common/TimeAgo';
 import ExpanderCell from 'components/common/table/ExpanderCell';
 import WithHoverTooltip from 'components/common/WithHoverTooltip';
 import HistoryChainCell from 'components/history/cells/HistoryChainCell';
+import type { AppTableFeatures } from 'lib/utils/table';
 
 const cellClasses = 'pr-4 text-sm';
 
 const formatAuditActionLabel = (action: AuditAction): string => action.replaceAll('_', ' ');
 
-const columnHelper = createColumnHelper<AdminAuditEvent>();
+const columnHelper = createColumnHelper<AppTableFeatures, AdminAuditEvent>();
 
-export const columns = [
+export const columns = columnHelper.columns([
   columnHelper.accessor('createdAt', {
     id: 'date',
     header: 'Date',
@@ -107,4 +108,4 @@ export const columns = [
     header: () => null,
     cell: ({ row }) => <ExpanderCell row={row} />,
   }),
-];
+]);
