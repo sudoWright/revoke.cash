@@ -26,7 +26,6 @@
     "core": "CORE 是第 1 层（Layer 1）区块链，采用了名为中本聪+（Satoshi Plus）的全新共识机制，该机制在利用比特币哈希率的同时还融合了工作量证明（PoW）和委托权益证明（DPoS）的特色。除了提供自己的区块链网络，CORE DAO 还致力于将中本聪+（Satoshi Plus）技术推广至其他区块链。",
     "cronos": "Cronos 是 Crypto.org 区块链上与 EVM 兼容的侧链。Cronos 采用权威证明（PoA）共识机制，使用便捷、成本低廉，缺点是去中心化程度方面有所妥协。该链还使用跨链通信协议（IBC）来实现与其他区块链之间的互操作性。",
     "data-network": "Data Network 是第 1 层（Layer 1）区块链，为用于训练 AI 模型的数据的获取、验证和授权提供基础设施。Data Network 以前称为 Story，在更名之前专注于链上知识产权。Data Network 使用 Cosmos SDK 构建，并完全支持与 EVM 兼容的智能合约。",
-    "degen-chain": "Degen 链是第 3 层（Layer 3）区块链，围绕 Farcaster 社交网络的 DEGEN 社区代币构建。Degen 采用了 Arbitrum 的 Orbit 框架，并在 Base——以太坊的第 2 层（Layer 2）扩展解决方案上进行结算。",
     "doma": "Doma 是第 2 层（Layer 2）区块链，将域名带到链上，使其可以被代币化、交易并在 DeFi 应用中用作抵押品。域名还可以被分割为代表部分所有权的代币。Doma 采用 Optimism 的 OP Stack 构建，因此与 Optimism 一样，使用了 Optimistic Rollup 技术。",
     "ethereum": "以太坊创建于 2015 年，是最早的智能合约区块链，也是最受欢迎的去中心化金融（DeFi）和非同质化代币（NFT）区块链平台，拥有最多的用户和开发人员。许多较新的区块链是建立在以太坊虚拟机（EVM）之上的，与以太坊钱包和工具兼容。",
     "ethereum-classic": "以太坊经典（Ethereum Classic）是以太坊的分支，于 2016 年 The DAO 黑客事件之后诞生。以太坊经典拒绝了追回黑客事件中被盗资金的措施，继续在“原始”链上运行。以太坊经典仍然具备以太坊过去拥有的许多属性，例如基于 Ethash 的工作量证明（PoW）共识机制。",

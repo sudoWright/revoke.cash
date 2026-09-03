@@ -24,7 +24,6 @@ export const TEST_ADDRESSES: Record<SupportedChainId, Address> = {
   [ChainId.CoreBlockchainMainnet]: '0xF29E73EA0d4EF0366D95cF966dA1Dd58C88d916F',
   [ChainId.CronosMainnet]: '0xB8cAD90CBCb2157d68FD72c43766756cB9bA9B52',
   [ChainId.DataNetwork]: '0x4545dFE080ADf461756710e5204ab6d7d4924B8E',
-  [ChainId.DegenChain]: '0x825853aeD453e8C4201adcbaA9384d62ABbD7dEe',
   [ChainId.Doma]: '0x5e0de3691E5A8E3DF3738b51F32771D62Aef6BC8',
   [ChainId.EthereumClassic]: '0x8163dB62D6294bA66261644EcCD5FD5269451495',
   [ChainId.EthereumMainnet]: '0x797eBaEEF8278BA93b3b2ebDE4280Ae2B5Fda03B',

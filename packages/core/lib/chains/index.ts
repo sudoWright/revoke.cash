@@ -87,7 +87,6 @@ export const CHAIN_SELECT_MAINNETS = [
   ChainId.GravityAlphaMainnet,
   ChainId.Viction,
   ChainId.HarmonyMainnetShard0,
-  ChainId.DegenChain,
   ChainId.OasysMainnet,
   ChainId.Vana,
   ChainId.KCCMainnet,
@@ -447,20 +446,6 @@ export const CHAINS = {
       free: 'https://mainnet.datarpc.io',
     },
     deployedContracts: { multicall3: { address: MULTICALL_ADDRESS, blockCreated: 340998 } },
-  }),
-  [ChainId.DegenChain]: new Chain({
-    type: SupportType.BLOCKSCOUT,
-    chainId: ChainId.DegenChain,
-    name: 'Degen Chain',
-    nativeTokenCoingeckoId: 'degen-base',
-    coingeckoNetworkId: 'degenchain',
-    logoUrl: '/assets/images/vendor/chains/degen.png',
-    explorerUrl: 'https://explorer.degen.tips',
-    etherscanCompatibleApiUrl: 'https://explorer.degen.tips/api',
-    rpc: {
-      main: `https://degen-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
-      free: 'https://rpc.degen.tips',
-    },
   }),
   [ChainId.Doma]: new Chain({
     type: SupportType.BLOCKSCOUT,
