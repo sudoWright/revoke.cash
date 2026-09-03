@@ -144,12 +144,11 @@ export const CHAINS = {
     correspondingMainnetChainId: ChainId.PolygonMainnet,
   }),
   [ChainId.AnimechainMainnet]: new Chain({
-    type: SupportType.BLOCKSCOUT,
+    type: SupportType.PROVIDER,
     chainId: ChainId.AnimechainMainnet,
     name: 'Animechain',
     nativeTokenCoingeckoId: 'anime',
     logoUrl: '/assets/images/vendor/chains/animechain.webp',
-    etherscanCompatibleApiUrl: 'https://explorer.anime.xyz/api',
     rpc: {
       main: `https://anime-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       free: 'https://rpc-animechain-39xf6m45e3.t.conduit.xyz',
@@ -376,7 +375,7 @@ export const CHAINS = {
     },
   }),
   [ChainId.BobaNetwork]: new Chain({
-    type: SupportType.ROUTESCAN,
+    type: SupportType.HYPERSYNC,
     chainId: ChainId.BobaNetwork,
     name: 'Boba',
     coingeckoNetworkId: 'boba',
@@ -400,7 +399,7 @@ export const CHAINS = {
     deployedContracts: { multicall3: { address: MULTICALL_ADDRESS, blockCreated: 13112599 } },
   }),
   [ChainId.ChilizChainMainnet]: new Chain({
-    type: SupportType.ROUTESCAN,
+    type: SupportType.HYPERSYNC,
     chainId: ChainId.ChilizChainMainnet,
     name: 'Chiliz',
     nativeTokenCoingeckoId: 'chiliz',
@@ -477,6 +476,10 @@ export const CHAINS = {
     nativeTokenCoingeckoId: 'ethereum-classic',
     coingeckoNetworkId: 'ethereum_classic',
     logoUrl: '/assets/images/vendor/chains/etc.png',
+    rpc: {
+      main: `https://lb.drpc.live/ethereum-classic/${DRPC_API_KEY}`,
+      free: 'https://0xrpc.io/etc',
+    },
     deployedContracts: { multicall3: { address: MULTICALL_ADDRESS, blockCreated: 18288646 } },
   }),
   [ChainId.EthereumMainnet]: new Chain({
@@ -522,6 +525,10 @@ export const CHAINS = {
     nativeTokenCoingeckoId: 'filecoin',
     coingeckoNetworkId: 'filecoin',
     logoUrl: '/assets/images/vendor/chains/filecoin.svg',
+    rpc: {
+      main: `https://lb.drpc.live/filecoin/${DRPC_API_KEY}`,
+      free: `https://filecoin.drpc.org`,
+    },
     deployedContracts: { multicall3: { address: MULTICALL_ADDRESS, blockCreated: 3328594 } },
   }),
   [ChainId.FlareMainnet]: new Chain({
@@ -960,7 +967,7 @@ export const CHAINS = {
     coingeckoNetworkId: 'neon-evm',
     logoUrl: '/assets/images/vendor/chains/neon.svg',
     rpc: {
-      main: `https://lb.drpc.live/neon-evm/${DRPC_API_KEY}`,
+      main: `https://245022934.rpc.thirdweb.com`,
     },
     deployedContracts: { multicall3: { address: MULTICALL_ADDRESS, blockCreated: 206545524 } },
   }),
@@ -1031,7 +1038,6 @@ export const CHAINS = {
     nativeTokenCoingeckoId: 'plume',
     coingeckoNetworkId: 'plume-network',
     logoUrl: '/assets/images/vendor/chains/plume.svg',
-    etherscanCompatibleApiUrl: 'https://explorer-plume-mainnet-1.t.conduit.xyz/api',
     rpc: {
       main: 'https://rpc.plume.org',
     },
